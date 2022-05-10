@@ -2,15 +2,15 @@
 
 
 export const metaTags = {
-    title: "Temir",
-    description: "Temir",
+    title: "Limitless Connection",
+    description: "Limitless Connection",
     noindex: false,
     nofollow: false,
     openGraph: {
-        url: 'https://temir.ae',
-        title: 'Temir',
-        description: 'Temir',
-        site_name: 'Temir',
+        url: 'https://limitless-connection.com',
+        title: 'Limitless Connection',
+        description: 'Limitless Connection',
+        site_name: 'Limitless Connection',
     },
     additionalMetaTags: [
         {
@@ -23,7 +23,7 @@ export const metaTags = {
         },
         {
             name: "keywords",
-            content: "temir,card,black-carbon"
+            content: "Limitless Connection,card,digital"
         },
         {
             name: "robots",

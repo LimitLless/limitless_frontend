@@ -16,7 +16,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Dubai
-      - URL=limitlessconnection.com
+      - URL=limitless-connection.com
       - VALIDATION=http
       - ONLY_SUBDOMAINS=false
       - STAGING=false

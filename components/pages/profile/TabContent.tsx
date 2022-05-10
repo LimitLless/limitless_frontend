@@ -218,7 +218,7 @@ export const WorkInfo: FC = () => {
     }, [accses])
 
 const getCards = () => {
-    fetch(`https://api.temir.ae/api/v1/users/images/${authState?.profile?.uniqueId}`, {
+    fetch(`https://api.limitless-connection.com/api/v1/users/images/${authState?.profile?.uniqueId}`, {
         headers: {
             "Authorization": `Bearer ${accses}`,
         }
@@ -229,7 +229,7 @@ const getCards = () => {
         .catch(e => {
             alert(JSON.stringify(e)+ "user_images")
         })
-    fetch(`https://api.temir.ae/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
+    fetch(`https://api.limitless-connection.com/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
         headers: {
             "Authorization": `Bearer ${accses}`,
         }

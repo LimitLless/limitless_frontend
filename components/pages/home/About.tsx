@@ -69,7 +69,7 @@ const About: FC = () => {
                     ABOUT US
                 </Typography>
                 <Typography color="secondary" textAlign="center" component="p" fontSize={media(16, 17)} fontWeight="400">
-                    Temir card-new generation smart business card with more advanced options. You can add your contact
+                    Limitless Connection card-new generation smart business card with more advanced options. You can add your contact
                     details, social media accounts, pictures and more other details and you can update at any time. No
                     more messing around with a paper business cards. One card for life time.
                 </Typography>

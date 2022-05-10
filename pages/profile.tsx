@@ -156,7 +156,7 @@ const Profile: NextPage = () => {
         console.log(bool)
         const formData = new FormData()
         formData.append("avatarHidden", bool)
-        axios.patch(`https://api.temir.ae/api/v1/users/${authState.profile.uniqueId}/`, formData, {
+        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("access")}`,
             }

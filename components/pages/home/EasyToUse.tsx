@@ -61,7 +61,7 @@ const EasyToUse: FC = () => {
                 <Box style={{width: "530px"}}>
                     <button className={styles.smartAnimate}>SMART INTERFACE</button>
                     <Typography color="white">The shortest route to your customers is through their mobile phones.Express yourself
-                        in ways never before possible with a Temir smart business card. You can showcase your work
+                        in ways never before possible with a Limitless Connection smart business card. You can showcase your work
                         by uploading rich content </Typography>
                 </Box>
             </Container>

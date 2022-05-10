@@ -633,7 +633,7 @@ const GetCard: NextPage = () => {
                                         </Typography>
                                         <Typography marginTop={media(14, 17)} maxWidth="380px" component="p"
                                                     fontSize={media(13, 15)} fontWeight="400" color="secondary">
-                                            TEMIR smart card works with NFC technology. Can connect with any phone and
+                                            Limitless Connection smart card works with NFC technology. Can connect with any phone and
                                             share with your card
                                             unlimited anywahere an place.
                                             one cardd enophe to share details with ulimited times.

@@ -234,12 +234,12 @@ export const questions = [
     {
         id: 1,
         title: "What phones are compatible?",
-        content: "TEMIR works with all modern smartphones <br /> hello world",
+            content: "Limitless Connection works with all modern smartphones <br /> hello world",
         isVideoSide: true,
     },
     {
         id: 2,
-        title: "How to setup my TEMIR card?",
+        title: "How to setup my Limitless Connection card?",
         content: `
             Once you receive your card, you can tap
             to activate and create your account. No<br /> 
@@ -253,14 +253,14 @@ export const questions = [
 
     {
         id: 3,
-        title: "What material is TEMIR card?",
+        title: "What material is Limitless Connection card?",
         content: `
-            TEMIR Card  made with  stainless steel. Our cards are sturdy and yet luxury. In addition, the gold, silver, rose gold and black matte finish adds  a premium feel that is incomparable to most cards in the market today.
+            Limitless Connection Card  made with  stainless steel. Our cards are sturdy and yet luxury. In addition, the gold, silver, rose gold and black matte finish adds  a premium feel that is incomparable to most cards in the market today.
         `,
     },
     {
         id: 4,
-        title: "Can I design my Temir card?",
+        title: "Can I design my Limitless Connection card?",
         content: `
             Yes! We have an amazing graphic design team in-house that will ensure your logo and artwork translate perfectly into the card. Design your card here
 
@@ -276,8 +276,8 @@ export const questions = [
         id: 5,
         title: "What is the return policy?",
         content: `
-           You can get a full refund within 30 days of your purchase date. You don’t need to ship your card back to us, we will deactivate your TEMIR card remotely.
-            You can get a full refund within 30 days of your purchase date. You don’t need to ship your card back to us, we will deactivate your TEMIR card remotely.
+           You can get a full refund within 30 days of your purchase date. You don’t need to ship your card back to us, we will deactivate your Limitless Connection card remotely.
+            You can get a full refund within 30 days of your purchase date. You don’t need to ship your card back to us, we will deactivate your Limitless Connection card remotely.
         `
     },
     {
@@ -292,9 +292,9 @@ export const questions = [
     },
     {
         id: 7,
-        title: "What is TEMIR’s privacy policy?",
+        title: "What is Limitless Connection’s privacy policy?",
         content: `
-            We don’t ask our users for any sensitive information nor their social media logins. You can share as much or as little information as you’d like on your TEMIR profile. TEMIR profiles are public landing pages that hosts your information and make it easily sharable to people you meet.<br /><br />
+            We don’t ask our users for any sensitive information nor their social media logins. You can share as much or as little information as you’d like on your Limitless Connection profile. Limitless Connection profiles are public landing pages that hosts your information and make it easily sharable to people you meet.<br /><br />
             Read our Privacy Policy and Terms of Agreement
         `
     },
