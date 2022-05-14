@@ -9,10 +9,11 @@ const containerPY = media(30, 45);
 const useStyles = makeStyles((theme: Theme) => ({
     smartAnimate: {
         padding: ` 5px ${media(20, 50)}`,
-        background: "linear-gradient(270deg, #675A37 -3.1%, rgba(107, 93, 58, 0.588329) 18.19%, rgba(242, 210, 124, 0.85) 47.68%, rgba(77, 69, 50, 0.78) 101.74%)",
+        background: "white",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: '8px',
         border: "none",
+        width: "250px",
         color: "black",
         fontFamily: 'Raleway',
         fontStyle: "normal",
@@ -25,11 +26,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: "100%"
     },
     styleBtn: {
-        background: "black",
-        color: 'white',
-        padding: "5px 20px",
+        background: "white",
+        marginLeft: "-100px",
+        border: "none",
+        padding: "0 20px",
+        borderRadius: "4px",
+        color: 'black',
         "&:hover": {
-            background: "black",
+            background: "rgba(255,255,255,0.68)",
         }
     },
     boxContainer: {
@@ -98,18 +102,12 @@ const Information: FC = () => {
                         <li style={{textAlign: "left", color: "white"}}>Works with Apple and Android</li>
                         <li style={{textAlign: "left", color: "white"}}>Start add details</li>
                         <li style={{textAlign: "left", color: "white"}}>Save & Go share</li>
+                        <button className={styles.styleBtn}>MORE INFORMATION</button>
+
                     </ol>
-                </Box>
-                <Box style={{marginTop: "30px"}}>
-                    <button className={styles.smartAnimate}>INTERFACE</button>
-                    <Box style={{marginTop: "20px"}}>
-                        <img src={require('../../../assets/images/OR.png')} className={styles.media} alt={""}/>
-                    </Box>
-                    <p style={{color: "white"}}>Scun to preview</p>
                 </Box>
             </Container>
             <Box style={{textAlign: "center", marginTop: "20px"}}>
-                <Button className={styles.styleBtn}>MORE INFORMATION</Button>
             </Box>
         </div>
 

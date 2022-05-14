@@ -73,7 +73,7 @@ const useStyles = makeStyles( (theme:Theme) => ({
             transform: "translateX(-200%)"
         },
         "100%": {
-            transform: "translateX(0)"
+            transform: `translateX(${media(0,-100)})`
         }
     },
     "@keyframes myEffectOn": {
@@ -90,20 +90,22 @@ const useStyles = makeStyles( (theme:Theme) => ({
     },
     imageAbsolute: {
         position: "absolute",
-        padding: media(15, 25)
+        padding: media(2,5),
+        marginLeft: media(50,0)
 
     },
     imageAbsoluteImg: {
         width: media(200, 370),
         animation: `$myEffectOn 3000ms ${theme.transitions.easing.easeInOut}`,
-        marginTop : media(10, 20),
-        marginLeft :media(15, 25)
+        marginTop : media(8, 10),
+        marginLeft :media(2, 4)
     },
     imageCardAbsolute: {
         position: "absolute",
         width: media(200, 400),
         marginTop: media(-40, -95),
         marginLeft: "-80px",
+        transform: `translateX(${media(0,-100)})`,
         animation: `$myEffect 3000ms ${theme.transitions.easing.easeInOut}`,
     }
 }));
@@ -111,10 +113,10 @@ const useStyles = makeStyles( (theme:Theme) => ({
 const Banner: FC = () => {
     const styles = useStyles();
     return (
-        <Paper style={{background: "#000"}}>
+        <Paper style={{background: "#181818"}}>
             <Paper style={{
                 minHeight: "100vh",
-                background: `url(${require("../../../assets/images/lcBG.png")}) no-repeat center/cover`,
+                background: `url(${require("../../../assets/images/lsBG.png")}) no-repeat center/cover`,
                 paddingBottom: media(20, 50),
                 boxShadow: "inset 0em -1em 1em black"
             }}>
@@ -122,15 +124,14 @@ const Banner: FC = () => {
                     <Box style={{minHeight: "100vh",display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap-reverse"}}>
                         <Box/>
                         <Box style={{width: "300px", height: "300px", marginTop: media(45, 0)}}>
-                            <img className={styles.imageCardAbsolute} src={require("../../../assets/images/goldLC.png")} alt="" />
-                            <Paper className={styles.imageAbsolute} style={{background: `url(${require("../../../assets/images/phonesBGLC.png")}) no-repeat center/cover`}}>
-                                <img src={require("../../../assets/images/limitlesss 1.png")} className={styles.imageAbsoluteImg} alt=""/>
+                            <img className={styles.imageCardAbsolute} src={require("../../../assets/images/goldLC2.png")} alt="" />
+                            <Paper className={styles.imageAbsolute} style={{background: `url(${require("../../../assets/images/phonesBGLC2.png")}) no-repeat center/cover`}}>
+                                <img src={require("../../../assets/images/limitlesss2.png")} className={styles.imageAbsoluteImg} alt=""/>
                             </Paper>
                         </Box>
-                        <Box style={{textAlign: "center", marginTop: media(100, 0)}}>
+                        <Box style={{textAlign: "start", margin: media(70, 0)}}>
                             <Typography className={styles.bannerLcT}>SMART METAL CARD</Typography>
                             <Typography className={styles.bannerLcT1}>Stand out and make a good impression </Typography>
-                            <Typography className={styles.bannerLcT2}>Have them remember you long after <br/> the meeting is over.</Typography>
                         </Box>
                     </Box>
                 </Container>

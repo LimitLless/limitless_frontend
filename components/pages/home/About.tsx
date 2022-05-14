@@ -16,15 +16,42 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingBottom: containerPY,
     },
     img: {
-        maxWidth: media(300, 500),
-        width: "100%",
-        height: media(180, 480),
+        width: media(300, 390),
+        height: media(180, 368),
         objectFit: 'cover',
         margin: `${media(5, 10)} ${media(2, 5)}`,
     },
+    img1: {
+        width: media(300, 508),
+        height: media(180, 368),
+        objectFit: 'cover',
+        margin: `${media(5, 10)} ${media(2, 5)}`,
+        [theme.breakpoints.up('xs')]: {
+            // justifyContent: "center",
+            justifyContent: "center",
+            width: media(300, 390),
+        },
+        [theme.breakpoints.up('md')]: {
+            justifyContent: "space-around",
+            width: media(300, 508),
+
+
+        },
+        [theme.breakpoints.up('lg')]: {
+            justifyContent: "space-around",
+            width: media(300, 508),
+
+
+        },
+        [theme.breakpoints.up('xl')]: {
+            justifyContent: "space-between",
+            width: media(300, 508),
+
+        }
+    },
     smartAnimate: {
         padding: ` 5px ${media(20, 110)}`,
-        background: "linear-gradient(270deg, #675A37 -3.1%, rgba(107, 93, 58, 0.588329) 18.19%, rgba(242, 210, 124, 0.85) 47.68%, rgba(77, 69, 50, 0.78) 101.74%)",
+        background: "white",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: '8px',
         border: "none",
@@ -63,24 +90,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 const About: FC = () => {
     const styles = useStyles();
     return (
-        <div style={{background: "#181818"}}>
-            <Container maxWidth="lg" className={styles.container}>
+        <div style={{background: "#181818"}} id="about">
+            <Box className={styles.container}>
                 <Typography className={styles.smartAnimate}>
                     ABOUT US
                 </Typography>
-                <Typography color="secondary" textAlign="center" component="p" fontSize={media(16, 17)} fontWeight="400">
-                    Limitless Connection card-new generation smart business card with more advanced options. You can add your contact
-                    details, social media accounts, pictures and more other details and you can update at any time. No
-                    more messing around with a paper business cards. One card for life time.
-                </Typography>
+                <Container maxWidth="lg">
+                    <Typography color="secondary" textAlign="center" component="p" fontSize={media(16, 17)} fontWeight="400">
+                        Limitless Connection card-new generation smart business card with more advanced options. You can add your contact
+                        details, social media accounts, pictures and more other details and you can update at any time. No
+                        more messing around with a paper business cards. One card for life time.
+                    </Typography>
+                </Container>
+
                 <Box className={styles.boxContainer}>
-                    <img src={require('../../../assets/images/about.png')} className={styles.img} alt={""}/>
-                    <img src={require('../../../assets/images/about2.png')} className={styles.img} alt={""}/>
-                    <img src={require('../../../assets/images/about3.png')} className={styles.img} alt={""}/>
-                    <img src={require('../../../assets/images/about4.png')} className={styles.img} alt={""}/>
+                    <img src={require('../../../assets/images/aboutLc.png')} className={styles.img} alt={""}/>
+                    <img src={require('../../../assets/images/aboutLc2.png')} className={styles.img1} alt={""}/>
+                    <img src={require('../../../assets/images/aboutLc3.png')} className={styles.img} alt={""}/>
                 </Box>
 
-            </Container>
+            </Box>
         </div>
 
     )

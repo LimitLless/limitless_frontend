@@ -73,14 +73,14 @@ const Header:FC = () => {
                 <Toolbar className={styles.toolbar}>
                     <NextLink href={"/"}>
                         <MuiLink >
-                            <img className={styles.logo} src={require('../assets/images/lcLogo.svg')}  alt={''}/>
+                            <img className={styles.logo} src={require('../assets/images/lcLogo2.svg')}  alt={''}/>
                         </MuiLink>
                     </NextLink>
                     <Box className={styles.navBox}>
                         <NextLink href={"#"}><p className={styles.navItem}>HOME</p></NextLink>
                         <NextLink href={"#"}><p className={styles.navItem}>PRODUCTS</p></NextLink>
                         <NextLink href={"#"}><p className={styles.navItem}>HOW IT WORKS</p></NextLink>
-                        <NextLink href={"#"}><p className={styles.navItem}>GALLERY</p></NextLink>
+                        <NextLink href={"/#about"}><p className={styles.navItem}>GALLERY</p></NextLink>
                     </Box>
                 </Toolbar>
 

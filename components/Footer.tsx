@@ -13,26 +13,8 @@ const containerPY = media(30, 45);
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
         display: "flex",
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        flexWrap :"wrap",
-        [theme.breakpoints.up('xs')]: {
-            justifyContent: 'center',
-
-        },
-        [theme.breakpoints.up('md')]: {
-            justifyContent: 'space-between',
-
-
-        },
-        [theme.breakpoints.up('lg')]: {
-            justifyContent: 'space-between',
-
-
-        },
-        [theme.breakpoints.up('xl')]: {
-            justifyContent: 'space-between',
-        }
     },
     list: {},
     listItem: {
@@ -123,12 +105,9 @@ const Footer: FC = () => {
         })
     }, []);
     return (
-        <div style={{paddingTop: "40px", background: "#181818"}}>
+        <div style={{padding: "80px 0", background: "#181818"}}>
             <Container maxWidth={false} disableGutters sx={{}}>
                 <Container component="footer" maxWidth="lg" className={styles.container}>
-                    <Typography fontSize={media(20, 24)} fontWeight="600" color="secondary" className={styles.media}>
-                        <img src={require('../assets/images/OR.png')} alt={''}/>
-                    </Typography>
 
                     <Box>
                         <Box className={styles.socialsList}>
@@ -153,11 +132,7 @@ const Footer: FC = () => {
                     {/*    <br/>*/}
                     {/*    {outFooterLinks}*/}
                     {/*</Box>*/}
-                    <Typography className={styles.footerTitle}>
-                        United Arab Emirates - Dubai
-                        <br/>
-                        2022
-                    </Typography>
+
                 </Container>
             </Container>
         </div>

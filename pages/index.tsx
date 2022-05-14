@@ -2,7 +2,6 @@ import type {NextPage} from 'next'
 import MainLayout from "../layouts/Main";
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-
 const Banner = dynamic(() => import('../components/pages/home/Banner'));
 const EasyToUse = dynamic(() => import('../components/pages/home/EasyToUse'));
 const Cards = dynamic(() => import('../components/pages/home/Cards'));

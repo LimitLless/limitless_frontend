@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     container: {
         minHeight: '100vh',
         background: "linear-gradient(179.32deg, #334670 0.07%, rgba(125, 125, 125, 0.75) 102.09%, #919191 102.1%)",
+        scrollBehavior: "smooth"
     }
 });
 

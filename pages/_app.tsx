@@ -5,6 +5,8 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import {Provider as StoreProvider} from "react-redux";
 import 'react-image-crop/dist/ReactCrop.css';
+import "../style/style.css"
+
 
 import '../utility/modules';
 import createEmotionCache from '../utility/createEmotionCache';

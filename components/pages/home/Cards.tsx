@@ -4,7 +4,9 @@ import {media} from "../../../utility/media";
 import {makeStyles} from "@mui/styles";
 import {useAppSelector} from "../../../hooks/redux";
 import {selectCardState} from "../../../store/selector/card";
-import {ArrowBackIos, ArrowForwardIos} from '@mui/icons-material';
+import {ArrowBackIos, ArrowForwardIos, ArrowLeft} from '@mui/icons-material';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import NextLink from 'next/link';
 // @ts-ignore
 import Slider from 'react-slick';
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         zIndex: 3,
     },
     sliderIcon: {
-        color: "#726E6E",
+        color: "#FFFFFF",
         fontSize: media(20, 23)
     },
     prevArrow: {
@@ -309,11 +311,11 @@ const Cards: FC = () => {
                                     <Box sx={{width: '100%', position: 'relative'}}>
                                         <IconButton className={clsx(styles.sliderArrows, styles.prevArrow)}
                                                     onClick={handlePrevSlider}>
-                                            <ArrowBackIos className={styles.sliderIcon}/>
+                                            <ArrowLeftIcon className={styles.sliderIcon} style={{fontSize: "30"}}/>
                                         </IconButton>
                                         <IconButton className={clsx(styles.sliderArrows, styles.nextArrow)}
                                                     onClick={handleNextSlider}>
-                                            <ArrowForwardIos className={styles.sliderIcon}/>
+                                            <ArrowRightIcon className={styles.sliderIcon} style={{fontSize: "30"}}/>
                                         </IconButton>
                                         <Slider
                                             ref={slider}

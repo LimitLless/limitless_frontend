@@ -9,7 +9,7 @@ const containerPY = media(30, 45);
 const useStyles = makeStyles((theme: Theme) => ({
     smartAnimate: {
         padding: ` 5px ${media(20, 50)}`,
-        background: "linear-gradient(270deg, #675A37 -3.1%, rgba(107, 93, 58, 0.588329) 18.19%, rgba(242, 210, 124, 0.85) 47.68%, rgba(77, 69, 50, 0.78) 101.74%)",
+        background: "white",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: '8px',
         border: "none",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginBottom: "20px"
     },
     styleImage: {
-        maxWidth: media(300, 450),
+        maxWidth: media(200, 350),
         width: "100%",
         "@media(maxWidth: 860px)": {
             display: "none"
@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
-        textAlign: "center",
         [theme.breakpoints.up('xs')]: {
             // justifyContent: "center",
             justifyContent: "center"
@@ -64,7 +63,7 @@ const INTERFACE: FC = () => {
                             by device screens,They help improve visual
                             ergonomics by reducing your eye strain, </Typography>
                     </Box>
-                    <img className={styles.styleImage} src={require('../../../assets/images/thvoPhone.png')} alt={""}/>
+                    <img className={styles.styleImage} src={require('../../../assets/images/thvoPhone3.png')} alt={""}/>
 
 
             </Container>
