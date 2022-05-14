@@ -333,7 +333,7 @@ export const footerLinks:footerLinkItem[] = [
 
     {
         isRelativePath: false,
-        link: `${process.env.BASE_URL}/files/privacy-policy.pdf`,
+        link: `${process.env.BASE_URL}/files/LC%20INSTUCTION.pdf`,
         title: "MORE INFORMATION",
     },
     // {
