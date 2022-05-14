@@ -334,13 +334,13 @@ export const footerLinks:footerLinkItem[] = [
     {
         isRelativePath: false,
         link: `${process.env.BASE_URL}/files/privacy-policy.pdf`,
-        title: "Privacy Policy",
+        title: "MORE INFORMATION",
     },
-    {
-        isRelativePath: false,
-        link: `${process.env.BASE_URL}/files/terms-of-service.pdf`,
-        title: "Terms of Service ",
-    },
+    // {
+    //     isRelativePath: false,
+    //     link: `${process.env.BASE_URL}/files/terms-of-service.pdf`,
+    //     title: "Terms of Service ",
+    // },
 ]
 
 
@@ -358,7 +358,7 @@ export const socials:socialType[] = [
     },
     {
         icon: Email,
-        link: "https://info@temir.com",
+        link: "https://info@limitless-connection.com",
         color: "#FFFFFF",
     },
 

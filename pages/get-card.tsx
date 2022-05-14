@@ -118,7 +118,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         "& Button": {
             margin: '20px 0',
             padding: '5px 30px',
-            background: 'linear-gradient(270deg, #675A37 -3.1%, rgba(28, 28, 28, 0.588329) 18.19%, rgba(242, 210, 124, 0.85) 47.68%, rgba(77, 69, 50, 0.78) 101.74%)'
+            background: 'white',
+            "&:hover": {
+                background: "rgba(255,255,255,0.72)"
+            }
         }
     },
     selectHolder: {
@@ -226,6 +229,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: 'red',
         margin: "10px",
         fontWeight: '300',
+        background :"rgba(94, 94, 94, 0.41)",
+        border: "none",
+        borderRadius: "5px",
         fontSize: "16px",
         fontFamily: "sans-serif",
         outline: 'red',
@@ -277,10 +283,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 
     inputBtn: {
-        background: 'linear-gradient(270deg, #675A37 -3.1%, #463F2D 18.19%, rgba(242, 210, 124, 0.85) 47.68%, rgba(77, 69, 50, 0.78) 101.74%);\n' +
-            'box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)',
+        background: 'white',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         padding: "5px 50px",
-        margin: '20px 0'
+        margin: '20px 0',
+        "&:hover": {
+            background: "rgba(255,255,255,0.66)"
+        }
     },
     select: {
         width: '100%',
@@ -587,7 +596,7 @@ const GetCard: NextPage = () => {
 
             <div style={{
                 minHeight: "85vh",
-                background: `url(${require("../assets/images/lcBG.png")}) #181818 no-repeat center/cover`,
+                background: `url(${require("../assets/images/lsBG.png")}) #181818 no-repeat center/cover`,
                 paddingTop: media(40, 80),
                 boxShadow: "inset 0em -1em 1em #181818"}}>
                 <Container maxWidth="md" className={styles.container}>
@@ -664,59 +673,7 @@ const GetCard: NextPage = () => {
                 <>
                     <Box style={{background: '#181818', padding: '30px 20px'}}>
                         <Box style={{textAlign: "center", padding: "30px 0"}}>
-                            <svg width="239" height="14" viewBox="0 0 239 14" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M90.8058 1.9776H67.9718L67.9827 6.00937L87.543 5.9852L90.7568 7.01006L87.543 7.98174L67.9881 7.96241L67.999 11.9748H90.7786L87.543 13.9665H67.4979L66.8933 13.5363L64.8125 12.1054V1.66337L67.1003 0.116411L67.2092 0.0390625H67.9663L87.6247 0.0438968L90.8058 1.97276V1.9776Z"
-                                    fill="url(#paint0_linear_958_309)"/>
-                                <path
-                                    d="M187.493 11.9448L186.148 13.8833L184.742 11.9448V1.86539L186.126 0.0332031H186.148L187.493 1.94273V11.9448Z"
-                                    fill="url(#paint1_linear_958_309)"/>
-                                <path
-                                    d="M210.762 0.0580111L231.319 0C231.319 0 237.158 0.290055 238.999 3.36948V5.14365C238.999 5.14365 238.885 7.72997 233.165 8.05387L227.544 8.09254L233.356 13.9662H229.429L220.692 5.75276L233.596 5.68025C233.596 5.68025 235.693 5.52072 235.747 4.5732C235.873 2.26243 230.731 1.99655 230.731 1.99655H213.997L210.762 0.0580111Z"
-                                    fill="url(#paint2_linear_958_309)"/>
-                                <path
-                                    d="M126.147 2.79478L126.141 2.78995L126.19 11.9702L124.72 13.9667L123.238 11.9702L123.211 2.06481L124.055 1.47986L126.125 0.0682623L126.136 0.0585938H126.147V0.063428L136.872 6.79271V9.5289L126.147 2.79478Z"
-                                    fill="url(#paint3_linear_958_309)"/>
-                                <path
-                                    d="M152.4 2.06378V11.9692L150.902 13.9657L149.486 11.9692V2.77925L138.875 9.53754V6.80619L149.486 0.0527344L149.502 0.0624029L150.401 0.681187L150.597 0.811712L151.55 1.46434L151.545 1.46917L152.4 2.06378Z"
-                                    fill="url(#paint4_linear_958_309)"/>
-                                <path
-                                    d="M32.4263 1.03956L29.1798 2.04025L18.3239 2.03542V12.052L16.2104 13.9664L14.2277 11.994L14.1024 2.03058L3.24099 2.02575L0 1.02506L3.24099 0.0195312L29.1798 0.034034L32.4263 1.03956Z"
-                                    fill="url(#paint5_linear_958_309)"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_958_309" x1="64.8125" y1="7.00053" x2="90.8058"
-                                                    y2="7.00053" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_958_309" x1="184.741" y1="6.95711" x2="187.492"
-                                                    y2="6.95711" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint2_linear_958_309" x1="210.761" y1="6.98216" x2="239"
-                                                    y2="6.98216" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint3_linear_958_309" x1="123.211" y1="7.0104" x2="136.872"
-                                                    y2="7.0104" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint4_linear_958_309" x1="138.875" y1="7.00695" x2="152.4"
-                                                    y2="7.00695" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint5_linear_958_309" x1="0" y1="6.99067" x2="32.4263"
-                                                    y2="6.99067" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="white"/>
-                                        <stop offset="1" stopColor="#E8E8E8"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
+                            <img src={require("../assets/images/lcLogo2.svg")} alt=""/>
                         </Box>
                         <Container maxWidth="lg" style={{background: '#444444', padding: '20px'}}>
                             <Box className={styles.cardsSlider}>

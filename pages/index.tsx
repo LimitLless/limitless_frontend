@@ -16,10 +16,6 @@ const Home: NextPage = () => {
 
     return (
         <MainLayout showFooter={true}>
-            <Head>
-                <title>Limitless Connection</title>
-                <meta property="og:title" content="Limitless Connection" key="title" />
-            </Head>
             <Banner/>
             <EasyToUse/>
             <INTERFACE/>

@@ -1,8 +1,13 @@
-import {FC} from "react";
-import {Box, Button, Container, Theme} from "@mui/material";
+import {FC, useMemo} from "react";
+
+import {Box, Button, Container, Theme, Link as MuiLink} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import {media} from "../../../utility/media";
-// import {howToUseSteps} from "../../../constants/main";
+import {media } from "../../../utility/media";
+import {} from "../../../utility/media"
+import {howToUseSteps, footerLinks} from "../../../constants/main";
+import NextLink from 'next/link';
+
+
 
 const containerPY = media(30, 45);
 
@@ -74,11 +79,39 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('xl')]: {
             display: "flex",
         }
-    }
+    },
+    listItem: {
+        fontSize: media(14, 17),
+        fontWeight: '400',
+        color: theme.palette.secondary.main,
+    },
 }));
 
 const Information: FC = () => {
     const styles = useStyles();
+
+    const outFooterLinks = useMemo(() => {
+        return footerLinks.map((el, i) => {
+            const propsToLink:any = {
+                underline: 'none'
+            }
+            if(!el.isRelativePath){
+                propsToLink['href'] = el.link;
+            }
+            const link = (
+                <MuiLink key={i} {...propsToLink} className={styles.listItem}>
+                    <button className={styles.styleBtn}>{el.title}</button>
+
+                </MuiLink>
+            )
+            return el.isRelativePath ? (
+                <NextLink key={i} href={el.link}>
+                    {link}
+                </NextLink>
+            ) : link;
+        })
+    }, []);
+
     return (
         <div style={{background: "#181818", padding: "80px 0"}}>
             <Container maxWidth="lg" className={styles.boxContainer}>
@@ -102,7 +135,7 @@ const Information: FC = () => {
                         <li style={{textAlign: "left", color: "white"}}>Works with Apple and Android</li>
                         <li style={{textAlign: "left", color: "white"}}>Start add details</li>
                         <li style={{textAlign: "left", color: "white"}}>Save & Go share</li>
-                        <button className={styles.styleBtn}>MORE INFORMATION</button>
+                        {outFooterLinks}
 
                     </ol>
                 </Box>

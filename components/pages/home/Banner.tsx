@@ -72,8 +72,11 @@ const useStyles = makeStyles( (theme:Theme) => ({
         "0%": {
             transform: "translateX(-200%)"
         },
+        "90%": {
+            transform: `translateX(${media(70,-100)})`
+        },
         "100%": {
-            transform: `translateX(${media(0,-100)})`
+            transform: `translateX(${media(70,-100)})`
         }
     },
     "@keyframes myEffectOn": {
@@ -105,7 +108,7 @@ const useStyles = makeStyles( (theme:Theme) => ({
         width: media(200, 400),
         marginTop: media(-40, -95),
         marginLeft: "-80px",
-        transform: `translateX(${media(0,-100)})`,
+        transform: `translateX(${media(70,-100)})`,
         animation: `$myEffect 3000ms ${theme.transitions.easing.easeInOut}`,
     }
 }));
@@ -129,8 +132,8 @@ const Banner: FC = () => {
                                 <img src={require("../../../assets/images/limitlesss2.png")} className={styles.imageAbsoluteImg} alt=""/>
                             </Paper>
                         </Box>
-                        <Box style={{textAlign: "start", margin: media(70, 0)}}>
-                            <Typography className={styles.bannerLcT}>SMART METAL CARD</Typography>
+                        <Box style={{textAlign: "start", marginTop: media(70, 0)}}>
+                            <Typography className={styles.bannerLcT}>SMART CARDS</Typography>
                             <Typography className={styles.bannerLcT1}>Stand out and make a good impression </Typography>
                         </Box>
                     </Box>
