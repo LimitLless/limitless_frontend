@@ -45,7 +45,7 @@ const Preload:FC<Props> = (props:Props) => {
     const styles = useStyles();
 
     useEffect(() => {
-        gsap.to('#preload-box', { y: "0%", opacity: 1, duration: 1.5 });
+        gsap.to('#preload-box', {  y: "0%", opacity: 1, duration: 1.5 });
     }, []);
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const Preload:FC<Props> = (props:Props) => {
                     </Typography>
                 ) : (
 
-                    <img className={styles.logo} src={require('../public/images/logo.svg')}  alt={""}/>
+                    <img className={styles.logo} src={require('../public/images/welcomeLogo.svg')}  alt={""}/>
                 )}
             </Box>
         </Box>

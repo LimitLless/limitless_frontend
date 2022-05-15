@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     inputData: {
         width: "405px",
         textAlign: 'center',
-        background :"rgba(94, 94, 94, 0.41)",
+        background: "rgba(94, 94, 94, 0.41)",
         padding: "10px",
         color: '#FFFFFF',
         border: "none",
@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: "10px",
         borderRadius: "3px",
         border: "none",
-        background :"rgba(94, 94, 94, 0.41)",
+        background: "rgba(94, 94, 94, 0.41)",
         color: 'red',
         margin: "10px",
         fontWeight: '300',
@@ -192,7 +192,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: "100%",
         textAlign: 'center',
         padding: "10px",
-        background :"rgba(94, 94, 94, 0.41)",
+        background: "rgba(94, 94, 94, 0.41)",
         border: "none",
         borderRadius: "5px",
         color: '#8C8B8B',
@@ -229,7 +229,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: 'red',
         margin: "10px",
         fontWeight: '300',
-        background :"rgba(94, 94, 94, 0.41)",
+        background: "rgba(94, 94, 94, 0.41)",
         border: "none",
         borderRadius: "5px",
         fontSize: "16px",
@@ -261,7 +261,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     cardsSlider: {
         display: "flex",
         justifyContent: "space-between",
-        flexWrap :"wrap",
+        flexWrap: "wrap",
         [theme.breakpoints.up('xs')]: {
             justifyContent: "center",
 
@@ -401,7 +401,12 @@ const GetCard: NextPage = () => {
             }
             if (cardState.cards.length) {
                 return (
-                    <Box sx={{width: '100%', position: 'relative', background: "radial-gradient(43.37% 43.37% at 49.93% 50.07%, rgba(214, 166, 36, 0.31) 0%, rgba(196, 196, 196, 0) 100%)", filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(5px 5px 107px rgba(255, 255, 255, 0.25))"}}>
+                    <Box sx={{
+                        width: '100%',
+                        position: 'relative',
+                        background: "radial-gradient(43.37% 43.37% at 49.93% 50.07%, rgba(214, 166, 36, 0.31) 0%, rgba(196, 196, 196, 0) 100%)",
+                        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(5px 5px 107px rgba(255, 255, 255, 0.25))"
+                    }}>
                         <IconButton className={clsx(styles.sliderArrows, styles.prevArrow)} onClick={handlePrevSlider}>
                             <ArrowBackIos className={styles.sliderIcon}/>
                         </IconButton>
@@ -535,7 +540,8 @@ const GetCard: NextPage = () => {
                                 <Box className={styles.cardSelectTop} sx={{color: "white"}}>
                                     {cardState.cards[index][`title`]}
                                 </Box>
-                                <Typography fontSize={media(17, 20)} fontWeight="600" color="white">
+                                <Typography fontSize={media(17, 20)} fontFamily={"sans-serif"} fontWeight="600"
+                                            color="white">
                                     {cardState.cards[index][`price_dollar`]} {currenciesTitle['dollar']}
                                 </Typography>
                             </Box>
@@ -543,8 +549,9 @@ const GetCard: NextPage = () => {
 
                             </Box>
                             {authState?.uploadCard?.includes({card: cardState.cards[index]}) ? null :
-                                <Box className={styles.selectBtn}><Button
-                                    onClick={() => quatiti > 0 && onOrder(cardState.cards[index])}>PROSED</Button></Box>}
+                                <Box className={styles.selectBtn}>
+                                    <Button
+                                        onClick={() => quatiti > 0 && onOrder(cardState.cards[index])}>PROCEED</Button></Box>}
 
                         </Box>
 
@@ -598,7 +605,8 @@ const GetCard: NextPage = () => {
                 minHeight: "85vh",
                 background: `#181818`,
                 paddingTop: media(40, 80),
-                boxShadow: "inset 0em -1em 1em #181818"}}>
+                boxShadow: "inset 0em -1em 1em #181818"
+            }}>
                 <Container maxWidth="md" className={styles.container}>
                     {!isOrdered && (
                         <>
@@ -638,11 +646,12 @@ const GetCard: NextPage = () => {
                                                  bg="transparent"/>
                                         <Typography component="h1" fontSize={media(17, 19)} fontWeight="700"
                                                     color="secondary">
-                                            CASH ON DELIVARY
+                                            CASH ON DELIVERY
                                         </Typography>
                                         <Typography marginTop={media(14, 17)} maxWidth="380px" component="p"
                                                     fontSize={media(13, 15)} fontWeight="400" color="secondary">
-                                            Limitless Connection smart card works with NFC technology. Can connect with any phone and
+                                            Limitless Connection smart card works with NFC technology. Can connect with
+                                            any phone and
                                             share with your card
                                             unlimited anywahere an place.
                                             one cardd enophe to share details with ulimited times.
@@ -684,13 +693,15 @@ const GetCard: NextPage = () => {
                                             margin: '15px 10px',
                                             padding: "10px",
                                             borderRadius: "5px",
-                                            background : "rgba(24,24,24,0.56)"
+                                            background: "rgba(24,24,24,0.56)"
                                         }}>
                                             <img src={items.card.image} alt="" style={{width: media(240, 300)}}/>
                                             <Box style={{margin: `0 ${media(0, 20)}`, color: "white"}}>
                                                 <Typography>{items.card.title}</Typography>
-                                                <Typography>{items.count} piece</Typography>
-                                                <Typography>{items.card.price_dollar} $</Typography>
+                                                <Typography
+                                                    style={{fontFamily: 'sans-serif'}}>{items.count} piece</Typography>
+                                                <Typography
+                                                    style={{fontFamily: 'sans-serif'}}>{items.card.price_dollar} $</Typography>
                                                 {/*<Typography>Total: {items.card.price_dollar * items.count} $</Typography>*/}
                                             </Box>
                                         </Box>
@@ -700,7 +711,7 @@ const GetCard: NextPage = () => {
 
                             <Box style={{textAlign: 'center', color: "white"}}>
                                 <h4>TOTAL AMOUNT</h4>
-                                <h3>{price} $</h3>
+                                <h3 style={{fontFamily: 'sans-serif'}}>{price} $</h3>
                             </Box>
                         </Container>
                         <Container maxWidth="md">
@@ -708,7 +719,8 @@ const GetCard: NextPage = () => {
 
                             <Box>
                                 {
-                                    dataSubmit ? <Typography color="white" fontSize="25px">Your order is accepted...</Typography> : <form onSubmit={handleSubmit(onSubmit)}>
+                                    dataSubmit ? <Typography color="white" fontSize="25px">Your order is
+                                        accepted...</Typography> : <form onSubmit={handleSubmit(onSubmit)}>
                                         <Box className={styles.inputDataBox}>
                                             {/* register your input into the hook by invoking the "register" function */}
                                             <input placeholder="First name" type="text"
@@ -723,8 +735,11 @@ const GetCard: NextPage = () => {
                                                    className={errors.email ? styles.inputDataError : styles.inputData} {...register("email", {required: true})} />
                                             {/* errors will return when field validation fails  */}
                                         </Box>
-                                        <Box style={{textAlign: "center"}}><h3 style={{color: "#797979"}}>DELIVERY
-                                            ADSRESS</h3></Box>
+                                        <Box style={{textAlign: "center"}}>
+                                            <h3 style={{color: "#797979"}}>
+                                                DELIVERY
+                                                ADSRESS</h3>
+                                        </Box>
 
                                         <Box className={styles.inputDataBox}>
                                             {/* register your input into the hook by invoking the "register" function */}
