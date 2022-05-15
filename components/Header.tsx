@@ -77,9 +77,9 @@ const Header:FC = () => {
                         </MuiLink>
                     </NextLink>
                     <Box className={styles.navBox}>
-                        <NextLink href={"#"}><p className={styles.navItem}>HOME</p></NextLink>
-                        <NextLink href={"#"}><p className={styles.navItem}>PRODUCTS</p></NextLink>
-                        <NextLink href={"#"}><p className={styles.navItem}>HOW IT WORKS</p></NextLink>
+                        <NextLink href={"/"}><p className={styles.navItem}>HOME</p></NextLink>
+                        <NextLink href={"/#cards"}><p className={styles.navItem}>PRODUCTS</p></NextLink>
+                        <NextLink href={"/#features"}><p className={styles.navItem}>HOW IT WORKS</p></NextLink>
                         <NextLink href={"/#about"}><p className={styles.navItem}>GALLERY</p></NextLink>
                     </Box>
                 </Toolbar>

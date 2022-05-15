@@ -257,7 +257,7 @@ const Cards: FC = () => {
             }
             if (cardState.cards.length) {
                 return (
-                    <Box className={styles.boxContainerBox}>
+                    <Box id="cards" className={styles.boxContainerBox}>
                         {cardState.cards.map((elem) => (
                             <>
                                 <NextLink href="/get-card">
@@ -265,7 +265,7 @@ const Cards: FC = () => {
                                         <Typography className={styles.cardsTitle} style={{color: "white"}}>{elem.title}</Typography>
                                         <img className={styles.sliderImg} src={elem.image} alt={""}/>
                                         <Typography className={styles.cardsTitle}
-                                                    style={{textAlign: "end", color: "white"}}>{elem.price_dollar} $</Typography>
+                                                    style={{textAlign: "end", color: "white", fontFamily:'sans-serif'}}>{elem.price_dollar} $</Typography>
                                     </Box>
                                 </NextLink>
                             </>

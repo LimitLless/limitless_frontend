@@ -60,7 +60,7 @@ const INTERFACE: FC = () => {
                 <Box style={{width: media(400, 450)}}>
                     <button className={styles.smartAnimate}>SMART INTERFACE</button>
                     <Typography color="white" style={{paddingBottom: "40px"}}>Dark themes reduce the luminance emitted
-                        by device screens,They help improve visual ergonomics by reducing your eye strain, </Typography>
+                        by device screens,  They help improve visual ergonomics by reducing your eye strain, </Typography>
                 </Box>
                 <img className={styles.styleImage} src={require('../../../assets/images/thvoPhone3.png')} alt={""}/>
 

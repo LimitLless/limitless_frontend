@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontStyle: "normal",
         fontWeight: '400',
         lineHeight: "23px",
-        letterSpacing: "0.2em"
+        letterSpacing: "0.25em"
     },
     styleImage: {
         maxWidth: media(300, 450),
@@ -113,28 +113,29 @@ const Information: FC = () => {
     }, []);
 
     return (
-        <div style={{background: "#181818", padding: "80px 0"}}>
+        <div id="features" style={{background: "#181818", padding: "80px 0"}}>
             <Container maxWidth="lg" className={styles.boxContainer}>
                 <Box style={{marginTop: "30px"}}>
                     <button className={styles.smartAnimate}>FEATURES</button>
-                    <ul>
-                        <li style={{textAlign: "left", color: "white"}}>Eco-friendly</li>
-                        <li style={{textAlign: "left", color: "white"}}>Convenient for all users</li>
-                        <li style={{textAlign: "left", color: "white"}}>Great user interface</li>
-                        <li style={{textAlign: "left", color: "white"}}>Elegant & luxury card</li>
-                        <li style={{textAlign: "left", color: "white"}}>Safe and secure</li>
-                        <li style={{textAlign: "left", color: "white"}}>No App required</li>
-                        <li style={{textAlign: "left", color: "white"}}>Works with Apple and Android</li>
-                        <li style={{textAlign: "left", color: "white"}}>Express same day delivery</li>
+                    <ul style={{fontFamily:'sans-serif'}}>
+                        <li style={{textAlign: "left", color: "white", fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Eco-friendly</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Convenient for all users</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Great user interface</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Elegant & luxury card</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Safe and secure</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>No App required</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Works with Apple and Android</li>
+                        <li style={{textAlign: "left", color: "white",fontSize: '16px', lineHeight:'19px', letterSpacing:'0.13em', fontWeight: '400',margin: '10px'}}>Express same day delivery</li>
                     </ul>
                 </Box>
                 <Box style={{marginTop: "30px"}}>
                     <button className={styles.smartAnimate}>HOW IT WORKS</button>
-                    <ol>
-                        <li style={{textAlign: "left", color: "white"}}>Tap your card to the phone</li>
-                        <li style={{textAlign: "left", color: "white"}}>Works with Apple and Android</li>
-                        <li style={{textAlign: "left", color: "white"}}>Start add details</li>
-                        <li style={{textAlign: "left", color: "white"}}>Save & Go share</li>
+                    <ol style={{fontFamily:'sans-serif'}} className="works_items">
+                        <li style={{textAlign: "left", color: "white", fontSize: '14px', letterSpacing:'0.13em', lineHeight:'19px',margin: '10px'}}>Tap your card to the phone</li>
+                        <li style={{textAlign: "left", color: "white", fontSize: '14px', letterSpacing:'0.13em', lineHeight:'19px',margin: '10px'}}>Click right corner on top</li>
+                        <li style={{textAlign: "left", color: "white", fontSize: '14px', letterSpacing:'0.13em', lineHeight:'19px', margin: '10px'}}>Enter default Password 123456</li>
+                        <li style={{textAlign: "left", color: "white", fontSize: '14px', letterSpacing:'0.13em', lineHeight:'19px', margin: '10px'}}>Start add details</li>
+                        <li style={{textAlign: "left", color: "white", marginBottom: '30px', fontSize: '14px', letterSpacing:'0.13em', lineHeight:'19px', margin: '10px'}}>Save & Go share</li>
                         {outFooterLinks}
 
                     </ol>
