@@ -186,10 +186,10 @@ const Profile: NextPage = () => {
                             <Button className={styles.bgButton} onClick={handleOpenAvatarUploadModal}>Avatar</Button>
 
                             {
-                                authState.profile.avatarHidden === true ?  <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box> : <><Box
+                                authState.profile.avatarHidden === true ? <><Box
                                     className={styles.avatarHolder}>
                                     <Box className={styles.box}/>
-                                </Box></>
+                                </Box></> :  <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
                             <Button className={styles.bgButton} onClick={handleOpenBgUploadModal}>Background</Button>
                         </Box>

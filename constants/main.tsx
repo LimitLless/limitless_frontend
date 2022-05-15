@@ -18,7 +18,7 @@ import Wechat from "../components/Icons/Wechat";
 
 
 
-export const defaultBgImage = require('../assets/images/lcbgNull.jpg');
+export const defaultBgImage = require('../assets/images/qwerty5.png');
 
 export const defaultAvatar = require('../assets/images/lcLogoNew.svg');
 
