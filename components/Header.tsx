@@ -73,7 +73,7 @@ const Header:FC = () => {
                 <Toolbar className={styles.toolbar}>
                     <NextLink href={"/"}>
                         <MuiLink >
-                            <img className={styles.logo} src={require('../assets/images/lcLogo2.svg')}  alt={''}/>
+                            <img className={styles.logo} src={require('../assets/images/lcLogos.png')}  alt={''}/>
                         </MuiLink>
                     </NextLink>
                     <Box className={styles.navBox}>

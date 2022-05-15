@@ -18,7 +18,7 @@ import Wechat from "../components/Icons/Wechat";
 
 
 
-export const defaultBgImage = require('../assets/images/default-bg.svg');
+export const defaultBgImage = require('../assets/images/lcbgNull.jpg');
 
 export const defaultAvatar = require('../assets/images/lcLogoNew.svg');
 
@@ -348,6 +348,7 @@ type socialType = {
     icon: any;
     link: string;
     color: string;
+    title: string
 }
 
 export const socials:socialType[] = [
@@ -355,11 +356,13 @@ export const socials:socialType[] = [
         icon: WhatsappRounded,
         link: "https://wa.me/971528906238",
         color: "#0FFE68",
+        title: "+ 971528906238"
     },
     {
         icon: Email,
         link: "https://info@limitless-connection.com",
         color: "#FFFFFF",
+        title: "info@limitless-connection.com"
     },
 
 ]

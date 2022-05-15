@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {selectAuth} from "../store/selector/auth";
 import {media} from "../utility/media";
 import {setLoginModalActive, setUniqueIdForLogin, setUsersImageModal} from "../store/reducers/auth";
-
+import { SpinnerCircular } from 'spinners-react'
 import {useRouter} from "next/router";
 import {useForm} from "react-hook-form";
 // @ts-ignore
@@ -225,11 +225,7 @@ const AddedModal: FC<getCards> = ({getCards})=> {
                         {/*{errors.usersImage && <span style={{color: "red", fontWeight: "500"}}>This field is required</span>}*/}
                     </Box>
                     <BaseButton onClick={uploadToServer} classes={styles.saveButton}>
-                        {loadings ? <svg xmlns="http://www.w3.org/2000/svg" style={{margin: "auto", background: "none", display: "block", shapeRendering: "auto"}} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                            <circle cx="50" cy="50" r="32" strokeWidth="8" stroke="#FFFFFF" strokeDasharray="50.26548245743669 50.26548245743669" fill="none" strokeLinecap="round">
-                                <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"/>
-                            </circle>
-                        </svg> : "Save"}
+                        {loadings ? <SpinnerCircular color="#FFFFFF" size="25"/> : "Save"}
                     </BaseButton>
                 </form>
 

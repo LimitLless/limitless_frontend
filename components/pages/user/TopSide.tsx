@@ -101,10 +101,11 @@ const TopSide:FC = () => {
     const dispatch = useAppDispatch();
 
     const outBg = () => {
-        return user.data.bg ? user.data.bg : defaultBgImage;
+        return user.data.bg  ? user.data.bg : defaultBgImage;
     }
 
     const outAvatar = () => {
+
         return user.data.avatar ? user.data.avatar : defaultAvatar;
     }
 

@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import {modalColor} from "../constants/main";
 import BaseButton from "./Form/BaseButton";
 import api from "../http/api";
+import {SpinnerCircular} from "spinners-react";
 
 
 interface Item {
@@ -209,11 +210,7 @@ const UploadCard: FC<Item> = ({ item, getCards }) => {
                             onChange={uploadToClient}/>
                     </Box>
                     <BaseButton onClick={uploadToServer} classes={styles.saveButton}>
-                        {loadings ? <svg xmlns="http://www.w3.org/2000/svg" style={{margin: "auto", background: "none", display: "block", shapeRendering: "auto"}} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                            <circle cx="50" cy="50" r="32" strokeWidth="8" stroke="#FFFFFF" strokeDasharray="50.26548245743669 50.26548245743669" fill="none" strokeLinecap="round">
-                                <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"/>
-                            </circle>
-                        </svg> : "Save"}
+                        {loadings ? <SpinnerCircular color="#FFFFFF" size="25"/> : "Save"}
                     </BaseButton>
                 </form>
             </Box>

@@ -38,6 +38,7 @@
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
     "reactjs-localstorage": "^1.0.1",
+    "spinners-react": "^1.0.7",
     "yup": "^0.32.11"
   },
   "devDependencies": {

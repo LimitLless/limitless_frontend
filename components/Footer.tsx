@@ -119,7 +119,7 @@ const Footer: FC = () => {
                                             <elem.icon className={styles.socialIcon}/>
                                         </MuiLink>
                                         <NextLink href={elem.link}>
-                                            <span style={{color: "white", cursor: "pointer"}}>{elem.link}</span>
+                                            <span style={{color: "white", cursor: "pointer"}}>{elem.title}</span>
 
                                         </NextLink>
                                     </Box>

@@ -58,9 +58,9 @@ const EasyToUse: FC = () => {
                 <img className={styles.imagePhones} src={require('../../../assets/images/phones2.png')} alt={""}/>
                 <Box style={{width: "530px", marginRight: "50px", color: "white", marginLeft: media(50, 20)}}>
                     <button className={styles.smartAnimate}>SMART INTERFACE</button>
-                    <Typography>The shortest route to your customers is through their mobile phones.Express yourself
-                        in ways never before possible with a Temir smart business card. You can showcase your work
-                        by uploading rich content </Typography>
+                    <Typography>The shortest route to your customers is through their mobile phones.Express yourself in
+                        ways never before possible with a Limitless connection smart business card. You can showcase
+                        your work by uploading rich content</Typography>
                 </Box>
             </Box>
         </div>

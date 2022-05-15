@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         opacity: 0,
     },
     logo: {
-        width: media(210, 300),
+        width: media(120, 150),
         objectFit: 'contain'
     }
 });
@@ -62,7 +62,8 @@ const Preload:FC<Props> = (props:Props) => {
                         {props.title}
                     </Typography>
                 ) : (
-                    <img className={styles.logo} src={require('../assets/images/lcLogoNew.svg')}  alt={""}/>
+
+                    <img className={styles.logo} src={require('../public/images/logo.svg')}  alt={""}/>
                 )}
             </Box>
         </Box>

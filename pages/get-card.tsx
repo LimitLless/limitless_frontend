@@ -596,7 +596,7 @@ const GetCard: NextPage = () => {
 
             <div style={{
                 minHeight: "85vh",
-                background: `url(${require("../assets/images/lsBG.png")}) #181818 no-repeat center/cover`,
+                background: `#181818`,
                 paddingTop: media(40, 80),
                 boxShadow: "inset 0em -1em 1em #181818"}}>
                 <Container maxWidth="md" className={styles.container}>
@@ -673,7 +673,7 @@ const GetCard: NextPage = () => {
                 <>
                     <Box style={{background: '#181818', padding: '30px 20px'}}>
                         <Box style={{textAlign: "center", padding: "30px 0"}}>
-                            <img src={require("../assets/images/lcLogo2.svg")} alt=""/>
+                            <img src={require("../assets/images/lcLogos.png")} alt=""/>
                         </Box>
                         <Container maxWidth="lg" style={{background: '#444444', padding: '20px'}}>
                             <Box className={styles.cardsSlider}>

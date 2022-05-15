@@ -11,6 +11,8 @@ import {fonts} from "../../../constants/fonts";
 import BaseInput from "../../Form/BaseInput";
 import BaseButton from "../../Form/BaseButton";
 import * as yup from 'yup';
+import { SpinnerCircular } from 'spinners-react';
+
 import {User, UserModel} from "../../../models/user";
 import Loading from "../../Form/Loading";
 // @ts-ignore
@@ -243,7 +245,7 @@ const getCards = () => {
 }
 
 
-
+const [loadingCard, setLoadingCrad] = useState(false)
 
 
 
@@ -280,12 +282,14 @@ const getCards = () => {
     }
 
     const deleteCard = (el: any) => {
+        setLoadingCrad(true)
         api.delete(`users/image/${el.id}/`, {
             headers: {
                 "Authorization": `Bearer ${accses}`,
             }
         })
             .then(() => {
+                setLoadingCrad(false)
                 getCards()
                 console.log("delited")
             })
@@ -439,7 +443,7 @@ const getCards = () => {
                                                     <Typography
                                                         className={clsx(styles.subtitle, styles.workInfoTitle, {dark: isDarkMode})}>{el.subtitle}</Typography>
                                                     <Button variant="outlined" color="error" onClick={() => deleteCard(el)}>
-                                                        Delete
+                                                        {loadingCard ? <SpinnerCircular color="#ef5350" size="25"/> : "Delete"}
                                                     </Button>
                                                     <Button variant="outlined" color="secondary" onClick={() => UploadModal(el)}
                                                             style={{marginLeft: "20px"}}>
