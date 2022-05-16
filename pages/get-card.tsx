@@ -737,8 +737,8 @@ const GetCard: NextPage = () => {
                                         </Box>
                                         <Box style={{textAlign: "center"}}>
                                             <h3 style={{color: "#797979"}}>
-                                                DELIVERY
-                                                ADSRESS</h3>
+                                                DELIVERY ADDRESS
+                                            </h3>
                                         </Box>
 
                                         <Box className={styles.inputDataBox}>
