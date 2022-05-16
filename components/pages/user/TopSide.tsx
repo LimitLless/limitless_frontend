@@ -106,7 +106,7 @@ const TopSide:FC = () => {
 
     const outAvatar = () => {
 
-        return user.data.avatar ? user.data.avatar : defaultAvatar;
+        return user.data.avatar ? user.data.avatar : null;
     }
 
     const handleModeChange = () => {
