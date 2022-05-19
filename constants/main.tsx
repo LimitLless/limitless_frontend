@@ -20,7 +20,7 @@ import Wechat from "../components/Icons/Wechat";
 
 export const defaultBgImage = require('../assets/images/bg2.svg');
 
-export const defaultAvatar = require('../assets/images/lcLogoNew.svg');
+export const defaultAvatar = require('../assets/images/defauldAvatars.svg');
 
 export const userTabList = [
     {
@@ -63,6 +63,7 @@ interface contactsInfo{
     label:string;
     value:string;
     link:string;
+    img: string
 }
 
 export const outContactsInfo = (data: User):contactsInfo[] => {
@@ -73,31 +74,37 @@ export const outContactsInfo = (data: User):contactsInfo[] => {
             label: "MOBILE",
             value: personalPhone,
             link: phoneLink(personalPhone),
+            img: require("../assets/images/MobilePhone.svg")
         },
         {
             label: "PHONE",
             value: workPhone,
-            link: phoneLink(workPhone)
+            link: phoneLink(workPhone),
+            img: require("../assets/images/MobileTel.svg")
         },
         {
             label: "EMAIL",
             value: workEmail,
-            link: emailLink(workEmail)
+            link: emailLink(workEmail),
+            img: require("../assets/images/MobileSms.svg")
         },
         {
             label: "EMAIL",
             value: email,
-            link: emailLink(email)
+            link: emailLink(email),
+            img: require("../assets/images/MobileSms.svg")
         },
         {
             label: "WEBSITE",
             value: workWebsite,
-            link: workWebsite
+            link: workWebsite,
+            img: require("../assets/images/MobileWebsite.svg")
         },
         {
             label: "WEBSITE",
             value: otherWebsite,
-            link: otherWebsite
+            link: otherWebsite,
+            img: require("../assets/images/MobileWebsite.svg")
         },
     ].filter(el => !!el.value);
 }
@@ -367,6 +374,6 @@ export const socials:socialType[] = [
 
 ]
 
-export const modalColor = "#DFDADA";
+export const modalColor = "#272E32";
 
 export const noDataText = "";

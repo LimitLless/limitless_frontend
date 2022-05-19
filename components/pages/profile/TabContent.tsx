@@ -28,6 +28,7 @@ import {setUsersImageModal, setUploadImageModal, setUploadVideoModal, setVideosC
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import DarkButton from "./DarkButton";
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
@@ -38,35 +39,139 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        gridRowGap: media(25, 40),
 
-        padding: `${media(15, 20)} 0`,
+        padding: `${media(5, 5)} 0`,
     },
     button: {
         width: '100%',
         fontSize: media(14, 16),
         fontWeight: 700,
-        background: theme.palette.secondary.main,
+        background: "#1C2124",
         color: theme.palette.primary.main,
         textTransform: 'none',
         '&:hover': {
             background: theme.palette.secondary.main,
             color: theme.palette.primary.main,
         }
-    }
+    },
+    button1: {
+        marginTop: "20px",
+        fontSize: media(14, 16),
+        fontWeight: 700,
+        background: "linear-gradient(270deg, #008DBA -15.48%, rgba(0, 160, 250, 0.56) 117.86%)",
+        color: "white",
+        textTransform: 'none',
+        '&:hover': {
+            background: "linear-gradient(270deg, #008DBA -15.48%, rgba(0, 160, 250, 0.56) 117.86%)",
+            color: "white",
+        }
+    },
+    form: {
+        width: '100%',
+        position: 'relative'
+    },
+
 }));
 
 export const ContactsInfo: FC = () => {
     const styles = useContactsStyles();
     const profileActions = useProfileInfoActions();
+    const authState = useAppSelector(selectAuth);
+    const dispatch = useAppDispatch();
+
+
+    const initialValues1 = {
+        workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
+        personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
+        email: !!authState.profile.email ? authState.profile.email : "",
+        workWebsite: !!authState.profile.workWebsite ? authState.profile.workWebsite : "",
+    }
 
     return (
-        <Box className={styles.wrapper}>
-            {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (
-                <Button onClick={elem[1].handleOpenModal} key={elem[0]}
-                        className={styles.button}>{elem[1].title}</Button>
-            ))}
-        </Box>
+        <>
+
+
+            <Formik
+                enableReinitialize
+                initialValues={initialValues1}
+                validationSchema={workInfoValidationSchema}
+                onSubmit={async (values, actions) => {
+                    const difference = checkTheDifference(initialValues1, values);
+                    actions.setStatus("");
+                    if (!difference.isChanged) {
+                        actions.setStatus("Nothing is changed");
+                        actions.setSubmitting(false);
+                        return;
+                    }
+                    const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...values})).unwrap();
+                    if (!result.success) {
+                        actions.setStatus(result.message);
+                    }
+                    actions.setSubmitting(false);
+
+                }}
+            >
+                {(formik) => (
+                    <form onSubmit={formik.handleSubmit} className={styles.form}>
+                        <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
+                                 active={formik.isSubmitting}/>
+                        {/*<Head>*/}
+                        {/*    {Object.entries(fonts).map((elem: any, i: number) => elem[1].link(i))}*/}
+                        {/*</Head>*/}
+                        {/*<Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>*/}
+                        {/*</Box>*/}
+                        <Box style={{display: "flex", margin: "20px 0"}}>
+                            <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
+                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}}
+                                       placeholder="workPhone" name="workPhone" id="workPhone" type="text"/>
+                        </Box>
+                        <Box style={{display: "flex", margin: "20px 0"}}>
+                            <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
+                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}}
+                                       placeholder="personalPhone" name="personalPhone" id="personalPhone" type="text"/>
+                        </Box>
+                        <Box style={{display: "flex", margin: "20px 0"}}>
+                            <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="email" name="email" id="email"
+                                       type="email"/>
+                        </Box>
+                        <Box style={{display: "flex", margin: "20px 0"}}>
+                            <img src={require("../../../assets/images/MobileWebSite.svg")} alt="" style={{marginRight :"20px"}}/>
+                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="workWebsite" name="workWebsite" id="workWebsite"
+                                       type="text"/>
+                        </Box>
+
+
+
+
+                        
+                        <Box className={styles.wrapper}>
+                            {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (
+                                <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal} key={elem[0]}>{elem[1].title}</DarkButton>
+                            ))}
+                        </Box>
+                        <Box style={{textAlign: "center"}}>
+                            <BaseButton classes={styles.button1} type="submit">Save</BaseButton>
+                        </Box>
+                        {!!formik.status && (
+                            <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
+                                {formik.status}
+                            </Typography>
+                        )}
+
+
+
+
+
+
+
+
+
+                    </form>
+                )}
+            </Formik>
+        </>
+
     )
 }
 
@@ -105,11 +210,11 @@ const useWorkInfoStyles = makeStyles((theme: Theme) => ({
     textarea: {
         width: '100%',
         fontSize: media(16, 18),
-        color: theme.palette.primary.main,
+        color: "#9A9A9A",
         padding: `${media(10, 12)} ${media(13, 15)}`,
         borderRadius: 5,
         border: 'none',
-        background: "white",
+        background: "#1C2124",
         outline: 'none',
         textAlign: 'center',
         '&:focus': {
@@ -161,7 +266,7 @@ const useWorkInfoStyles = makeStyles((theme: Theme) => ({
     addedBox: {
         width: "100%",
         height: "300px",
-        background: "#EDEDED",
+        background: "#1C2124",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -172,7 +277,7 @@ const useWorkInfoStyles = makeStyles((theme: Theme) => ({
         width: "107px",
         height: "107px",
         borderRadius: "50%",
-        background: "#C4C4C4",
+        background: "#1C2124",
         border: "2px solid #3F94E2",
         display: "flex",
         justifyContent: "center",
@@ -457,7 +562,6 @@ const [loadingCard, setLoadingCrad] = useState(false)
                                 }
                             )
                         }
-                        {userImages?.user_images?.length === 0 && "loading"}
                         <Box className={styles.addedBox} onClick={click}>
                             <Box className={styles.addBack}>
                                 +

@@ -8,6 +8,7 @@ type SliceState = {
     shareModalUrl: string;
     simpleModalActive: boolean;
     simpleModalMessage: string;
+    infoProfiloModal: boolean;
 }
 
 const initialState: SliceState = {
@@ -16,7 +17,8 @@ const initialState: SliceState = {
     shareModalActive: false,
     shareModalUrl: "",
     simpleModalActive: false,
-    simpleModalMessage: ""
+    simpleModalMessage: "",
+    infoProfiloModal: false
 }
 
 const main = createSlice({
@@ -41,6 +43,9 @@ const main = createSlice({
         setSimpleModalMessage(state, action: PayloadAction<string>){
             state.simpleModalMessage = action.payload;
         },
+        setInfoProfiloModal(state, action: PayloadAction<boolean>){
+            state.infoProfiloModal = action.payload;
+        },
     },
 })
 
@@ -50,7 +55,8 @@ export const {
     setShareModalActive,
     setShareModalUrl,
     setSimpleModalActive,
-    setSimpleModalMessage
+    setSimpleModalMessage,
+    setInfoProfiloModal
 } = main.actions
 
 export default main.reducer;

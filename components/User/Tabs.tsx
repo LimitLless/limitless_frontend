@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme:Theme) => ({
             background: theme.palette.septenary.main,
         },
         '&.dark .MuiTabs-indicator': {
-            background: "#2C3439",
+            background: "#444A4E",
+            boxShadow: "inset 0px 3px 4px rgba(0, 0, 0, 0.25)"
         },
     },
     tab: {
@@ -25,7 +26,8 @@ const useStyles = makeStyles((theme:Theme) => ({
         padding: `${media(10, 15)} 0`,
         boxShadow: "0px 3px 8px 0px #00000040",
         '&.dark': {
-            background: "#181D1F",
+            background: "#23292D",
+            boxShadow: "inset 0px 3px 4px rgba(0, 0, 0, 0.25)"
         },
     },
     tabIcon: {

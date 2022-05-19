@@ -103,19 +103,7 @@ export const useProfileInfoActions = ():any => {
     }
 
     return {
-        'PERSONAL_EMAIL': {
-            handleOpenModal: handleOpenModal('PERSONAL_EMAIL'),
-            title: "Persona; Email",
-            validationSchema: personalEmailValidationSchema,
-            handleSubmit: handleChangeData,
-            fields: [
-                {
-                    field: "email",
-                    defaultValue: "",
-                    label: "Your email",
-                },
-            ],
-        },
+
         'INFO': {
             handleOpenModal: handleOpenModal('INFO'),
             title: "Info",
@@ -132,49 +120,7 @@ export const useProfileInfoActions = ():any => {
                 }
             ],
         },
-        'PHONE': {
-            handleOpenModal: handleOpenModal('PHONE'),
-            title: "Edit phone",
-            validationSchema: phoneValidationSchema,
-            handleSubmit: handleChangeData,
-            fields: [
-                {
-                    field: "workPhone",
-                    label: "Your work phone",
-                },
-                {
-                    field: "personalPhone",
-                    label: "Your personal phone",
-                }
-            ],
-            isOut: true,
-        },
-        'EMAIL': {
-            handleOpenModal: handleOpenModal('EMAIL'),
-            title: "Edit email",
-            validationSchema: emailValidationSchema,
-            handleSubmit: handleChangeData,
-            fields: [
-                {
-                    field: "email",
-                    label: "EMAIL",
-                }
-            ],
-            isOut: true,
-        },
-        'WEBSITE': {
-            handleOpenModal: handleOpenModal('WEBSITE'),
-            title: "Edit website",
-            validationSchema: websiteValidationSchema,
-            handleSubmit: handleChangeData,
-            fields: [
-                {
-                    field: "workWebsite",
-                    label: "WEBSITE",
-                }
-            ],
-            isOut: true,
-        },
+
         'PASSWORD': {
             handleOpenModal: handleOpenModal('PASSWORD'),
             title: "Edit password",
