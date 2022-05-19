@@ -140,11 +140,11 @@ export const useProfileInfoActions = ():any => {
             fields: [
                 {
                     field: "workPhone",
-                    label: "Your work phone",
+                    label: "PHONE",
                 },
                 {
                     field: "personalPhone",
-                    label: "Your personal phone",
+                    label: "MOBILE",
                 }
             ],
             isOut: true,
