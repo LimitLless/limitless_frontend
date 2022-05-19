@@ -2,16 +2,18 @@ import {FC} from "react";
 import {Button, Theme} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import clsx from "clsx";
+import {media} from "../../../utility/media";
 
 
 const useStyles = makeStyles((theme:Theme) => ({
     button: {
-        background: theme.palette.primary.main,
+        background: "#1C2124",
+        width: media(250, 500),
+        padding: "8px 0",
         color: theme.palette.secondary.main,
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.15)",
         borderRadius: 1,
         '&:hover': {
-            background: theme.palette.primary.main,
+            background: "#1a2023",
             color: theme.palette.secondary.main,
         }
     }

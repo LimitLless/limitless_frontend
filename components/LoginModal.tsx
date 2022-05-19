@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme:Theme) => ({
         width: '100%',
         background: modalColor,
         borderRadius: 15,
-
+        outline: "none",
         position: 'absolute',
         left: '50%',
         top: '50%',
@@ -127,7 +127,7 @@ const LoginModal:FC = () => {
                 >
                     {(formik) => (
                         <form className={styles.form} onSubmit={formik.handleSubmit}>
-                            <Loading fontSize={media(12, 14)} bg={hex2rgba('#585858', 0.7)} active={formik.isSubmitting} />
+                            <Loading fontSize={media(12, 14)} bg={hex2rgba('#ffffff', 0.7)} active={formik.isSubmitting} />
                             <BaseInput type="text" id="login-password" name="password" placeholder="Enter your password" />
                             <Typography className={clsx(styles.forgotPasswordBtn)} onClick={handleForgotPassword}>Forgot Password ?</Typography>
                             <Box style={{display: "flex" , justifyContent: "center"}}>

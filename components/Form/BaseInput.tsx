@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: theme.palette.secondary.main
     },
     input: {
+        background: "#1C2124",
         width: '100%',
         fontSize: media(16, 18),
-        color: theme.palette.primary.main,
+        color: "#9A9A9A",
         padding: `${media(10, 12)} ${media(13, 15)}`,
         borderRadius: 5,
         border: 'none',

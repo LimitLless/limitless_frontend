@@ -22,9 +22,6 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
     },
     link: {
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
     },
     label: {
         color: theme.palette.primary.main,
@@ -60,10 +57,7 @@ export const ContactsInfo: FC = () => {
         <form className={styles.form}>
             {userInfo.length ? userInfo.map((elem, i) => (
                 <MuiLink underline="none" key={i} href={elem.link} className={styles.link}>
-                    <Typography fontSize={media(12, 14)} fontWeight="500"
-                                className={clsx(styles.label, {dark: isDarkMode})}>
-                        {elem.label}
-                    </Typography>
+                    <img src={elem.img} alt="" style={{marginRight: "20px"}}/>
                     <Typography style={{fontFamily: requiredFontFamilies['KANIT'].fontFamily}} fontSize={media(16, 18)}
                                 className={clsx(styles.value, {dark: isDarkMode})}>
                         {elem.value}
