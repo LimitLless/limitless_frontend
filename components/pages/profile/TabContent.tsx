@@ -136,7 +136,7 @@ export const ContactsInfo: FC = () => {
                                        type="email"/>
                         </Box>
                         <Box style={{display: "flex", margin: "20px 0"}}>
-                            <img src={require("../../../assets/images/MobileWebSite.svg")} alt="" style={{marginRight :"20px"}}/>
+                            <img src={require("./../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
                             <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="workWebsite" name="workWebsite" id="workWebsite"
                                        type="text"/>
                         </Box>
