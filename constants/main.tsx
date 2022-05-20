@@ -58,7 +58,6 @@ export const userTabContent = [
 const phoneLink = (phone:string | null) => `tel:${phone}`;
 
 const emailLink = (email:string | null) => `mailto:${email}`;
-const websiteLink = (website:string | null) => `https://${website}`;
 
 
 
@@ -100,7 +99,7 @@ export const outContactsInfo = (data: User):contactsInfo[] => {
         {
             label: "WEBSITE",
             value: workWebsite,
-            link:websiteLink(workWebsite),
+            link:workWebsite,
             img: require("../assets/images/MobileWebsite.svg")
         },
         {
