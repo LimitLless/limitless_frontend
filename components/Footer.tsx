@@ -126,6 +126,13 @@ const Footer: FC = () => {
                                     <br/>
                                 </>
                             ))}
+                            <a href="https://motion-web.io/"  style={{textDecoration: "none"}}>
+                                <Box style={{display: "flex", alignItems: "center"}}>
+                                    <Typography style={{fontSize: "15px", color:"white", fontWeight: "600", marginRight: "10px"}}>Developed by</Typography>
+                                    <img src={require("../assets/images/logo-3.svg")} alt="" style={{width: "130px"}}/>
+                                </Box>
+                            </a>
+
                         </Box>
                     </Box>
                     {/*<Box className={styles.list}>*/}

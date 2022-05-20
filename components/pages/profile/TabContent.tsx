@@ -114,8 +114,8 @@ export const ContactsInfo: FC = () => {
 
 
     const initialValues1 = {
-        workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "+971",
-        personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "+971",
+        workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
+        personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
         email: !!authState.profile.email ? authState.profile.email : "",
         workWebsite: !!authState.profile.workWebsite ? authState.profile.workWebsite : "",
     }
@@ -231,11 +231,11 @@ export const ContactsInfo: FC = () => {
                 <Box style={{display: "flex", margin: "20px 0"}}>
 
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="workPhone" className={styles.baseInput}  {...register("workPhone")} />
+                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="+971" className={styles.baseInput}  {...register("workPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="personalPhone" className={styles.baseInput}  {...register("personalPhone")} />
+                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="+971" className={styles.baseInput}  {...register("personalPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>

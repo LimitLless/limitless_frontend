@@ -402,11 +402,11 @@ const InfoPortfolioModal: FC = () => {
                                 <>
                                     <Box style={{margin: "5px 0", width: "100%"}}>
                                         <BaseInput style={{textAlign: 'start', margin: "10px 0"}}
-                                                   placeholder="fullname" name="fullname" id="fullname" type="text"/>
+                                                   placeholder="Name" name="fullname" id="fullname" type="text"/>
                                     </Box>
                                     <Box style={{margin: "5px 0", width: "100%"}}>
                                         <BaseInput style={{textAlign: 'start'}}
-                                                   placeholder="position" name="position" id="position" type="text"/>
+                                                   placeholder="Bio" name="position" id="position" type="text"/>
                                     </Box>
 
 
