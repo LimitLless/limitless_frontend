@@ -249,7 +249,7 @@ export const ContactsInfo: FC = () => {
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                    <input defaultValue={initialValues1.workWebsite || 'https://'}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>

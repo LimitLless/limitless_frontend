@@ -43,10 +43,6 @@ const emailValidationSchema = yup.object({
 const websiteValidationSchema = yup.object({
     workWebsite: yup.string()
         .nullable()
-        .matches(websiteRegex, 'Enter correct url'),
-    otherWebsite: yup.string()
-        .nullable()
-        .matches(websiteRegex, 'Enter correct url')
 });
 
 const passwordValidationSchema = yup.object({
@@ -169,8 +165,8 @@ export const useProfileInfoActions = ():any => {
             handleSubmit: handleChangeData,
             fields: [
                 {
-                    field: "workWebsite",
-                    label: "WEBSITE",
+                    field: "https://",
+                    label: "https://",
                 }
             ],
             isOut: true,
