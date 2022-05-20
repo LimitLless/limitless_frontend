@@ -10,8 +10,12 @@ import {selectAuth} from "../../../store/selector/auth";
 import {fonts} from "../../../constants/fonts";
 import BaseInput from "../../Form/BaseInput";
 import BaseButton from "../../Form/BaseButton";
+import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { SpinnerCircular } from 'spinners-react';
+import { useForm } from "react-hook-form";
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+
 
 import {User, UserModel} from "../../../models/user";
 import Loading from "../../Form/Loading";
@@ -70,106 +74,211 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         position: 'relative'
     },
+    baseInputError: {
+        background: "#1C2124",
+        width: '100%',
+        fontSize: media(16, 18),
+        color: "#9A9A9A",
+        padding: `${media(10, 12)} ${media(13, 15)}`,
+        borderRadius: 5,
+        border: '1px solid #FD0606',
+        outline: 'none',
+        '&:focus': {
+            border: '1px solid #FD0606',
+            outline: 'none'
+        }
+    },
+    baseInput: {
+        background: "#1C2124",
+        width: '100%',
+        fontSize: media(16, 18),
+        color: "#9A9A9A",
+        padding: `${media(10, 12)} ${media(13, 15)}`,
+        borderRadius: 5,
+        border: '1px solid rgba(154,154,154,0)',
+        outline: 'none',
+        '&:focus': {
+            border: '1px solid rgba(154,154,154,0)',
+            outline: 'none'
+        }
+    }
 
 }));
 
 export const ContactsInfo: FC = () => {
     const styles = useContactsStyles();
-    const profileActions = useProfileInfoActions();
+    const {PASSWORD} = useProfileInfoActions();
     const authState = useAppSelector(selectAuth);
     const dispatch = useAppDispatch();
+    const router = useRouter()
 
 
     const initialValues1 = {
-        workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
-        personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
+        workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "+971",
+        personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "+971",
         email: !!authState.profile.email ? authState.profile.email : "",
         workWebsite: !!authState.profile.workWebsite ? authState.profile.workWebsite : "",
     }
+
+    const [exit, setExit] = useState(false)
+    const [loadings, setLoadings] = useState(false)
+    const [change, setChange] = useState('')
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = async (data:any) => {
+       // alert(JSON.stringify(data))
+        setLoadings(true)
+        const difference = checkTheDifference(initialValues1, data);
+        if (!difference.isChanged) {
+            setChange("Nothing is changed")
+        }
+        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...data})).unwrap();
+        if (!result.success) {
+            alert(JSON.stringify(result.message));
+        }
+        setLoadings(false)
+        setExit(true)
+        // actions.setSubmitting(false);
+    };
 
     return (
         <>
 
 
-            <Formik
-                enableReinitialize
-                initialValues={initialValues1}
-                validationSchema={workInfoValidationSchema}
-                onSubmit={async (values, actions) => {
-                    const difference = checkTheDifference(initialValues1, values);
-                    actions.setStatus("");
-                    if (!difference.isChanged) {
-                        actions.setStatus("Nothing is changed");
-                        actions.setSubmitting(false);
-                        return;
-                    }
-                    const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...values})).unwrap();
-                    if (!result.success) {
-                        actions.setStatus(result.message);
-                    }
-                    actions.setSubmitting(false);
+            {/*<Formik*/}
+            {/*    enableReinitialize*/}
+            {/*    initialValues={initialValues1}*/}
+            {/*    validationSchema={workInfoValidationSchema}*/}
+            {/*    onSubmit={async (values, actions) => {*/}
+            {/*        const difference = checkTheDifference(initialValues1, values);*/}
+            {/*        actions.setStatus("");*/}
+            {/*        if (!difference.isChanged) {*/}
+            {/*            actions.setStatus("Nothing is changed");*/}
+            {/*            actions.setSubmitting(false);*/}
+            {/*            return;*/}
+            {/*        }*/}
+            {/*        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...values})).unwrap();*/}
+            {/*        if (!result.success) {*/}
+            {/*            actions.setStatus(result.message);*/}
+            {/*        }*/}
+            {/*        setExit(true)*/}
+            {/*        actions.setSubmitting(false);*/}
 
-                }}
-            >
-                {(formik) => (
-                    <form onSubmit={formik.handleSubmit} className={styles.form}>
-                        <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
-                                 active={formik.isSubmitting}/>
-                        {/*<Head>*/}
-                        {/*    {Object.entries(fonts).map((elem: any, i: number) => elem[1].link(i))}*/}
-                        {/*</Head>*/}
-                        {/*<Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>*/}
-                        {/*</Box>*/}
-                        <Box style={{display: "flex", margin: "20px 0"}}>
-                            <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
-                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}}
-                                       placeholder="workPhone" name="workPhone" id="workPhone" type="text"/>
-                        </Box>
-                        <Box style={{display: "flex", margin: "20px 0"}}>
-                            <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}}
-                                       placeholder="personalPhone" name="personalPhone" id="personalPhone" type="text"/>
-                        </Box>
-                        <Box style={{display: "flex", margin: "20px 0"}}>
-                            <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
-                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="email" name="email" id="email"
-                                       type="email"/>
-                        </Box>
-                        <Box style={{display: "flex", margin: "20px 0"}}>
-                            <img src={require("./../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                            <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="workWebsite" name="workWebsite" id="workWebsite"
-                                       type="text"/>
-                        </Box>
-
-
-
-
-                        
-                        <Box className={styles.wrapper}>
-                            {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (
-                                <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal} key={elem[0]}>{elem[1].title}</DarkButton>
-                            ))}
-                        </Box>
-                        <Box style={{textAlign: "center"}}>
-                            <BaseButton classes={styles.button1} type="submit">Save</BaseButton>
-                        </Box>
-                        {!!formik.status && (
-                            <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
-                                {formik.status}
-                            </Typography>
-                        )}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    {(formik) => (*/}
+            {/*        <form onSubmit={formik.handleSubmit} className={styles.form}>*/}
+            {/*            <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}*/}
+            {/*                     active={formik.isSubmitting}/>*/}
+            {/*            /!*<Head>*!/*/}
+            {/*            /!*    {Object.entries(fonts).map((elem: any, i: number) => elem[1].link(i))}*!/*/}
+            {/*            /!*</Head>*!/*/}
+            {/*            /!*<Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>*!/*/}
+            {/*            /!*</Box>*!/*/}
+            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
+            {/*                <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>*/}
+            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}}*/}
+            {/*                           placeholder="workPhone" name="workPhone" id="workPhone" type="text"/>*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
+            {/*                <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>*/}
+            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}}*/}
+            {/*                           placeholder="personalPhone" name="personalPhone" id="personalPhone" type="text"/>*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
+            {/*                <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>*/}
+            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="email" name="email" id="email"*/}
+            {/*                           type="email"/>*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
+            {/*                <img src={require("./../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>*/}
+            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="workWebsite" name="workWebsite" id="workWebsite"*/}
+            {/*                           type="text"/>*/}
+            {/*            </Box>*/}
 
 
 
 
+            {/*            */}
+            {/*            <Box className={styles.wrapper}>*/}
+            {/*                {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (*/}
+            {/*                    <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal} key={elem[0]}>{elem[1].title}</DarkButton>*/}
+            {/*                ))}*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{textAlign: "center"}}>*/}
+            {/*                <BaseButton classes={styles.button1} type="submit">Save</BaseButton>*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{textAlign: "center"}}>*/}
+            {/*                {exit && <BaseButton classes={styles.button1} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>Exit</BaseButton>}*/}
+            {/*            </Box>*/}
+            {/*            <Box style={{textAlign: "center"}}>*/}
+            {/*                {!!formik.status && (*/}
+            {/*                    <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">*/}
+            {/*                        {formik.status}*/}
+            {/*                    </Typography>*/}
+            {/*                )}*/}
+            {/*            </Box>*/}
 
 
+            {/*        </form>*/}
+            {/*    )}*/}
+            {/*</Formik>*/}
 
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                {/* register your input into the hook by invoking the "register" function */}
+                            <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
+                                     active={loadings}/>
+                <Box style={{display: "flex", margin: "20px 0"}}>
 
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="workPhone" className={styles.baseInput}  {...register("workPhone")} />
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="personalPhone" className={styles.baseInput}  {...register("personalPhone")} />
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.email} placeholder="Email" type="email" className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+                        required: true,
+                        pattern: {
+                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            message: 'Please enter a valid email',
+                        },
+                    })} />
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <DarkButton style={{borderRadius: "5px"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+                </Box>
 
-                    </form>
-                )}
-            </Formik>
+                {/*<Box className={styles.wrapper}>*/}
+                {/*    {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (*/}
+                {/*        <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal}*/}
+                {/*                    key={elem[0]}>{elem[1].title}</DarkButton>*/}
+                {/*    ))}*/}
+                {/*</Box>*/}
+
+                {/* include validation with required or other standard HTML validation rules */}
+                {/*<input {...register("exampleRequired", { required: true })} />*/}
+                <Box style={{textAlign: "center"}}>
+                    <BaseButton classes={styles.button1} type="submit">SAVE</BaseButton>
+                </Box>
+                <Box style={{textAlign: "center"}}>
+                    {exit && <BaseButton classes={styles.button1}
+                                         onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                </Box>
+                <Box style={{textAlign: "center"}}>
+                        <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
+                            {change}
+                        </Typography>
+                </Box>
+            </form>
+
         </>
 
     )
@@ -316,6 +425,7 @@ export const WorkInfo: FC = () => {
     const [userImages, setUserImages]: any = useState([])
     const [userVideos, setUserVideos]: any = useState([])
     const [userImagesData, setUserImagesData]: any = useState()
+    const router = useRouter()
 
     const [accses, setAccses]: any = useState('')
     useEffect(() => {
@@ -351,6 +461,7 @@ const getCards = () => {
 
 
 const [loadingCard, setLoadingCrad] = useState(false)
+    const [exit, setExit] = useState(false)
 
 
 
@@ -442,6 +553,7 @@ const [loadingCard, setLoadingCrad] = useState(false)
                     if (!result.success) {
                         actions.setStatus(result.message);
                     }
+                    setExit(true)
                     actions.setSubmitting(false);
 
                 }}
@@ -472,7 +584,7 @@ const [loadingCard, setLoadingCrad] = useState(false)
                             </FormControl>
                         </Box>
                         <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
-                                   placeholder="Welcome" name="welcome" id="welcome" type="text"/>
+                                   placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
                         <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
                                    placeholder="Company" name="title" id="title" type="text"/>
                         <BaseInput style={{textAlign: 'center'}} placeholder="Subtitle" name="subtitle" id="subtitle"
@@ -482,7 +594,7 @@ const [loadingCard, setLoadingCrad] = useState(false)
                             rows={8}
                             name="description"
                             id="description"
-                            placeholder="Description"
+                            placeholder="About"
                             value={formik.values.description}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -490,7 +602,8 @@ const [loadingCard, setLoadingCrad] = useState(false)
 
                         <BaseInput style={{textAlign: 'center'}} placeholder="Address" name="address" id="address"
                                    type="text"/>
-                        <BaseButton classes={styles.button} type="submit">Save</BaseButton>
+                        <BaseButton classes={styles.button} type="submit">SAVE</BaseButton>
+                        {exit && <BaseButton classes={styles.button} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                         {!!formik.status && (
                             <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
                                 {formik.status}
@@ -617,6 +730,8 @@ export const Socials: FC = () => {
     const dispatch = useAppDispatch();
     const authState = useAppSelector(selectAuth);
     const theme: Theme = useTheme();
+    const router = useRouter()
+    const [exit, setExit] = useState(false)
 
     const outInitialValues = () => {
         const pickFields = ({
@@ -663,6 +778,8 @@ export const Socials: FC = () => {
                     if (!result.success) {
                         actions.setStatus(result.message);
                     }
+                    setExit(true)
+
                 }
                 actions.setSubmitting(true);
             }}
@@ -681,7 +798,13 @@ export const Socials: FC = () => {
                             )
                         }
                     )}
-                    <BaseButton type="submit">Save</BaseButton>
+
+                    <Box style={{textAlign: 'center'}}>
+                        <BaseButton style={{width: "20%"}} type="submit">SAVE</BaseButton>
+                    </Box>
+                    <Box style={{textAlign: 'center'}}>
+                        {exit && <BaseButton style={{width: "20%"}} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                    </Box>
                     {!!formik.status && (
                         <Typography textAlign="center" fontSize={media(16, 18)} fontWeight="500" color="secondary">
                             {formik.status}

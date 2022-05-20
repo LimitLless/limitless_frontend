@@ -7,6 +7,7 @@ import TikTok from "../components/Icons/TikTok";
 import {Instagram, FacebookOutlined, WhatsappRounded, LinkedIn, Telegram, Twitter, YouTube} from "@mui/icons-material";
 import Snapchat from "../components/Icons/Snapchat";
 import Email from "../components/Icons/Email";
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import {
     WhatsappShareButton,
     FacebookShareButton,
@@ -21,6 +22,7 @@ import Wechat from "../components/Icons/Wechat";
 export const defaultBgImage = require('../assets/images/bg2.svg');
 
 export const defaultAvatar = require('../assets/images/defauldAvatars.svg');
+export const defaultAvatar2 = require('../assets/images/defauldAvatars1.svg');
 
 export const userTabList = [
     {

@@ -103,7 +103,19 @@ export const useProfileInfoActions = ():any => {
     }
 
     return {
-
+        'PERSONAL_EMAIL': {
+            handleOpenModal: handleOpenModal('PERSONAL_EMAIL'),
+            title: "Persona; Email",
+            validationSchema: personalEmailValidationSchema,
+            handleSubmit: handleChangeData,
+            fields: [
+                {
+                    field: "email",
+                    defaultValue: "",
+                    label: "Your email",
+                },
+            ],
+        },
         'INFO': {
             handleOpenModal: handleOpenModal('INFO'),
             title: "Info",
@@ -128,11 +140,11 @@ export const useProfileInfoActions = ():any => {
             fields: [
                 {
                     field: "workPhone",
-                    label: "PHONE",
+                    label: "Your work phone",
                 },
                 {
                     field: "personalPhone",
-                    label: "MOBILE",
+                    label: "Your personal phone",
                 }
             ],
             isOut: true,
