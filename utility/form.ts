@@ -50,7 +50,7 @@ type socialsKeyType = {
 export const socials: socialsKeyType = {
     whatsapp: {
         icon: WhatsAppIcon,
-        placeholder: "971",
+        placeholder: "+971",
         save: (value) => value ? `https://wa.me/${value}` : null,
         out: (value) => value ? value.replace('https://wa.me/', "") : ""
     },
