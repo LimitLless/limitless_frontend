@@ -1,5 +1,4 @@
 import {ContactsInfo, Socials, WorkInfo} from "../components/pages/profile/TabContent";
-import dynamic from "next/dynamic";
 
 
 

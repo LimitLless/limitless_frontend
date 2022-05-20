@@ -231,11 +231,11 @@ export const ContactsInfo: FC = () => {
                 <Box style={{display: "flex", margin: "20px 0"}}>
 
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="+971" className={styles.baseInput}  {...register("workPhone")} />
+                    <input defaultValue={initialValues1.workPhone || '+971'} type={"text"}  placeholder="Phone" className={styles.baseInput}  {...register("workPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="+971" className={styles.baseInput}  {...register("personalPhone")} />
+                    <input defaultValue={initialValues1.personalPhone  || '+971'} type={"text"}  placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
