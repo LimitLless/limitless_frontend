@@ -98,7 +98,7 @@ export const outContactsInfo = (data: User):contactsInfo[] => {
         },
         {
             label: "WEBSITE",
-            value: workWebsite.slice(8),
+            value: workWebsite?.slice(8),
             link:workWebsite,
             img: require("../assets/images/MobileWebsite.svg")
         },
