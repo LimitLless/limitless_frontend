@@ -595,7 +595,7 @@ const [loadingCard, setLoadingCrad] = useState(false)
                                    placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
                         <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
                                    placeholder="Company" name="title" id="title" type="text"/>
-                        <BaseInput style={{textAlign: 'center'}} placeholder="Subtitle" name="subtitle" id="subtitle"
+                        <BaseInput style={{textAlign: 'center'}} placeholder="Title" name="subtitle" id="subtitle"
                                    type="text"/>
                         <textarea
                             className={styles.textarea}
