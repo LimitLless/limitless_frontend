@@ -365,13 +365,15 @@ const InfoPortfolioModal: FC = () => {
                             <Box/>
                         </Box></> :  <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
                     }
-                    <IOSSwitch sx={{m: 1}} onChange={btnStart} checked={bool} className={styles.IOSSwitch}/>
+
                     {/*<ModeSwitch onChange={btnStart} checked={bool}/>*/}
                 </Paper>
                 <Box style={{display: "flex", justifyContent: "space-between"}}>
                     <Button className={styles.editButton} onClick={handleOpenBgUploadModal}>Edit background</Button>
+                    <IOSSwitch sx={{m: 1}} onChange={btnStart} checked={bool} className={styles.IOSSwitch}/>
                     <Button className={styles.editButton} onClick={handleOpenAvatarUploadModal}>Edit display</Button>
                 </Box>
+
                 <Formik
                     enableReinitialize
                     initialValues={initialValues1}

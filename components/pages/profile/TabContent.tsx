@@ -117,7 +117,7 @@ export const ContactsInfo: FC = () => {
         workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
         personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
         email: !!authState.profile.email ? authState.profile.email : "",
-        workWebsite: !!authState.profile.workWebsite ? authState.profile.workWebsite : "",
+        workWebsite: !!authState.profile.workWebsite ? (authState.profile.workWebsite).slice(8) : "",
     }
 
     const [exit, setExit] = useState(false)
@@ -127,12 +127,20 @@ export const ContactsInfo: FC = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async (data:any) => {
        // alert(JSON.stringify(data))
+
+        const data2 = {
+            workPhone: data.workPhone,
+            personalPhone: data.personalPhone,
+            email: data.email,
+            workWebsite: data.workWebsite.length > 0 ? `https://${data.workWebsite}` : ""
+        }
+
         setLoadings(true)
-        const difference = checkTheDifference(initialValues1, data);
+        const difference = checkTheDifference(initialValues1, data2);
         if (!difference.isChanged) {
             setChange("Nothing is changed")
         }
-        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...data})).unwrap();
+        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...data2})).unwrap();
         if (!result.success) {
             alert(JSON.stringify(result.message));
         }
@@ -231,11 +239,11 @@ export const ContactsInfo: FC = () => {
                 <Box style={{display: "flex", margin: "20px 0"}}>
 
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workPhone || '+971'} type={"text"}  placeholder="Phone" className={styles.baseInput}  {...register("workPhone")} />
+                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="Phone" className={styles.baseInput}  {...register("workPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.personalPhone  || '+971'} type={"text"}  placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
+                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
@@ -249,11 +257,11 @@ export const ContactsInfo: FC = () => {
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workWebsite || 'https://'}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <DarkButton style={{borderRadius: "5px"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+                    <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
                 </Box>
 
                 {/*<Box className={styles.wrapper}>*/}
