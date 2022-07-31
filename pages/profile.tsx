@@ -119,14 +119,14 @@ const Profile: NextPage = () => {
         }
     }, []);
 
-    useEffect(() => {
-        if (authState.authInfoLoaded) {
-            if (authState.isAuth && !authState.profile.email) {
-                dispatch(setModalWithFormData('PERSONAL_EMAIL'));
-                dispatch(setModalWithFormActive(true));
-            }
-        }
-    }, [authState.authInfoLoaded]);
+    // useEffect(() => {
+    //     if (authState.authInfoLoaded) {
+    //         if (authState.isAuth && !authState.profile.email) {
+    //             dispatch(setModalWithFormData('PERSONAL_EMAIL'));
+    //             dispatch(setModalWithFormActive(true));
+    //         }
+    //     }
+    // }, [authState.authInfoLoaded]);
 
     const outBg = () => {
         return authState.profile.bg ? authState.profile.bg : defaultBgImage;
