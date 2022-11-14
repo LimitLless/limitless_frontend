@@ -33,10 +33,7 @@ MyDocument.getInitialProps = async (ctx) => {
     ctx.renderPage = () =>
         originalRenderPage({
             enhanceApp: (App
-<<<<<<< HEAD
-=======
                          // @ts-ignore
->>>>>>> fd7e6ac667b96d237719ab13c3b4c8430ca1c30a
             ) => (props) => sheets.collect(<App emotionCache={cache} {...props} />),
         });
 
