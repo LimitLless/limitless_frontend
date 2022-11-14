@@ -50,13 +50,6 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
             color: theme.palette.secondary.main,
         }
     },
-<<<<<<< HEAD
-        color: theme.palette.secondary.main,
-
-    },
-
-=======
->>>>>>> fd7e6ac667b96d237719ab13c3b4c8430ca1c30a
 }));
 
 
