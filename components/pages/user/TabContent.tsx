@@ -1,6 +1,6 @@
 import {FC, Key, useMemo} from "react";
 import {useUserContext} from "../../../pages/user/[uniqueId]";
-import {Box, Link as MuiLink, Theme, Typography, Paper} from "@mui/material";
+import {Box, Link as MuiLink, Theme, Typography, Paper, Icon} from "@mui/material";
 import {noDataText, outContactsInfo, socialsOut} from "../../../constants/main";
 import {makeStyles} from "@mui/styles";
 import {useAppSelector} from "../../../hooks/redux";
@@ -41,7 +41,15 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         '&.dark': {
             color: theme.palette.secondary.main,
         }
-    }
+    },
+    icons: {
+        marginRight: '20px',
+        fontSize: '28px',
+        color:theme.palette.primary.main,
+        '&.dark': {
+            color: theme.palette.secondary.main,
+        }
+    },
 }));
 
 
@@ -53,11 +61,17 @@ export const ContactsInfo: FC = () => {
     const userInfo = useMemo(() => {
         return outContactsInfo(data);
     }, []);
+    console.log(userInfo.map(el => el.img) , "<=== user info")
     return (
         <form className={styles.form}>
             {userInfo.length ? userInfo.map((elem, i) => (
                 <MuiLink underline="none" key={i} href={elem.link} className={styles.link}>
-                    <img src={elem.img} alt="" style={{marginRight: "20px"}}/>
+
+                    {/*<img src={elem.img} alt=""  className={styles.icons}/>*/}
+
+                    <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
+                    <div className={styles.icons}>{elem.img}</div>
+
                     <Typography style={{fontFamily: requiredFontFamilies['KANIT'].fontFamily}} fontSize={media(16, 18)}
                                 className={clsx(styles.value, {dark: isDarkMode})}>
                         {elem.value}
@@ -125,12 +139,11 @@ const useWorkInfoStyles = makeStyles((theme: Theme) => ({
     bgBox: {
         margin: "15px 0",
         background:'none',
-        // '&.dark': {
-        //     background: theme.palette.secondary.main,
-        // }
+        '&.dark': {
+            background: theme.palette.secondary.main,
+        }
     }
 }));
-
 interface arr {
     title: string,
     subtitle: string,

@@ -15,7 +15,7 @@ import {selectAuth} from "../../../store/selector/auth";
 import clsx from "clsx";
 
 
-const useStyles = makeStyles((theme:Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     topSideBox: {
         width: '100%',
         display: 'flex',
@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme:Theme) => ({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         position: 'relative',
+        boxShadow: '9px 100px 100px -37px rgba(34, 60, 80, 1) inset; '
+
     },
     loginTitle: {
         cursor: 'pointer',
@@ -52,11 +54,11 @@ const useStyles = makeStyles((theme:Theme) => ({
         height: media(135, 163),
         borderRadius: '50%',
         overflow: 'hidden',
-        opacity: 0
+        opacity: 0,
     },
 }));
 
-const ModeSwitch = styled(Switch)(({ theme }) => ({
+const ModeSwitch = styled(Switch)(({theme}) => ({
     padding: 8,
     position: 'absolute',
     right: 10,
@@ -92,8 +94,7 @@ const ModeSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 
-
-const TopSide:FC = () => {
+const TopSide: FC = () => {
     const styles = useStyles();
     const user = useUserContext();
     const isDarkMode = useAppSelector(selectIsDarkMode);
@@ -101,7 +102,7 @@ const TopSide:FC = () => {
     const dispatch = useAppDispatch();
 
     const outBg = () => {
-        return user.data.bg  ? user.data.bg : defaultBgImage;
+        return user.data.bg ? user.data.bg : defaultBgImage;
     }
 
     const outAvatar = () => {
@@ -117,16 +118,17 @@ const TopSide:FC = () => {
         dispatch(setUniqueIdForLogin(user.data.uniqueId));
         dispatch(setLoginModalActive(true));
     }
-    console.log(authState?.profile?.avatarHidden , 'avatarHidden')
+    console.log(authState?.profile?.avatarHidden, 'avatarHidden')
     return (
         <Box className={styles.topSideBox}>
-            <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})` , padding: "160px 0"}}>
-                <Typography onClick={handleOpenLoginModal} className={clsx(styles.loginTitle ,  {dark: isDarkMode})}>
+            <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`, padding: "160px 0"}}>
+                <Typography onClick={handleOpenLoginModal} className={clsx(styles.loginTitle, {dark: isDarkMode})}>
                     ●●●
                 </Typography>
-                <Box style={{position: "absolute"}}>
+                <Box style={{position: "absolute" }}>
                     {
-                        authState?.profile?.avatarHidden === true ? <Box className={styles.box}/>  :   <Avatar img={outAvatar()}/>
+                        authState?.profile?.avatarHidden === true ? <Box className={styles.box}/> :
+                            <Avatar img={outAvatar()}/>
                     }
                 </Box>
 
@@ -135,7 +137,7 @@ const TopSide:FC = () => {
                     onChange={handleModeChange}
                 />
             </Box>
-            <UserTitles />
+            <UserTitles/>
         </Box>
     )
 }

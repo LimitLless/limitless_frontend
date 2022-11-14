@@ -1,4 +1,4 @@
-import {FC, ReactNode, SyntheticEvent} from "react";
+import {FC, ReactNode, SyntheticEvent, useState, useEffect} from "react";
 import {Tab, Tabs, Theme} from "@mui/material";
 import clsx from "clsx";
 import {makeStyles} from "@mui/styles";
@@ -36,9 +36,11 @@ const useStyles = makeStyles((theme:Theme) => ({
         fontSize: media(22, 25),
         '&.dark': {
             color: theme.palette.secondary.main,
+
         }
     }
 }))
+
 
 interface Props{
     value: number;
@@ -46,13 +48,20 @@ interface Props{
 }
 
 export const UserTabs:FC<Props> = ({value, onChange}: Props) => {
+    const [isUrl, setUrl] = useState('')
     const styles = useStyles();
     const isDarkMode = useAppSelector(selectIsDarkMode);
+
+    useEffect(() => {
+        setUrl(window.location.pathname)
+    }, [])
+
     return (
-        <Tabs className={clsx(styles.tabs, {dark: isDarkMode})} value={value} onChange={onChange} sx={{width: '100%', display: 'flex', flex: '1 1 1'}}>
+        <Tabs className={clsx(styles.tabs, {dark: isUrl === "/profile" ? true : isDarkMode})} value={value} onChange={onChange} sx={{width: '100%', display: 'flex', flex: '1 1 1'}}>
             {userTabList.map((elem:any) => (
-                <Tab key={elem.id} value={elem.id} className={clsx(styles.tab, 'tab__item', {dark: isDarkMode})} icon={<elem.icon className={clsx(styles.tabIcon, {dark: isDarkMode})} />} />
+                <Tab key={elem.id} value={elem.id} className={clsx(styles.tab, 'tab__item', {dark: isUrl === "/profile" ? true : isDarkMode})} icon={<elem.icon className={clsx(styles.tabIcon, {dark: isUrl === "/profile" ? true : isDarkMode})} />} />
             ))}
+
         </Tabs>
     )
 }
