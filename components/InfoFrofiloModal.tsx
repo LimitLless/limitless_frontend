@@ -292,7 +292,7 @@ const InfoPortfolioModal: FC = () => {
                 </IconButton>
                 <Paper className={styles.paperBack} style={{background: `url(${outBg()}) no-repeat center/cover`}}>
                     {
-                        authState.profile.avatarHidden === true ? <><Box
+                        authState.profile.avatarHidden !== true ? <><Box
                             >
                             <Box/>
                         </Box></> :  <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
