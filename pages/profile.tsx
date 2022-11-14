@@ -112,7 +112,6 @@ const Profile: NextPage = () => {
     const [bool, setBool]: any = useState(authState.profile.avatarHidden)
 
     useEffect(() => {
-
         return () => {
             dispatch(setModalWithFormActive(false));
             dispatch(setModalWithFormData(null));
