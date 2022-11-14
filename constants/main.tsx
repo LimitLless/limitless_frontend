@@ -1,13 +1,14 @@
 import PhoneIcon from '@mui/icons-material/Phone';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import {ContactsInfo, Socials, WorkInfo} from "../components/pages/user/TabContent";
 import {User} from "../models/user";
 import TikTok from "../components/Icons/TikTok";
 import {Instagram, FacebookOutlined, WhatsappRounded, LinkedIn, Telegram, Twitter, YouTube} from "@mui/icons-material";
 import Snapchat from "../components/Icons/Snapchat";
 import Email from "../components/Icons/Email";
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+
 import {
     WhatsappShareButton,
     FacebookShareButton,
@@ -16,7 +17,6 @@ import {
     TwitterShareButton,
 } from 'react-share';
 import Wechat from "../components/Icons/Wechat";
-
 
 
 export const defaultBgImage = require('../assets/images/bg2.svg');
@@ -55,64 +55,66 @@ export const userTabContent = [
     }
 ]
 
-const phoneLink = (phone:string | null) => `tel:${phone}`;
+const phoneLink = (phone: string | null) => `tel:${phone}`;
 
-const emailLink = (email:string | null) => `mailto:${email}`;
+const emailLink = (email: string | null) => `mailto:${email}`;
 
 
-
-interface contactsInfo{
-    label:string;
-    value:string;
-    link:string;
-    img: string
+interface contactsInfo {
+    label: string;
+    value: string;
+    link: string;
+    img?: any;
 }
 
-export const outContactsInfo = (data: User):contactsInfo[] => {
+export const outContactsInfo = (data: User): contactsInfo[] => {
     const {personalPhone, workPhone, workEmail, email, workWebsite, otherWebsite} = data;
-
+    console.log(PhoneIphoneIcon)
     return [
         {
             label: "MOBILE",
             value: personalPhone,
             link: phoneLink(personalPhone),
-            img: require("../assets/images/MobilePhone.svg")
+            img: <PhoneIphoneIcon/>,
         },
         {
             label: "PHONE",
             value: workPhone,
             link: phoneLink(workPhone),
-            img: require("../assets/images/MobileTel.svg")
+            img: <PhoneIphoneIcon/>,
         },
         {
             label: "EMAIL",
             value: workEmail,
             link: emailLink(workEmail),
-            img: require("../assets/images/MobileSms.svg")
+            img: <PhoneIphoneIcon/>
         },
         {
             label: "EMAIL",
             value: email,
             link: emailLink(email),
-            img: require("../assets/images/MobileSms.svg")
+            img: <PhoneIphoneIcon/>
+
         },
         {
             label: "WEBSITE",
             value: workWebsite?.slice(8),
-            link:workWebsite,
-            img: require("../assets/images/MobileWebsite.svg")
+            link: workWebsite,
+            img: <PhoneIphoneIcon/>
+
         },
         {
             label: "WEBSITE",
             value: otherWebsite,
             link: otherWebsite,
-            img: require("../assets/images/MobileWebsite.svg")
+            img: <PhoneIphoneIcon/>
+
         },
     ].filter(el => !!el.value);
 }
 
 
-export const socialsOut = (data:User):any => {
+export const socialsOut = (data: User): any => {
     const {
         instagram,
         facebook,
@@ -191,12 +193,12 @@ export const socialsOut = (data:User):any => {
 }
 
 
-interface shareSocialType{
-    shareBtn:any;
-    icon:any
+interface shareSocialType {
+    shareBtn: any;
+    icon: any
 }
 
-export const shareSocials:shareSocialType[] = [
+export const shareSocials: shareSocialType[] = [
     {
         shareBtn: FacebookShareButton,
         icon: FacebookOutlined,
@@ -243,7 +245,7 @@ export const questions = [
     {
         id: 1,
         title: "What phones are compatible?",
-            content: "Limitless Connection works with all modern smartphones <br /> hello world",
+        content: "Limitless Connection works with all modern smartphones <br /> hello world",
         isVideoSide: true,
     },
     {
@@ -331,14 +333,13 @@ export const buyCardCounts = [
     10
 ]
 
-
 type footerLinkItem = {
     isRelativePath: boolean;
     link: string;
     title: string;
 }
 
-export const footerLinks:footerLinkItem[] = [
+export const footerLinks: footerLinkItem[] = [
 
     {
         isRelativePath: false,
@@ -360,7 +361,7 @@ type socialType = {
     title: string
 }
 
-export const socials:socialType[] = [
+export const socials: socialType[] = [
     {
         icon: WhatsappRounded,
         link: "https://wa.me/971528906238",

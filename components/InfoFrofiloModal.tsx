@@ -1,76 +1,9 @@
-// import {useAppDispatch, useAppSelector} from "../hooks/redux";
-// import {selectMainState} from "../store/selector/main";
-// import {setSimpleModalActive, setInfoProfiloModal} from "../store/reducers/main";
-// import {Box, IconButton, Modal, Theme, Typography} from "@mui/material";
-// import {makeStyles} from "@mui/styles";
-// import {media} from "../utility/media";
-// import CloseIcon from "@mui/icons-material/Close";
-
-//
-// const useStyles = makeStyles((theme:Theme) => ({
-//     modal: {
-//         maxWidth: media(320, 360),
-//         width: '100%',
-//         zIndex: 300,
-//         position: 'absolute',
-//         top: '50%',
-//         left: '50%',
-//         transform: 'translate(-50%, -50%)',
-//         background: "#878787",
-//         borderRadius: '15px',
-//         padding: `${media(30, 40)} ${media(20, 26)}`,
-//
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         outline: 'none',
-//         border: 'none',
-//     },
-//     closeBtn: {
-//         position: 'absolute',
-//         right: 5,
-//         top: 5,
-//     },
-//     closeIcon: {
-//         fontSize: media(20, 22),
-//         color: theme.palette.secondary.main,
-//     }
-// }));
-//
-//
-// const InfoPortfolioModal:FC = () => {
-//     const styles = useStyles();
-//     const mainState = useAppSelector(selectMainState);
-//     const dispatch = useAppDispatch();
-//
-//     const handleClose = () => {
-//         dispatch(setInfoProfiloModal(false));
-//     }
-//     return (
-//         <Modal open={mainState.setInfoProfiloModal} onClose={handleClose}>
-//             <Box className={styles.modal}>
-//                 <IconButton className={styles.closeBtn} onClick={handleClose}>
-//                     <CloseIcon className={styles.closeIcon} />
-//                 </IconButton>
-//                 <Typography textAlign="left" fontSize={media(13, 15)} fontWeight="400" color="secondary">
-//                     {mainState.simpleModalMessage}
-//                 </Typography>
-//             </Box>
-//         </Modal>
-//     )
-// }
-//
-//
-// export default InfoPortfolioModal;
-
-
 import {FC, useEffect, useRef, useState} from "react";
 import {Box, Button, IconButton, Modal, Paper, Switch, Theme, Typography, FormControlLabel} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Formik} from 'formik';
 import {setInfoProfiloModal} from "../store/reducers/main";
 
-import * as yup from 'yup';
 import BaseInput from "./Form/BaseInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {selectAuth} from "../store/selector/auth";
@@ -253,7 +186,7 @@ const InfoPortfolioModal: FC = () => {
                 position: 'absolute',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: 16,
+                width: 160,
                 height: 16,
             },
             '&:before': {
@@ -358,15 +291,12 @@ const InfoPortfolioModal: FC = () => {
                     <CloseIcon className={styles.closeIcon}/>
                 </IconButton>
                 <Paper className={styles.paperBack} style={{background: `url(${outBg()}) no-repeat center/cover`}}>
-                    {/**/}
                     {
                         authState.profile.avatarHidden === true ? <><Box
                             >
                             <Box/>
                         </Box></> :  <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
                     }
-
-                    {/*<ModeSwitch onChange={btnStart} checked={bool}/>*/}
                 </Paper>
                 <Box style={{display: "flex", justifyContent: "space-between"}}>
                     <Button className={styles.editButton} onClick={handleOpenBgUploadModal}>Edit background</Button>

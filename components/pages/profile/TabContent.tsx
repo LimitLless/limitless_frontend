@@ -146,94 +146,11 @@ export const ContactsInfo: FC = () => {
         }
         setLoadings(false)
         setExit(true)
-        // actions.setSubmitting(false);
     };
 
     return (
         <>
-
-
-            {/*<Formik*/}
-            {/*    enableReinitialize*/}
-            {/*    initialValues={initialValues1}*/}
-            {/*    validationSchema={workInfoValidationSchema}*/}
-            {/*    onSubmit={async (values, actions) => {*/}
-            {/*        const difference = checkTheDifference(initialValues1, values);*/}
-            {/*        actions.setStatus("");*/}
-            {/*        if (!difference.isChanged) {*/}
-            {/*            actions.setStatus("Nothing is changed");*/}
-            {/*            actions.setSubmitting(false);*/}
-            {/*            return;*/}
-            {/*        }*/}
-            {/*        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...values})).unwrap();*/}
-            {/*        if (!result.success) {*/}
-            {/*            actions.setStatus(result.message);*/}
-            {/*        }*/}
-            {/*        setExit(true)*/}
-            {/*        actions.setSubmitting(false);*/}
-
-            {/*    }}*/}
-            {/*>*/}
-            {/*    {(formik) => (*/}
-            {/*        <form onSubmit={formik.handleSubmit} className={styles.form}>*/}
-            {/*            <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}*/}
-            {/*                     active={formik.isSubmitting}/>*/}
-            {/*            /!*<Head>*!/*/}
-            {/*            /!*    {Object.entries(fonts).map((elem: any, i: number) => elem[1].link(i))}*!/*/}
-            {/*            /!*</Head>*!/*/}
-            {/*            /!*<Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>*!/*/}
-            {/*            /!*</Box>*!/*/}
-            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
-            {/*                <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>*/}
-            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}}*/}
-            {/*                           placeholder="workPhone" name="workPhone" id="workPhone" type="text"/>*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
-            {/*                <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>*/}
-            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}}*/}
-            {/*                           placeholder="personalPhone" name="personalPhone" id="personalPhone" type="text"/>*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
-            {/*                <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>*/}
-            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="email" name="email" id="email"*/}
-            {/*                           type="email"/>*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{display: "flex", margin: "20px 0"}}>*/}
-            {/*                <img src={require("./../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>*/}
-            {/*                <BaseInput style={{textAlign: 'start', margin: "5px 0"}} placeholder="workWebsite" name="workWebsite" id="workWebsite"*/}
-            {/*                           type="text"/>*/}
-            {/*            </Box>*/}
-
-
-
-
-            {/*            */}
-            {/*            <Box className={styles.wrapper}>*/}
-            {/*                {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (*/}
-            {/*                    <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal} key={elem[0]}>{elem[1].title}</DarkButton>*/}
-            {/*                ))}*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{textAlign: "center"}}>*/}
-            {/*                <BaseButton classes={styles.button1} type="submit">Save</BaseButton>*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{textAlign: "center"}}>*/}
-            {/*                {exit && <BaseButton classes={styles.button1} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>Exit</BaseButton>}*/}
-            {/*            </Box>*/}
-            {/*            <Box style={{textAlign: "center"}}>*/}
-            {/*                {!!formik.status && (*/}
-            {/*                    <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">*/}
-            {/*                        {formik.status}*/}
-            {/*                    </Typography>*/}
-            {/*                )}*/}
-            {/*            </Box>*/}
-
-
-            {/*        </form>*/}
-            {/*    )}*/}
-            {/*</Formik>*/}
-
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                {/* register your input into the hook by invoking the "register" function */}
                             <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
                                      active={loadings}/>
                 <Box style={{display: "flex", margin: "20px 0"}}>
@@ -263,16 +180,6 @@ export const ContactsInfo: FC = () => {
                     <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
                     <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
                 </Box>
-
-                {/*<Box className={styles.wrapper}>*/}
-                {/*    {Object.entries(profileActions).filter((el: any) => !!el[1].isOut).map((elem: any) => (*/}
-                {/*        <DarkButton style={{width: "100%"}} onClick={elem[1].handleOpenModal}*/}
-                {/*                    key={elem[0]}>{elem[1].title}</DarkButton>*/}
-                {/*    ))}*/}
-                {/*</Box>*/}
-
-                {/* include validation with required or other standard HTML validation rules */}
-                {/*<input {...register("exampleRequired", { required: true })} />*/}
                 <Box style={{textAlign: "center"}}>
                     <BaseButton classes={styles.button1} type="submit">SAVE</BaseButton>
                 </Box>

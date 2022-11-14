@@ -53,6 +53,7 @@ export const UserTabs:FC<Props> = ({value, onChange}: Props) => {
             {userTabList.map((elem:any) => (
                 <Tab key={elem.id} value={elem.id} className={clsx(styles.tab, 'tab__item', {dark: isDarkMode})} icon={<elem.icon className={clsx(styles.tabIcon, {dark: isDarkMode})} />} />
             ))}
+
         </Tabs>
     )
 }
