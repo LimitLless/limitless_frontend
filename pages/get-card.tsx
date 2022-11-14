@@ -729,7 +729,7 @@ const GetCard: NextPage = () => {
                                             <input placeholder="Last name" type="text"
                                                    className={errors.last_name ? styles.inputDataError : styles.inputData} {...register("last_name", {required: true})} />
 
-                                            <input placeholder="Mobile" type="tel"
+                                            <input placeholder="Phone" type="tel"
                                                    className={errors.mobile ? styles.inputDataError : styles.inputData} {...register("mobile", {required: true})} />
                                             <input placeholder="Email" type="email"
                                                    className={errors.email ? styles.inputDataError : styles.inputData} {...register("email", {required: true})} />
