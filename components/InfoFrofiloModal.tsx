@@ -282,7 +282,7 @@ const InfoPortfolioModal: FC = () => {
                 dispatch(setProfile(data));
             })
 
-    }, [bool])
+    }, [authState.profile.uniqueId, bool, dispatch])
 
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>

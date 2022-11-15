@@ -116,7 +116,7 @@ const Profile: NextPage = () => {
             dispatch(setModalWithFormActive(false));
             dispatch(setModalWithFormData(null));
         }
-    }, []);
+    }, [dispatch]);
 
     const outBg = () => {
         return authState.profile.bg ? authState.profile.bg : defaultBgImage;
@@ -146,7 +146,6 @@ const Profile: NextPage = () => {
     }
 
     useEffect(() => {
-        console.log(bool)
         const formData = new FormData()
         formData.append("avatarHidden", bool)
         axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
@@ -159,7 +158,7 @@ const Profile: NextPage = () => {
                 dispatch(setProfile(data));
             })
 
-    }, [bool])
+    }, [authState.profile.uniqueId, bool, dispatch])
 
 
     const ModeSwitch = styled(Switch)(({theme}) => ({
