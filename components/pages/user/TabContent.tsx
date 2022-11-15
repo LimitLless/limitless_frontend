@@ -70,9 +70,6 @@ export const ContactsInfo: FC = () => {
 
                     <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
 
-                    <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
-                    <div className={styles.icons}>{elem.img}</div>
-
                     <Typography style={{fontFamily: requiredFontFamilies['KANIT'].fontFamily}} fontSize={media(16, 18)}
                                 className={clsx(styles.value, {dark: isDarkMode})}>
                         {elem.value}
