@@ -211,7 +211,7 @@ const Profile: NextPage = () => {
                     <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`}}>
                         <Box className={styles.bgBox1}>
                             {
-                                authState.profile.avatarHidden === true ? <><Box
+                                !authState.profile.avatarHidden === true ? <><Box
                                     className={styles.avatarHolder}>
                                     <Box className={styles.box}/>
                                 </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
