@@ -45,7 +45,7 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
     icons: {
         marginRight: '20px',
         fontSize: '28px',
-        paddingTop: '2px'
+        paddingTop: '2px',
         color:theme.palette.primary.main,
         '&.dark': {
             color: theme.palette.secondary.main,
