@@ -1,13 +1,17 @@
 import PhoneIcon from '@mui/icons-material/Phone';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import {ContactsInfo, Socials, WorkInfo} from "../components/pages/user/TabContent";
 import {User} from "../models/user";
 import TikTok from "../components/Icons/TikTok";
 import {Instagram, FacebookOutlined, WhatsappRounded, LinkedIn, Telegram, Twitter, YouTube} from "@mui/icons-material";
 import Snapchat from "../components/Icons/Snapchat";
 import Email from "../components/Icons/Email";
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import CallIcon from '@mui/icons-material/Call';
+import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
+import PublicIcon from '@mui/icons-material/Public';
+
 
 import {
     WhatsappShareButton,
@@ -81,33 +85,33 @@ export const outContactsInfo = (data: User): contactsInfo[] => {
             label: "PHONE",
             value: workPhone,
             link: phoneLink(workPhone),
-            img: <PhoneIphoneIcon/>,
+            img: <CallIcon/>,
         },
         {
             label: "EMAIL",
             value: workEmail,
             link: emailLink(workEmail),
-            img: <PhoneIphoneIcon/>
+            img: <LocalPostOfficeIcon/>
         },
         {
             label: "EMAIL",
             value: email,
             link: emailLink(email),
-            img: <PhoneIphoneIcon/>
+            img: <LocalPostOfficeIcon/>
 
         },
         {
             label: "WEBSITE",
             value: workWebsite?.slice(8),
             link: workWebsite,
-            img: <PhoneIphoneIcon/>
+            img: <PublicIcon/>
 
         },
         {
             label: "WEBSITE",
             value: otherWebsite,
             link: otherWebsite,
-            img: <PhoneIphoneIcon/>
+            img: <PublicIcon/>
 
         },
     ].filter(el => !!el.value);
