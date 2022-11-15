@@ -45,15 +45,8 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
     icons: {
         marginRight: '20px',
         fontSize: '28px',
-        color:theme.palette.primary.main,
-        '&.dark': {
-            color: theme.palette.secondary.main,
-        }
+        paddingTop: '2px'
     },
-        color: theme.palette.secondary.main,
-
-    },
-
 }));
 
 
@@ -71,10 +64,7 @@ export const ContactsInfo: FC = () => {
             {userInfo.length ? userInfo.map((elem, i) => (
                 <MuiLink underline="none" key={i} href={elem.link} className={styles.link}>
 
-                    {/*<img src={elem.img} alt=""  className={styles.icons}/>*/}
-
                     <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
-                    <div className={styles.icons}>{elem.img}</div>
 
                     <Typography style={{fontFamily: requiredFontFamilies['KANIT'].fontFamily}} fontSize={media(16, 18)}
                                 className={clsx(styles.value, {dark: isDarkMode})}>
@@ -148,6 +138,7 @@ const useWorkInfoStyles = makeStyles((theme: Theme) => ({
         }
     }
 }));
+
 interface arr {
     title: string,
     subtitle: string,
