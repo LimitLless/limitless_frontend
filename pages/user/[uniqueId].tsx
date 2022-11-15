@@ -61,7 +61,7 @@ const User = ({userInfo}: InferGetServerSidePropsType<typeof getServerSideProps>
         if(userInfo.notFound || userInfo.error){
             router.push(userInfo.notFound ? '/404' : '/500');
         }
-    }, [userInfo.notFound, userInfo.error]);
+    }, [userInfo.notFound, userInfo.error, router]);
 
     if(userInfo.notFound || userInfo.error){
         return "";

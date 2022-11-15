@@ -13,7 +13,7 @@ const OnceActions:FC = () => {
     useEffect(() => {
         dispatch(check());
         dispatch(getCards());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         router.events.on('routeChangeStart', () => dispatch(setLoading(true)));
@@ -25,7 +25,7 @@ const OnceActions:FC = () => {
             router.events.off('routeChangeComplete', () => dispatch(setLoading(true)));
             router.events.off('routeChangeError', () => dispatch(setLoading(true)));
         };
-    }, [router]);
+    }, [router, dispatch]);
 
     return null;
 }
