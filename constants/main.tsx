@@ -73,7 +73,7 @@ interface contactsInfo {
 
 export const outContactsInfo = (data: User): contactsInfo[] => {
     const {personalPhone, workPhone, workEmail, email, workWebsite, otherWebsite} = data;
-    console.log(PhoneIphoneIcon)
+    console.log(data)
     return [
         {
             label: "MOBILE",

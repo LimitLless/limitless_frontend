@@ -1,4 +1,4 @@
-import {InferGetServerSidePropsType, GetServerSidePropsContext} from 'next'
+    import  {InferGetServerSidePropsType, GetServerSidePropsContext} from 'next'
 import {createContext, useContext, useEffect, useState} from "react";
 import {fetchUser, fetchUserInterface} from "../../actions/user";
 import Preload from "../../components/Preload";
