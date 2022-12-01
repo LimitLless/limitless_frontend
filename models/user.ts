@@ -12,8 +12,8 @@ export interface User{
     position: string | null;
     workPhone: string | null,
     "personalPhone": string | null,
-    "workEmail": string | null,
     "email": string | null,
+    "workEmail": string | null,
     "user_video": any ,
     "workWebsite": string | null,
     "otherWebsite": string | null,

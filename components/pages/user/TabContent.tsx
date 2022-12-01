@@ -74,6 +74,7 @@ export const ContactsInfo: FC = () => {
                                 className={clsx(styles.value, {dark: isDarkMode})}>
                         {elem.value}
                     </Typography>
+
                 </MuiLink>
             )) : (
                 <Box sx={{width: '100%', py: media(15, 23)}}>

@@ -98,9 +98,9 @@ export const socials: socialsKeyType = {
     },
     tiktok: {
         icon: TikTokIcon,
-        placeholder: "Nickname",
-        save: (value) => value ? `https://tiktok.com/${value}` : null,
-        out: (value) => value ? value.replace('https://tiktok.com/', "") : ""
+        placeholder: "Paste link",
+        save: (value) => value ? value : null,
+        out: (value) => value ? value : "",
     },
     twitter: {
         icon: TwitterIcon,

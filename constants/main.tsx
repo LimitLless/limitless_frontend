@@ -62,6 +62,7 @@ export const userTabContent = [
 const phoneLink = (phone: string | null) => `tel:${phone}`;
 
 const emailLink = (email: string | null) => `mailto:${email}`;
+const workEmailLink = (workEmail: string | null) => `mailto:${workEmail}`;
 
 
 interface contactsInfo {
@@ -87,18 +88,19 @@ export const outContactsInfo = (data: User): contactsInfo[] => {
             link: phoneLink(workPhone),
             img: <CallIcon/>,
         },
-        {
-            label: "EMAIL",
-            value: workEmail,
-            link: emailLink(workEmail),
-            img: <LocalPostOfficeIcon/>
-        },
+
         {
             label: "EMAIL",
             value: email,
             link: emailLink(email),
             img: <LocalPostOfficeIcon/>
 
+        },
+        {
+            label: "WORK-EMAIL",
+            value: workEmail,
+            link: workEmailLink(workEmail),
+            img: <LocalPostOfficeIcon/>
         },
         {
             label: "WEBSITE",
@@ -108,7 +110,7 @@ export const outContactsInfo = (data: User): contactsInfo[] => {
 
         },
         {
-            label: "WEBSITE",
+            label: "WEBSITE-OTHER",
             value: otherWebsite,
             link: otherWebsite,
             img: <PublicIcon/>

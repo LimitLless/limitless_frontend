@@ -557,7 +557,6 @@ const GetCard: NextPage = () => {
 
                     </>
 
-
                 )
             }
             return null;
