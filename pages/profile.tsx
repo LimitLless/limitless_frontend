@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     checkBox: {
         width: "40px",
         height: "40px",
-        marginLeft: "25px",
+        marginLeft:"25px",
         marginBottom: "20px",
         cursor: "pointer"
     },
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         "&:hover": {
             background: "#dcd9d9",
         }
-    },
+    }
 }));
 
 
@@ -112,11 +112,21 @@ const Profile: NextPage = () => {
     const [bool, setBool]: any = useState(authState.profile.avatarHidden)
 
     useEffect(() => {
+
         return () => {
             dispatch(setModalWithFormActive(false));
             dispatch(setModalWithFormData(null));
         }
-    }, [dispatch]);
+    }, []);
+
+    // useEffect(() => {
+    //     if (authState.authInfoLoaded) {
+    //         if (authState.isAuth && !authState.profile.email) {
+    //             dispatch(setModalWithFormData('PERSONAL_EMAIL'));
+    //             dispatch(setModalWithFormActive(true));
+    //         }
+    //     }
+    // }, [authState.authInfoLoaded]);
 
     const outBg = () => {
         return authState.profile.bg ? authState.profile.bg : defaultBgImage;
@@ -146,6 +156,7 @@ const Profile: NextPage = () => {
     }
 
     useEffect(() => {
+        console.log(bool)
         const formData = new FormData()
         formData.append("avatarHidden", bool)
         axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
@@ -158,10 +169,10 @@ const Profile: NextPage = () => {
                 dispatch(setProfile(data));
             })
 
-    }, [authState.profile.uniqueId, bool, dispatch])
+    }, [bool])
 
 
-    const ModeSwitch = styled(Switch)(({theme}) => ({
+    const ModeSwitch = styled(Switch)(({ theme }) => ({
         padding: 8,
         right: 10,
         bottom: 10,
@@ -186,12 +197,13 @@ const Profile: NextPage = () => {
             },
         },
         '& .MuiSwitch-thumb': {
-            background: "white",
+            background:"white",
             boxShadow: 'none',
             width: 16,
             height: 16,
             margin: 2,
         },
+
 
     }));
 
@@ -210,26 +222,27 @@ const Profile: NextPage = () => {
                 <Box className={styles.topSideBox}>
                     <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`}}>
                         <Box className={styles.bgBox1}>
+                            {/*<Button className={styles.bgButton} onClick={handleOpenAvatarUploadModal}>Avatar</Button>*/}
+
                             {
                                 !authState.profile.avatarHidden === true ? <><Box
-
-                                       className={styles.avatarHolder}>
-
-                                    className={styles.avatarHolder}
-
+                                    className={styles.avatarHolder}>
                                     <Box className={styles.box}/>
-                                </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
+                                </Box></> :  <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
+                            {/*<Button className={styles.bgButton} onClick={handleOpenBgUploadModal}>Background</Button>*/}
                         </Box>
+                        {/*<input className={styles.checkBox} onChange={btnStart} checked={bool} type="checkbox"/>*/}
+                        {/*<ModeSwitch onChange={btnStart} checked={bool}/>*/}
+
                     </Box>
 
                     <Box className={styles.editUserInfoBox}>
+                        {/*<DarkButton onClick={INFO.handleOpenModal}>Edit name and position</DarkButton>*/}
                         <DarkButton onClick={() => dispatch(setInfoProfiloModal(true))}>EDIT PROFILE</DarkButton>
                     </Box>
                 </Box>
-
                 <UserTabs value={authState.selectedTab} onChange={handleTabChange}/>
-
                 <Box className={styles.content}>
                     {profileTabContent.map((elem, i) => (
                         <TabContent key={elem.id} id={elem.id} selectedTab={authState.selectedTab}>
