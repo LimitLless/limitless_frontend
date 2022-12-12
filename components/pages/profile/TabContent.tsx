@@ -113,6 +113,7 @@ export const ContactsInfo: FC = () => {
     const router = useRouter()
 
 
+
     const initialValues1 = {
         workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
         personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
@@ -125,6 +126,13 @@ export const ContactsInfo: FC = () => {
     const [exit, setExit] = useState(false)
     const [loadings, setLoadings] = useState(false)
     const [change, setChange] = useState('')
+    const [count, setCount] = useState()
+
+    useEffect(() => {
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}`).then(({ data }) => {
+             setCount(data.total_count);
+        });
+    },[])
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async (data:any) => {
@@ -210,6 +218,12 @@ export const ContactsInfo: FC = () => {
                         <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
                             {change}
                         </Typography>
+                </Box>
+                <Box style={{textAlign: 'center', paddingTop: "20px"}}>
+                    <Box style={{ width: "230px", background: "#454A50", margin: "0 auto", display: "flex", borderRadius: "10px"}}>
+                        <Box style={{color: "white",width:'30%', display: "flex", alignItems: "center", justifyContent: "center", fontSize: "30px", fontWeight: "600", borderRight: "1px solid black"}}>{count}</Box>
+                        <Box style={{color: "white",width:'70%', padding: "15px 5px"}}>people saved you</Box>
+                    </Box>
                 </Box>
             </form>
 
