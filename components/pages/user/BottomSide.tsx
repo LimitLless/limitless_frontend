@@ -76,7 +76,7 @@ const BottomSide = () => {
     };
     api.post("users/save-contact/count/", data).then(({ data }) => {
       console.log(data);
-      window.location.href = `${process.env.API_URL}users/save-contact/${data.uniqueId}`;
+      window.location.href = `${process.env.API_URL}users/save-contact/${user.data.uniqueId}`;
     });
     // api.get(`users/save-contact/count/${user.data.uniqueId}`).then(({ data }) => {
     //     console.log(data);
