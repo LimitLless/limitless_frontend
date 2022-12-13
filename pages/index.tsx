@@ -2,6 +2,9 @@ import type {NextPage} from 'next'
 import MainLayout from "../layouts/Main";
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import {useEffect, useState} from "react";
+import ClipLoader from 'spinners-react'
+
 const Banner = dynamic(() => import('../components/pages/home/Banner'));
 const EasyToUse = dynamic(() => import('../components/pages/home/EasyToUse'));
 const Cards = dynamic(() => import('../components/pages/home/Cards'));
@@ -12,19 +15,35 @@ const VideoYou = dynamic(() => import('../components/pages/home/VideoYou'));
 const Forms = dynamic(() => import('../components/pages/home/Forms'));
 
 const Home: NextPage = () => {
-
-
+    const [loading, setLoading] = useState<Boolean>(true)
+    useEffect(() => {
+        setTimeout(()=>{
+            setLoading(false)
+        },2000)
+    }, [])
     return (
-        <MainLayout showFooter={true}>
-            <Banner/>
-            <EasyToUse/>
-            <INTERFACE/>
-            <Cards/>
-            <Information/>
-            <VideoYou/>
-            <About/>
-            <Forms/>
-        </MainLayout>
+        <>
+            {
+                loading ? <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100vw',
+                        height: '100vh'
+                    }}><h1 style={{fontSize: '30px', color: '#00BFFF'}}>Loading...</h1></div> :
+                    <MainLayout showFooter={true}>
+                        <Banner/>
+                        <EasyToUse/>
+                        <INTERFACE/>
+                        <Cards/>
+                        <Information/>
+                        <VideoYou/>
+                        <About/>
+                        <Forms/>
+                    </MainLayout>
+            }
+        </>
+
     )
 }
 
