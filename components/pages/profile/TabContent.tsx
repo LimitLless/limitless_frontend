@@ -10,10 +10,10 @@ import {selectAuth} from "../../../store/selector/auth";
 import {fonts} from "../../../constants/fonts";
 import BaseInput from "../../Form/BaseInput";
 import BaseButton from "../../Form/BaseButton";
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import * as yup from 'yup';
-import { SpinnerCircular } from 'spinners-react';
-import { useForm } from "react-hook-form";
+import {SpinnerCircular} from 'spinners-react';
+import {useForm} from "react-hook-form";
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 
 
@@ -27,12 +27,19 @@ import {websiteRegex} from "../../../constants/regex";
 import clsx from "clsx";
 import {useUserContext} from "../../../pages/user/[uniqueId]";
 import {selectIsDarkMode} from "../../../store/selector/main";
-import {setUsersImageModal, setUploadImageModal, setUploadVideoModal, setVideosCard, setImagesCard} from "../../../store/reducers/auth";
+import {
+    setUsersImageModal,
+    setUploadImageModal,
+    setUploadVideoModal,
+    setVideosCard,
+    setImagesCard
+} from "../../../store/reducers/auth";
 
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import DarkButton from "./DarkButton";
+
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
@@ -113,7 +120,6 @@ export const ContactsInfo: FC = () => {
     const router = useRouter()
 
 
-
     const initialValues1 = {
         workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
         personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
@@ -127,16 +133,67 @@ export const ContactsInfo: FC = () => {
     const [loadings, setLoadings] = useState(false)
     const [change, setChange] = useState('')
     const [count, setCount] = useState()
+    const [year, setYear] = useState([])
+    const [month, setMonth] = useState([])
+    const [day, setDay] = useState([])
+
+    //year
+    const YearStatistic = year.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const yearTotal = YearStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    //month
+    const MonthStatistic = month.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const monthTotal = MonthStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    //day
+    const DayStatistic = day.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const dayTotal = DayStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    const statisticSaved=[
+        {
+            title: 'in Day',
+            countTotal: dayTotal
+        },
+        {
+            title: 'in Month',
+            countTotal: monthTotal
+        },
+        {
+            title: 'in Year',
+            countTotal: yearTotal
+        },
+    ]
 
     useEffect(() => {
-        api.get(`users/save-contact/count/${authState.profile.uniqueId}`).then(({ data }) => {
-             setCount(data.total_count);
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}`).then(({data}) => {
+            setCount(data.total_count);
         });
-    },[])
+        api.get('users/save-contact/counts/?count_filter_period=year').then(({data}) => {
+            setYear(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=month').then(({data}) => {
+            setMonth(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=day').then(({data}) => {
+            setDay(data)
+        })
+    }, [])
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = async (data:any) => {
-       // alert(JSON.stringify(data))
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const onSubmit = async (data: any) => {
+        // alert(JSON.stringify(data))
 
         const data2 = {
             workPhone: data.workPhone,
@@ -163,20 +220,23 @@ export const ContactsInfo: FC = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                            <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
-                                     active={loadings}/>
+                <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
+                         active={loadings}/>
                 <Box style={{display: "flex", margin: "20px 0"}}>
 
-                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workPhone} type={"text"}  placeholder="Phone" className={styles.baseInput}  {...register("workPhone")} />
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workPhone} type={"text"} placeholder="Phone"
+                           className={styles.baseInput}  {...register("workPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
+                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.personalPhone} type={"text"} placeholder="Mobile"
+                           className={styles.baseInput}  {...register("personalPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.email} placeholder="Email" type="email" className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.email} placeholder="Email" type="email"
+                           className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
                         required: true,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -185,8 +245,9 @@ export const ContactsInfo: FC = () => {
                     })} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email"
+                           className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
                         required: false,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -195,17 +256,22 @@ export const ContactsInfo: FC = () => {
                     })} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt=""
+                         style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workWebsite} type={"text"} placeholder="Website"
+                           className={styles.baseInput}  {...register("workWebsite")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.otherWebsite}  type={"text"} placeholder="Other Website" className={styles.baseInput}  {...register("otherWebsite")} />
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt=""
+                         style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.otherWebsite} type={"text"} placeholder="Other Website"
+                           className={styles.baseInput}  {...register("otherWebsite")} />
                 </Box>
 
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit
+                        password</DarkButton>
                 </Box>
                 <Box style={{textAlign: "center"}}>
                     <BaseButton classes={styles.button1} type="submit">SAVE</BaseButton>
@@ -215,21 +281,66 @@ export const ContactsInfo: FC = () => {
                                          onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                 </Box>
                 <Box style={{textAlign: "center"}}>
-                        <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
-                            {change}
-                        </Typography>
+                    <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
+                        {change}
+                    </Typography>
                 </Box>
+
+                {
+                    statisticSaved.map((el, idx)=>(
+                        <Box key={idx} style={{textAlign: 'center', paddingTop: "20px", display: 'flex',}}>
+                            <Box style={{color: ' #8D8D8D;', fontSize: '14px', fontWeight: '400'}}>{el.title}</Box>
+                            <Box style={{
+                                width: "230px",
+                                background: "#454A50",
+                                margin: "0 auto",
+                                display: "flex",
+                                borderRadius: "10px"
+                            }}>
+                                <Box style={{
+                                    color: "white",
+                                    width: '30%',
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontSize: "30px",
+                                    fontWeight: "600",
+                                    borderRight: "1px solid black"
+                                }}>{el.countTotal}</Box>
+                                <Box style={{color: "white", width: '70%', padding: "10px 5px"}}>people saved you</Box>
+                            </Box>
+                        </Box>
+                    ))
+                }
+
+
                 <Box style={{textAlign: 'center', paddingTop: "20px"}}>
-                    <Box style={{ width: "230px", background: "#454A50", margin: "0 auto", display: "flex", borderRadius: "10px"}}>
-                        <Box style={{color: "white",width:'30%', display: "flex", alignItems: "center", justifyContent: "center", fontSize: "30px", fontWeight: "600", borderRight: "1px solid black"}}>{count}</Box>
-                        <Box style={{color: "white",width:'70%', padding: "15px 5px"}}>people saved you</Box>
+                    <Box style={{
+                        width: "230px",
+                        background: "#454A50",
+                        margin: "0 auto",
+                        display: "flex",
+                        borderRadius: "10px"
+                    }}>
+                        <Box style={{
+                            color: "white",
+                            width: '30%',
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "30px",
+                            fontWeight: "600",
+                            borderRight: "1px solid black"
+                        }}>{count}</Box>
+                        <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
                     </Box>
                 </Box>
+
             </form>
 
         </>
 
-    )
+    );
 }
 
 
@@ -382,35 +493,34 @@ export const WorkInfo: FC = () => {
 
     }, [accses])
 
-const getCards = () => {
-    fetch(`https://api.limitless-connection.com/api/v1/users/images/${authState?.profile?.uniqueId}`, {
-        headers: {
-            "Authorization": `Bearer ${accses}`,
-        }
-    }).then((res) => res.json())
-        .then((data) => {
-            setUserImages(data)
-        })
-        .catch(e => {
-            alert(JSON.stringify(e)+ "user_images")
-        })
-    fetch(`https://api.limitless-connection.com/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
-        headers: {
-            "Authorization": `Bearer ${accses}`,
-        }
-    }).then((res) => res.json())
-        .then((data) => {
-            setUserVideos(data)
-        })
-        .catch(e => {
-            alert(JSON.stringify(e)+ "user_video")
-        })
-}
+    const getCards = () => {
+        fetch(`https://api.limitless-connection.com/api/v1/users/images/${authState?.profile?.uniqueId}`, {
+            headers: {
+                "Authorization": `Bearer ${accses}`,
+            }
+        }).then((res) => res.json())
+            .then((data) => {
+                setUserImages(data)
+            })
+            .catch(e => {
+                alert(JSON.stringify(e) + "user_images")
+            })
+        fetch(`https://api.limitless-connection.com/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
+            headers: {
+                "Authorization": `Bearer ${accses}`,
+            }
+        }).then((res) => res.json())
+            .then((data) => {
+                setUserVideos(data)
+            })
+            .catch(e => {
+                alert(JSON.stringify(e) + "user_video")
+            })
+    }
 
 
-const [loadingCard, setLoadingCrad] = useState(false)
+    const [loadingCard, setLoadingCrad] = useState(false)
     const [exit, setExit] = useState(false)
-
 
 
     const initialValues = {
@@ -432,10 +542,10 @@ const [loadingCard, setLoadingCrad] = useState(false)
     }
 
 
-    const click = ():void => {
+    const click = (): void => {
         dispatch(setUsersImageModal(true))
     }
-    const click1 = ():void => {
+    const click1 = (): void => {
         dispatch(setUploadVideoModal(true))
     }
 
@@ -476,8 +586,6 @@ const [loadingCard, setLoadingCrad] = useState(false)
                 alert(JSON.stringify(e))
             })
     }
-
-
 
 
     return (
@@ -531,10 +639,12 @@ const [loadingCard, setLoadingCrad] = useState(false)
                                 </Select>
                             </FormControl>
                         </Box>
-                        <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
-                                   placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
-                        <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
-                                   placeholder="Company" name="title" id="title" type="text"/>
+                        <BaseInput
+                            style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
+                            placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
+                        <BaseInput
+                            style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
+                            placeholder="Company" name="title" id="title" type="text"/>
                         <BaseInput style={{textAlign: 'center'}} placeholder="Title" name="subtitle" id="subtitle"
                                    type="text"/>
                         <textarea
@@ -551,7 +661,8 @@ const [loadingCard, setLoadingCrad] = useState(false)
                         <BaseInput style={{textAlign: 'center'}} placeholder="Address" name="address" id="address"
                                    type="text"/>
                         <BaseButton classes={styles.button} type="submit">SAVE</BaseButton>
-                        {exit && <BaseButton classes={styles.button} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                        {exit && <BaseButton classes={styles.button}
+                                             onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                         {!!formik.status && (
                             <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
                                 {formik.status}
@@ -561,14 +672,15 @@ const [loadingCard, setLoadingCrad] = useState(false)
                         {
                             userVideos?.user_video?.length > 0 ?
                                 <>
-                                    {userVideos?.user_video?.map((esl:any) => (
+                                    {userVideos?.user_video?.map((esl: any) => (
                                         <>
                                             <iframe width="100%" height="308" src={esl.image}
                                                     title="YouTube video player" frameBorder="0"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                     allowFullScreen/>
                                             <Box>
-                                                <Button variant="outlined" color="error" onClick={() => deleteVideoss(esl)}>
+                                                <Button variant="outlined" color="error"
+                                                        onClick={() => deleteVideoss(esl)}>
                                                     Delete
                                                 </Button>
                                             </Box>
@@ -609,9 +721,11 @@ const [loadingCard, setLoadingCrad] = useState(false)
                                                     <Typography
                                                         className={clsx(styles.subtitle, styles.workInfoTitle, {dark: isDarkMode})}>{el.subtitle}</Typography>
                                                     <Button variant="outlined" color="error" onClick={() => deleteCard(el)}>
-                                                        {loadingCard ? <SpinnerCircular color="#ef5350" size="25"/> : "Delete"}
+                                                        {loadingCard ?
+                                                            <SpinnerCircular color="#ef5350" size="25"/> : "Delete"}
                                                     </Button>
-                                                    <Button variant="outlined" color="secondary" onClick={() => UploadModal(el)}
+                                                    <Button variant="outlined" color="secondary"
+                                                            onClick={() => UploadModal(el)}
                                                             style={{marginLeft: "20px"}}>
                                                         Change
                                                     </Button>
@@ -751,7 +865,8 @@ export const Socials: FC = () => {
                         <BaseButton style={{width: "20%"}} type="submit">SAVE</BaseButton>
                     </Box>
                     <Box style={{textAlign: 'center'}}>
-                        {exit && <BaseButton style={{width: "20%"}} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                        {exit && <BaseButton style={{width: "20%"}}
+                                             onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                     </Box>
                     {!!formik.status && (
                         <Typography textAlign="center" fontSize={media(16, 18)} fontWeight="500" color="secondary">
