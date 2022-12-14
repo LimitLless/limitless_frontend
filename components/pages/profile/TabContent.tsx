@@ -338,13 +338,14 @@ export const ContactsInfo: FC = () => {
                 }
 
 
-                <Box style={{textAlign: 'center', paddingTop: "40px", marginLeft: '80px'}}>
+                <Box className={styles.counter}>
+                    <Box className={styles.countGeneral}>Total count</Box>
                     <Box style={{
                         width: "230px",
                         background: "#454A50",
-                        margin: "0 auto",
                         display: "flex",
-                        borderRadius: "10px"
+                        borderRadius: "10px",
+
                     }}>
                         <Box style={{
                             color: "white",
@@ -359,7 +360,6 @@ export const ContactsInfo: FC = () => {
                         <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
                     </Box>
                 </Box>
-
             </form>
 
         </>
