@@ -50,7 +50,6 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-
         padding: `${media(5, 5)} 0`,
     },
     button: {
@@ -108,6 +107,26 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
             border: '1px solid rgba(154,154,154,0)',
             outline: 'none'
         }
+    },
+    counter: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '25px 0'
+    },
+    titleTheme: {
+        textAlign: 'center',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#fff',
+        paddingTop: '20px'
+    },
+    countGeneral: {
+        fontSize:'14px',
+        fontWeight:'400',
+        color:' #8D8D8D',
+        marginRight: '1px',
+        width: '80px'
     }
 
 }));
@@ -161,7 +180,7 @@ export const ContactsInfo: FC = () => {
         return el.total_count ? el.total_count : 0
     })
 
-    const statisticSaved=[
+    const statisticSaved = [
         {
             title: 'in Day',
             countTotal: dayTotal
@@ -286,16 +305,21 @@ export const ContactsInfo: FC = () => {
                     </Typography>
                 </Box>
 
+
+                <div className={styles.titleTheme}>The people who saved you</div>
+
+
+
                 {
-                    statisticSaved.map((el, idx)=>(
-                        <Box key={idx} style={{textAlign: 'center', paddingTop: "20px", display: 'flex',}}>
-                            <Box style={{color: ' #8D8D8D;', fontSize: '14px', fontWeight: '400'}}>{el.title}</Box>
+                    statisticSaved.map((el, idx) => (
+                        <Box key={idx} className={styles.counter}>
+                            <Box className={styles.countGeneral}>{el.title}</Box>
                             <Box style={{
                                 width: "230px",
                                 background: "#454A50",
-                                margin: "0 auto",
                                 display: "flex",
-                                borderRadius: "10px"
+                                borderRadius: "10px",
+
                             }}>
                                 <Box style={{
                                     color: "white",
@@ -307,20 +331,21 @@ export const ContactsInfo: FC = () => {
                                     fontWeight: "600",
                                     borderRight: "1px solid black"
                                 }}>{el.countTotal}</Box>
-                                <Box style={{color: "white", width: '70%', padding: "10px 5px"}}>people saved you</Box>
+                                <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
                             </Box>
                         </Box>
                     ))
                 }
 
 
-                <Box style={{textAlign: 'center', paddingTop: "20px"}}>
+                <Box className={styles.counter}>
+                    <Box className={styles.countGeneral}>Total count</Box>
                     <Box style={{
                         width: "230px",
                         background: "#454A50",
-                        margin: "0 auto",
                         display: "flex",
-                        borderRadius: "10px"
+                        borderRadius: "10px",
+
                     }}>
                         <Box style={{
                             color: "white",
@@ -335,7 +360,6 @@ export const ContactsInfo: FC = () => {
                         <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
                     </Box>
                 </Box>
-
             </form>
 
         </>
