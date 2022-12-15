@@ -20,6 +20,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         setTimeout(()=>{
             setLoading(false)
+
         },1300)
     }, [])
     return (
@@ -37,6 +38,9 @@ const Home: NextPage = () => {
                         <CircularProgress />
 
                     </div> :
+
+                        height: '100vh'
+                    }}><h1 style={{fontSize: '30px', color: '#00BFFF'}}>Loading...</h1></div> :
                     <MainLayout showFooter={true}>
                         <Banner/>
                         <EasyToUse/>
