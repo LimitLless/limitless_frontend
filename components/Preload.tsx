@@ -1,5 +1,5 @@
-import {FC, useEffect} from "react";
-import {Box, Typography} from "@mui/material";
+import {FC, useEffect, useState} from "react";
+import {Box, CircularProgress, Typography} from "@mui/material";
 import {gsap} from "gsap";
 import {makeStyles} from '@mui/styles';
 import {media} from "../utility/media";
@@ -54,19 +54,40 @@ const Preload:FC<Props> = (props:Props) => {
             gsap.to('#preload-box', { y: `-${percent}`, opacity: 1, duration: 1.5 });
         }
     }, [props.isRemove]);
+    const [loading, setLoading] = useState<Boolean>(true)
+    useEffect(() => {
+        setTimeout(()=>{
+            setLoading(false)
+        },2000)
+    }, [])
     return (
-        <Box className={styles.wrapper} id="preload-wrapper">
-            <Box id="preload-box" className={styles.box}>
-                {props.title ? (
-                    <Typography letterSpacing="4px" textAlign="center" color="secondary" fontSize={media(18, 20)} fontWeight="400" fontFamily={fonts[props.fontFamily ? `${props.fontFamily}` : `SAIRA_STENCIL_ONE`].fontFamily}>
-                        {props.title}
-                    </Typography>
-                ) : (
+        <>
+            {
+                loading ? <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100vw',
+                        height: '100vh'
+                    }}><CircularProgress/></div> :
+                    <Box className={styles.wrapper} id="preload-wrapper">
+                        <Box id="preload-box" className={styles.box}>
+                            {props.title ? (
+                                <Typography letterSpacing="4px" textAlign="center" color="secondary"
+                                            fontSize={media(18, 20)} fontWeight="400"
+                                            fontFamily={fonts[props.fontFamily ? `${props.fontFamily}` : `SAIRA_STENCIL_ONE`].fontFamily}>
+                                    {props.title}
+                                </Typography>
+                            ) : (
 
-                    <img className={styles.logo} src={require('../public/images/welcomeLogo.svg')}  alt={""}/>
-                )}
-            </Box>
-        </Box>
+                                <img className={styles.logo} src={require('../public/images/welcomeLogo.svg')}
+                                     alt={""}/>
+                            )}
+                        </Box>
+                    </Box>
+            }
+        </>
+
     )
 }
 

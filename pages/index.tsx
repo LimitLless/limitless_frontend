@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import {useEffect, useState} from "react";
 import ClipLoader from 'spinners-react'
+import {CircularProgress} from "@mui/material";
 
 const Banner = dynamic(() => import('../components/pages/home/Banner'));
 const EasyToUse = dynamic(() => import('../components/pages/home/EasyToUse'));
@@ -19,7 +20,7 @@ const Home: NextPage = () => {
     useEffect(() => {
         setTimeout(()=>{
             setLoading(false)
-        },2000)
+        },1500)
     }, [])
     return (
         <>
@@ -30,7 +31,7 @@ const Home: NextPage = () => {
                         alignItems: 'center',
                         width: '100vw',
                         height: '100vh'
-                    }}><h1 style={{fontSize: '30px', color: '#00BFFF'}}>Loading...</h1></div> :
+                    }}><CircularProgress /></div> :
                     <MainLayout showFooter={true}>
                         <Banner/>
                         <EasyToUse/>
