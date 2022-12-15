@@ -21,6 +21,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1000,
+        animation: "anim 6s ease-in-out"
     },
     box: {
         display: 'flex',
@@ -29,10 +30,13 @@ const useStyles = makeStyles({
         alignItems: 'center',
         transform: `translate(0, ${percent})`,
         opacity: 0,
+        animation: "anim 6s ease-in-out"
     },
     logo: {
+        transition: "4s",
         width: media(120, 150),
-        objectFit: 'contain'
+        objectFit: 'contain',
+        animation: "anim 6s ease-in-out"
     }
 });
 interface Props {
@@ -50,26 +54,26 @@ const Preload:FC<Props> = (props:Props) => {
 
     useEffect(() => {
         if(props.isRemove){
-            gsap.to('#preload-wrapper', { autoAlpha: 0, duration: 1.5, visibility: 'hidden' });
-            gsap.to('#preload-box', { y: `-${percent}`, opacity: 1, duration: 1.5 });
+            gsap.to('#preload-wrapper', { autoAlpha: 0, duration: 2, visibility: 'hidden' });
+            gsap.to('#preload-box', { y: `-${percent}`, opacity: 1, duration: 1.5});
         }
     }, [props.isRemove]);
-    const [loading, setLoading] = useState<Boolean>(true)
-    useEffect(() => {
-        setTimeout(()=>{
-            setLoading(false)
-        },2000)
-    }, [])
+    // const [loading, setLoading] = useState<boolean>(true)
+    // useEffect(() => {
+    //     setTimeout(()=>{
+    //         setLoading(false)
+    //     },200)
+    // }, [])
     return (
         <>
             {
-                loading ? <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100vw',
-                        height: '100vh'
-                    }}><CircularProgress/></div> :
+                // loading ? <div style={{
+                //         display: 'flex',
+                //         justifyContent: 'center',
+                //         alignItems: 'center',
+                //         width: '100vw',
+                //         height: '100vh'
+                //     }}><CircularProgress/></div> :
                     <Box className={styles.wrapper} id="preload-wrapper">
                         <Box id="preload-box" className={styles.box}>
                             {props.title ? (
@@ -79,7 +83,6 @@ const Preload:FC<Props> = (props:Props) => {
                                     {props.title}
                                 </Typography>
                             ) : (
-
                                 <img className={styles.logo} src={require('../public/images/welcomeLogo.svg')}
                                      alt={""}/>
                             )}

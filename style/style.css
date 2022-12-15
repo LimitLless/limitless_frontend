@@ -6,3 +6,19 @@ html {
 .works_items li{
     margin: 0 10px;
 }
+
+@keyframes animLogo {
+    0%{
+        background: #000;
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    60%{
+        opacity: .7;
+        transform: translateY(-100px);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-400%);
+    }
+}
