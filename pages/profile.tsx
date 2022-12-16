@@ -25,12 +25,11 @@ import Head from "next/head";
 import {useProfileInfoActions} from "../hooks/profile";
 import UploadPhotoModal from "../components/pages/profile/UploadPhotoModal";
 import ImageResizeModal from "../components/pages/profile/ImageResizeModal";
-import {useSelector} from "react-redux";
-import api from "../http/api";
-import axios from "axios";
 import {styled} from "@mui/material/styles";
 import InfoFrofiloModal from "../components/InfoFrofiloModal";
-import {setInfoProfiloModal} from "../store/reducers/main";
+import {setEditBgModal, setInfoProfiloModal, setDeleteBg} from "../store/reducers/main";
+import {RiEditBoxFill} from 'react-icons/ri'
+import EditBgModal from "../components/User/EditBgModal";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -85,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     checkBox: {
         width: "40px",
         height: "40px",
-        marginLeft:"25px",
+        marginLeft: "25px",
         marginBottom: "20px",
         cursor: "pointer"
     },
@@ -100,6 +99,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         "&:hover": {
             background: "#dcd9d9",
         }
+    },
+    editBg: {
+        position: "absolute",
+        top: "4%",
+        right: "32%",
+        color: "white",
+        fontSize: "35px",
+        cursor: "pointer"
     }
 }));
 
@@ -109,24 +116,13 @@ const Profile: NextPage = () => {
     const dispatch = useAppDispatch();
     const authState = useAppSelector(selectAuth);
     const {INFO} = useProfileInfoActions();
-    const [bool, setBool]: any = useState(authState.profile.avatarHidden)
 
     useEffect(() => {
-
         return () => {
             dispatch(setModalWithFormActive(false));
             dispatch(setModalWithFormData(null));
         }
-    }, []);
-
-    // useEffect(() => {
-    //     if (authState.authInfoLoaded) {
-    //         if (authState.isAuth && !authState.profile.email) {
-    //             dispatch(setModalWithFormData('PERSONAL_EMAIL'));
-    //             dispatch(setModalWithFormActive(true));
-    //         }
-    //     }
-    // }, [authState.authInfoLoaded]);
+    }, [dispatch]);
 
     const outBg = () => {
         return authState.profile.bg ? authState.profile.bg : defaultBgImage;
@@ -151,28 +147,7 @@ const Profile: NextPage = () => {
     }
 
 
-    const btnStart = (e: any) => {
-        setBool(e.target.checked);
-    }
-
-    useEffect(() => {
-        console.log(bool)
-        const formData = new FormData()
-        formData.append("avatarHidden", bool)
-        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
-            }
-        })
-            .then(({data}) => {
-                console.log(data)
-                dispatch(setProfile(data));
-            })
-
-    }, [bool])
-
-
-    const ModeSwitch = styled(Switch)(({ theme }) => ({
+    const ModeSwitch = styled(Switch)(({theme}) => ({
         padding: 8,
         right: 10,
         bottom: 10,
@@ -197,7 +172,7 @@ const Profile: NextPage = () => {
             },
         },
         '& .MuiSwitch-thumb': {
-            background:"white",
+            background: "white",
             boxShadow: 'none',
             width: 16,
             height: 16,
@@ -206,7 +181,6 @@ const Profile: NextPage = () => {
 
 
     }));
-
 
     return (
         <Container maxWidth={false} disableGutters className={styles.containerFluid}>
@@ -218,27 +192,27 @@ const Profile: NextPage = () => {
             <UploadPhotoModal/>
             <ImageResizeModal/>
             <InfoFrofiloModal/>
+            <EditBgModal/>
             <Container maxWidth="sm" disableGutters style={{background: "#272E32"}}>
                 <Box className={styles.topSideBox}>
-                    <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`}}>
+                    <Box className={styles.bgBox}
+                         style={{backgroundImage: `url(${outBg()})`}}>
                         <Box className={styles.bgBox1}>
-                            {/*<Button className={styles.bgButton} onClick={handleOpenAvatarUploadModal}>Avatar</Button>*/}
-
                             {
                                 !authState.profile.avatarHidden === true ? <><Box
                                     className={styles.avatarHolder}>
                                     <Box className={styles.box}/>
-                                </Box></> :  <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
+                                </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
-                            {/*<Button className={styles.bgButton} onClick={handleOpenBgUploadModal}>Background</Button>*/}
                         </Box>
-                        {/*<input className={styles.checkBox} onChange={btnStart} checked={bool} type="checkbox"/>*/}
-                        {/*<ModeSwitch onChange={btnStart} checked={bool}/>*/}
+
+                        <Box className={styles.editBg} onClick={() => dispatch(setEditBgModal(true))}>
+                            <RiEditBoxFill/>
+                        </Box>
 
                     </Box>
 
                     <Box className={styles.editUserInfoBox}>
-                        {/*<DarkButton onClick={INFO.handleOpenModal}>Edit name and position</DarkButton>*/}
                         <DarkButton onClick={() => dispatch(setInfoProfiloModal(true))}>EDIT PROFILE</DarkButton>
                     </Box>
                 </Box>

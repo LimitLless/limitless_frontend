@@ -54,7 +54,7 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-export const ContactsInfo: FC = () => {
+export const    ContactsInfo: FC = () => {
     const styles = useContactsStyles();
     const isDarkMode = useAppSelector(selectIsDarkMode);
     const {data} = useUserContext();
@@ -62,7 +62,7 @@ export const ContactsInfo: FC = () => {
     const userInfo = useMemo(() => {
         return outContactsInfo(data);
     }, []);
-    console.log(userInfo.map(el => el.img) , "<=== user info")
+    // console.log(userInfo.map(el => el.img) , "<=== user info")
     return (
         <form className={styles.form}>
             {userInfo.length ? userInfo.map((elem, i) => (

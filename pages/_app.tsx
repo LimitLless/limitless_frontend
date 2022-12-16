@@ -1,11 +1,20 @@
 import "../polyfill";
 import * as React from 'react';
-import type { AppProps } from 'next/app';
-import { CacheProvider, EmotionCache } from '@emotion/react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import type {AppProps} from 'next/app';
+import {CacheProvider, EmotionCache} from '@emotion/react';
+import {ThemeProvider, CssBaseline} from '@mui/material';
 import {Provider as StoreProvider} from "react-redux";
 import 'react-image-crop/dist/ReactCrop.css';
 import "../style/style.css"
+
+import Router from 'next/router';
+//@ts-ignore
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css'; //styles of nprogress
+
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 
 import '../utility/modules';
@@ -30,21 +39,21 @@ const clientSideEmotionCache = createEmotionCache();
 export const store = setupStore();
 
 const MyApp: React.FunctionComponent<MyAppProps> = (props: MyAppProps) => {
-    const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+    const {Component, emotionCache = clientSideEmotionCache, pageProps} = props;
 
     return (
         <CacheProvider value={emotionCache}>
             <DefaultSeo {...metaTags} />
             <ThemeProvider theme={theme}>
                 <StoreProvider store={store}>
-                    <CssBaseline />
+                    <CssBaseline/>
                     <Component {...pageProps} />
-                    <GlobalStyles />
-                    <ShareModal />
-                    <LoginModal />
-                    <SimpleModal />
-                    <Loading />
-                    <OnceActions />
+                    <GlobalStyles/>
+                    <ShareModal/>
+                    <LoginModal/>
+                    <SimpleModal/>
+                    <Loading/>
+                    <OnceActions/>
                 </StoreProvider>
             </ThemeProvider>
         </CacheProvider>
