@@ -117,13 +117,11 @@ const UploadCard: FC<Item> = ({ item, getCards }) => {
         dispatch(setUploadImageModal(false));
     }
 
-
     const [accses, setAccses]: any = useState('')
     useEffect(() => {
         setAccses(localStorage.getItem("access"))
     }, [accses])
     const [loadings, setLoadings] = useState(false)
-
 
     const blobToBase64 = (blob: any) => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -184,7 +182,6 @@ const UploadCard: FC<Item> = ({ item, getCards }) => {
         });
 
     };
-
 
     return (
         <Modal open={authState.usersUploadImageModal} onClose={handleClose}>

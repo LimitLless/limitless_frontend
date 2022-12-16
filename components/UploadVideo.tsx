@@ -1,33 +1,21 @@
 import {FC, useEffect, useRef, useState} from "react";
 import {Box, IconButton, Modal, Theme} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-// import {Formik} from 'formik';
 import * as yup from 'yup';
-// import BaseInput from "./Form/BaseInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {selectAuth} from "../store/selector/auth";
 import {media} from "../utility/media";
 import {
-    // setLoginModalActive,
-    // setUniqueIdForLogin,
-    // setUsersImageModal,
     setUploadVideoModal,
-    // setProfile
 } from "../store/reducers/auth";
-// import {login} from "../actions/auth";
 import {useRouter} from "next/router";
 import {useForm} from "react-hook-form";
 // @ts-ignore
 import hex2rgba from "hex2rgba";
 import CloseIcon from "@mui/icons-material/Close";
-// import clsx from "clsx";
-// import {forgotPassword} from "../actions/user";
-// import {setLoading} from "../store/reducers/main";
 import {modalColor} from "../constants/main";
 import BaseButton from "./Form/BaseButton";
-// import {any} from "prop-types";
 import api from "../http/api";
-// import axios from "axios";
 
 const useStyles = makeStyles((theme: Theme) => ({
     modal: {

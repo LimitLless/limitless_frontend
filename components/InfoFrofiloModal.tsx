@@ -2,7 +2,7 @@ import {FC, useEffect, useRef, useState} from "react";
 import {Box, Button, IconButton, Modal, Paper, Switch, Theme, Typography, FormControlLabel} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Formik} from 'formik';
-import {setInfoProfiloModal} from "../store/reducers/main";
+import {setEditBgModal, setInfoProfiloModal} from "../store/reducers/main";
 
 import BaseInput from "./Form/BaseInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
@@ -132,7 +132,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     IOSSwitch: {
         position: "absolute",
-        top: "225px"
+        top: "215px",
+        right: "45px"
     }
 }));
 
@@ -153,6 +154,9 @@ const InfoPortfolioModal: FC = () => {
 
     const handleClose = () => {
         dispatch(setInfoProfiloModal(false));
+    }
+    const handleCloseEdit = () => {
+        dispatch(setEditBgModal(false))
     }
 
     const handleOpenBgUploadModal = () => {
@@ -268,21 +272,19 @@ const InfoPortfolioModal: FC = () => {
 
     const [edit, setEdit] = useState(false)
 
-    useEffect(() => {
-        console.log(bool)
-        const formData = new FormData()
-        formData.append("avatarHidden", bool)
-        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
-            }
-        })
-            .then(({data}) => {
-                console.log(data)
-                dispatch(setProfile(data));
-            })
-
-    }, [bool])
+    // useEffect(() => {
+    //     const formData = new FormData()
+    //     formData.append("avatarHidden", bool)
+    //     axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
+    //         headers: {
+    //             Authorization: `Bearer ${localStorage.getItem("access")}`,
+    //         }
+    //     })
+    //         .then(({data}) => {
+    //             dispatch(setProfile(data));
+    //         })
+    //
+    // }, [authState.profile.uniqueId, bool, dispatch])
 
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>
@@ -294,8 +296,9 @@ const InfoPortfolioModal: FC = () => {
                     {
                         authState.profile.avatarHidden !== true ? <><Box
                             >
-                            <Box/>
-                        </Box></> :  <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
+                                <Box/>
+                            </Box></> :
+                            <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
                     }
                 </Paper>
                 <Box style={{display: "flex", justifyContent: "space-between"}}>
@@ -328,7 +331,9 @@ const InfoPortfolioModal: FC = () => {
                         <form onSubmit={formik.handleSubmit} className={styles.form}>
                             <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
                                      active={formik.isSubmitting}/>
-                            {edit ? null : <DarkButton style={{width: "100%", marginTop: "13px"}} onClick={() => setEdit(true)}>Edit name</DarkButton>}
+                            {edit ? null :
+                                <DarkButton style={{width: "100%", marginTop: "13px"}} onClick={() => setEdit(true)}>Edit
+                                    name</DarkButton>}
 
                             {edit &&
                                 <>
@@ -353,7 +358,6 @@ const InfoPortfolioModal: FC = () => {
                                 </>}
 
 
-
                         </form>
                     )}
                 </Formik>
@@ -364,23 +368,3 @@ const InfoPortfolioModal: FC = () => {
 
 
 export default InfoPortfolioModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

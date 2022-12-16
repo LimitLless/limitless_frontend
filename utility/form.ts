@@ -8,6 +8,7 @@ import SnapchatIcon from "../components/Icons/Snapchat";
 import TikTokIcon from "../components/Icons/TikTok";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WechatIcon from '../components/Icons/Wechat';
+import {useState} from "react";
 
 
 type Values = {
@@ -46,6 +47,7 @@ type socialsKeyType = {
         icon: any
     }
 }
+
 
 export const socials: socialsKeyType = {
     whatsapp: {
@@ -98,9 +100,9 @@ export const socials: socialsKeyType = {
     },
     tiktok: {
         icon: TikTokIcon,
-        placeholder: "Nickname",
-        save: (value) => value ? `https://tiktok.com/${value}` : null,
-        out: (value) => value ? value.replace('https://tiktok.com/', "") : ""
+        placeholder: "Paste link",
+        save: (value) => value ? value : null,
+        out: (value) => value ? value : "",
     },
     twitter: {
         icon: TwitterIcon,
@@ -109,6 +111,7 @@ export const socials: socialsKeyType = {
         out: (value) => value ? value.replace('https://twitter.com/', "") : ""
     }
 }
+
 
 export const outValues = (values:Values) => {
     const result:Values = {}

@@ -9,6 +9,8 @@ type SliceState = {
     simpleModalActive: boolean;
     simpleModalMessage: string;
     infoProfiloModal: boolean;
+    editBgModal: boolean,
+    deleteBg: boolean
 }
 
 const initialState: SliceState = {
@@ -18,7 +20,9 @@ const initialState: SliceState = {
     shareModalUrl: "",
     simpleModalActive: false,
     simpleModalMessage: "",
-    infoProfiloModal: false
+    infoProfiloModal: false,
+    editBgModal: false,
+    deleteBg: false,
 }
 
 const main = createSlice({
@@ -46,6 +50,12 @@ const main = createSlice({
         setInfoProfiloModal(state, action: PayloadAction<boolean>){
             state.infoProfiloModal = action.payload;
         },
+        setEditBgModal(state,action: PayloadAction<boolean>){
+            state.editBgModal = action.payload
+        },
+        setDeleteBg(state,action: PayloadAction<boolean>){
+            state.deleteBg = action.payload
+        },
     },
 })
 
@@ -56,7 +66,9 @@ export const {
     setShareModalUrl,
     setSimpleModalActive,
     setSimpleModalMessage,
-    setInfoProfiloModal
+    setInfoProfiloModal,
+    setEditBgModal,
+    setDeleteBg
 } = main.actions
 
 export default main.reducer;

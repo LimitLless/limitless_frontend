@@ -135,10 +135,7 @@ const Footer: FC = () => {
 
                         </Box>
                     </Box>
-                    {/*<Box className={styles.list}>*/}
-                    {/*    <br/>*/}
-                    {/*    {outFooterLinks}*/}
-                    {/*</Box>*/}
+                
 
                 </Container>
             </Container>

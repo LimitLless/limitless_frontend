@@ -37,8 +37,10 @@ const emailValidationSchema = yup.object({
         .required('Email is required')
         .email('Must be correct email'),
     workEmail: yup.string()
+        .required('Email is required')
         .email('Must be correct email'),
 });
+
 
 const websiteValidationSchema = yup.object({
     workWebsite: yup.string()
@@ -48,6 +50,7 @@ const websiteValidationSchema = yup.object({
         .nullable()
         .matches(websiteRegex, 'Enter correct url')
 });
+
 
 const passwordValidationSchema = yup.object({
     password: yup.string()
@@ -162,15 +165,42 @@ export const useProfileInfoActions = ():any => {
             ],
             isOut: true,
         },
+        'WORK-EMAIL': {
+            handleOpenModal: handleOpenModal('WORK-EMAIL'),
+            title: "Edit workEmail",
+            validationSchema: websiteValidationSchema,
+            handleSubmit: handleChangeData,
+            fields: [
+                {
+                    field: "workEmail",
+                    label: "WORK-EMAIL",
+                }
+            ],
+            isOut: true,
+        },
+
         'WEBSITE': {
             handleOpenModal: handleOpenModal('WEBSITE'),
             title: "Edit website",
-            validationSchema: websiteValidationSchema,
+            validationSchema: emailValidationSchema,
             handleSubmit: handleChangeData,
             fields: [
                 {
                     field: "workWebsite",
                     label: "WEBSITE",
+                }
+            ],
+            isOut: true,
+        },
+        'OTHER-WEBSITE': {
+            handleOpenModal: handleOpenModal('OTHER-WEBSITE'),
+            title: "Edit website",
+            validationSchema: websiteValidationSchema,
+            handleSubmit: handleChangeData,
+            fields: [
+                {
+                    field: "otherWebsite",
+                    label: "OTHER-WEBSITE",
                 }
             ],
             isOut: true,

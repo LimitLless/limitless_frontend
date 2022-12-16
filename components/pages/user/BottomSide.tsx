@@ -72,14 +72,12 @@ const BottomSide = () => {
     const saveContact = () => {
         window.location.href = `${process.env.API_URL}users/save-contact/${data.uniqueId}`;
 	}
-    // const handleOpenShareModal = () => {
-    //     dispatch(setShareModalUrl(`${process.env.BASE_URL}/user/${data.uniqueId}`));
-    //     dispatch(setShareModalActive(true));
-    // }
+ 
 
     return (
         <>
             <UserTabs value={selectedTab} onChange={handleTabChange} />
+           
             <Box className={styles.content}>
                 {userTabContent.map((elem) => (
                     <TabContent selectedTab={selectedTab} key={elem.id} id={elem.id}>
@@ -88,9 +86,6 @@ const BottomSide = () => {
                 ))}
             </Box>
             <Container disableGutters maxWidth="sm" className={styles.bottomButtonsBox}>
-                {/*<IconButton onClick={handleOpenShareModal} className={styles.replyBoxIconButton}>*/}
-                {/*    <ReplyAllIcon className={clsx(styles.shareIcon, {dark: isDarkMode})}  />*/}
-                {/*</IconButton>*/}
                 <IconButton onClick={saveContact} className={styles.iconButton}>
                     <PersonAddIcon className={styles.personAddIcon} />
                 </IconButton>
