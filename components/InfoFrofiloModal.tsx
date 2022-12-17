@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     IOSSwitch: {
         position: "absolute",
-        top: "220px",
+        top: "205px",
         left: "45px"
     },
     bg: {

@@ -16,7 +16,7 @@ import { setProfile } from "../../store/reducers/auth";
 const useStyles = makeStyles((theme: Theme) => ({
     modal: {
         height: '90px',
-        width: '13%',
+        width: '45%',
         position: 'absolute',
         left: '51%',
         top: '38%',
