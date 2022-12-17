@@ -1,4 +1,4 @@
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, useRef, useEffect, useState} from "react";
 import {Box, Button, IconButton, Modal, Paper, Switch, Theme, Typography, FormControlLabel} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Formik} from 'formik';
@@ -11,13 +11,9 @@ import {media} from "../utility/media";
 import {
     setImageUploadModalActive,
     setImageUploadModalData,
-    setLoginModalActive, setProfile,
-    setUniqueIdForLogin,
-    setUsersImageModal
+    setProfile
 } from "../store/reducers/auth";
-import {SpinnerCircular} from 'spinners-react'
 import {useRouter} from "next/router";
-import {useForm} from "react-hook-form";
 import {selectMainState} from "../store/selector/main";
 
 // @ts-ignore
@@ -26,16 +22,13 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import {defaultAvatar, defaultBgImage, modalColor} from "../constants/main";
 import BaseButton from "./Form/BaseButton";
-import api from "../http/api";
-import {setLoading} from "../store/reducers/main";
 import {styled} from "@mui/material/styles";
-import axios from "axios";
 import DarkButton from "./pages/profile/DarkButton";
 import {checkTheDifference} from "../utility/form";
 import {updateProfile} from "../actions/user";
 import Loading from "./Form/Loading";
 import {BsThreeDotsVertical} from 'react-icons/bs'
-import Avatar from "./User/Avatar";
+import axios from "axios";
 
 const useStyles = makeStyles((theme: Theme) => ({
     modal: {
@@ -281,6 +274,23 @@ const InfoPortfolioModal: FC = () => {
     }
 
     const [edit, setEdit] = useState(false)
+
+    useEffect(() => {
+        console.log(bool)
+        const formData = new FormData()
+        formData.append("avatarHidden", bool)
+        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access")}`,
+            }
+        })
+            .then(({data}) => {
+                console.log(data)
+                dispatch(setProfile(data));
+            })
+
+    }, [authState.profile.uniqueId, bool, dispatch])
+
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>
             <Box ref={modal} className={styles.modal}>
