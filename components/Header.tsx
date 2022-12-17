@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding :"0 50px",
         margin: "auto",
         background: "rgba(0,0,0,0)",
-
     },
     toolbar: {
         display: 'flex',

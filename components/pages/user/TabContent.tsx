@@ -54,7 +54,7 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-export const ContactsInfo: FC = () => {
+export const    ContactsInfo: FC = () => {
     const styles = useContactsStyles();
     const isDarkMode = useAppSelector(selectIsDarkMode);
     const {data} = useUserContext();
@@ -62,7 +62,7 @@ export const ContactsInfo: FC = () => {
     const userInfo = useMemo(() => {
         return outContactsInfo(data);
     }, []);
-    console.log(userInfo.map(el => el.img) , "<=== user info")
+    // console.log(userInfo.map(el => el.img) , "<=== user info")
     return (
         <form className={styles.form}>
             {userInfo.length ? userInfo.map((elem, i) => (
@@ -70,13 +70,11 @@ export const ContactsInfo: FC = () => {
 
                     <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
 
-                    <div className={styles.icons} style={{color: isDarkMode ? 'white' : "black"}}>{elem.img}</div>
-                    <div className={styles.icons}>{elem.img}</div>
-
                     <Typography style={{fontFamily: requiredFontFamilies['KANIT'].fontFamily}} fontSize={media(16, 18)}
                                 className={clsx(styles.value, {dark: isDarkMode})}>
                         {elem.value}
                     </Typography>
+
                 </MuiLink>
             )) : (
                 <Box sx={{width: '100%', py: media(15, 23)}}>

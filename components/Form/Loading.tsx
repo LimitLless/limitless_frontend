@@ -4,7 +4,7 @@ import {Box, CircularProgress} from "@mui/material";
 
 
 interface Props{
-    bg?: string;
+    bg?: string | null;
     fontSize: string;
     active?: boolean;
 }

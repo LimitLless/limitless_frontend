@@ -127,7 +127,7 @@ const TopSide: FC = () => {
                 </Typography>
                 <Box style={{position: "absolute" }}>
                     {
-                        authState?.profile?.avatarHidden === true ? <Box className={styles.box}/> :
+                        !authState?.profile?.avatarHidden === true ? <Box className={styles.box}/> :
                             <Avatar img={outAvatar()}/>
                     }
                 </Box>

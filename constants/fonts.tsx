@@ -145,4 +145,5 @@ export const requiredFontFamilies:fontType = {
         link: (key) => <link key={key} href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet" />,
         fontWeight: 400
     },
+
 }

@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {User} from "../../models/user";
 import {profileTabContent} from "../../constants/profile";
+// import {userValidation} from "./validation";
 
 
-type SliceState = {
+export type SliceState = {
     isAuth: boolean;
     authInfoLoaded: boolean;
     profile: User | null;
@@ -63,6 +64,9 @@ const auth = createSlice({
         setProfile(state, action: PayloadAction<User | null>){
             state.profile = action.payload;
         },
+        // setProfileFieldsChange(state, action: PayloadAction<User | null>){
+        //     state.profile.workPhone = action.payload
+        // },
         setLoginModalActive(state, action: PayloadAction<boolean>){
             state.loginModalActive = action.payload;
         },

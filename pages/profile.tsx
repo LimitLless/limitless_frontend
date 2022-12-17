@@ -25,12 +25,10 @@ import Head from "next/head";
 import {useProfileInfoActions} from "../hooks/profile";
 import UploadPhotoModal from "../components/pages/profile/UploadPhotoModal";
 import ImageResizeModal from "../components/pages/profile/ImageResizeModal";
-import {useSelector} from "react-redux";
-import api from "../http/api";
-import axios from "axios";
 import {styled} from "@mui/material/styles";
 import InfoFrofiloModal from "../components/InfoFrofiloModal";
-import {setInfoProfiloModal} from "../store/reducers/main";
+import {setEditBgModal, setInfoProfiloModal, setDeleteBg} from "../store/reducers/main";
+import EditBgModal from "../components/User/EditBgModal";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -40,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     topSideBox: {
         width: '100%',
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     bgBox1: {
         width: '100%',
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     avatarHolder: {
         margin: `${media(10, 15)} 0`,
@@ -101,6 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             background: "#dcd9d9",
         }
     },
+
 }));
 
 
@@ -109,14 +109,13 @@ const Profile: NextPage = () => {
     const dispatch = useAppDispatch();
     const authState = useAppSelector(selectAuth);
     const {INFO} = useProfileInfoActions();
-    const [bool, setBool]: any = useState(authState.profile.avatarHidden)
 
     useEffect(() => {
         return () => {
             dispatch(setModalWithFormActive(false));
             dispatch(setModalWithFormData(null));
         }
-    }, []);
+    }, [dispatch]);
 
     const outBg = () => {
         return authState.profile.bg ? authState.profile.bg : defaultBgImage;
@@ -139,27 +138,6 @@ const Profile: NextPage = () => {
         dispatch(setImageUploadModalData({key: 'AVATAR_WITHOUT_LTRB', data: {avatar: null}}));
         dispatch(setImageUploadModalActive(true));
     }
-
-
-    const btnStart = (e: any) => {
-        setBool(e.target.checked);
-    }
-
-    useEffect(() => {
-        console.log(bool)
-        const formData = new FormData()
-        formData.append("avatarHidden", bool)
-        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
-            }
-        })
-            .then(({data}) => {
-                console.log(data)
-                dispatch(setProfile(data));
-            })
-
-    }, [bool])
 
 
     const ModeSwitch = styled(Switch)(({theme}) => ({
@@ -194,8 +172,8 @@ const Profile: NextPage = () => {
             margin: 2,
         },
 
-    }));
 
+    }));
 
     return (
         <Container maxWidth={false} disableGutters className={styles.containerFluid}>
@@ -207,26 +185,27 @@ const Profile: NextPage = () => {
             <UploadPhotoModal/>
             <ImageResizeModal/>
             <InfoFrofiloModal/>
+            <EditBgModal/>
             <Container maxWidth="sm" disableGutters style={{background: "#272E32"}}>
                 <Box className={styles.topSideBox}>
-                    <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`}}>
+                    <Box className={styles.bgBox}
+                         style={{backgroundImage: `url(${outBg()})`}}>
                         <Box className={styles.bgBox1}>
                             {
-                                authState.profile.avatarHidden === true ? <><Box
+                                !authState.profile.avatarHidden === true ? <><Box
                                     className={styles.avatarHolder}>
                                     <Box className={styles.box}/>
                                 </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
                         </Box>
+
                     </Box>
 
                     <Box className={styles.editUserInfoBox}>
                         <DarkButton onClick={() => dispatch(setInfoProfiloModal(true))}>EDIT PROFILE</DarkButton>
                     </Box>
                 </Box>
-
                 <UserTabs value={authState.selectedTab} onChange={handleTabChange}/>
-
                 <Box className={styles.content}>
                     {profileTabContent.map((elem, i) => (
                         <TabContent key={elem.id} id={elem.id} selectedTab={authState.selectedTab}>

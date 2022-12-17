@@ -13,7 +13,8 @@ export default class MyDocument extends Document {
                 <Head>
                     {Object.entries(requiredFontFamilies).map((elem, i) =>  elem[1].link(i))}
                     <link rel="icon" href="/images/logo.svg" />
-                    <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
+                    <meta charSet="UTF-8"/>
+                    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"/>
                 </Head>
                 <body>
                 <Main />

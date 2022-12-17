@@ -2,7 +2,7 @@ import {FC, useEffect, useRef, useState} from "react";
 import {Box, Button, IconButton, Modal, Paper, Switch, Theme, Typography, FormControlLabel} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Formik} from 'formik';
-import {setInfoProfiloModal} from "../store/reducers/main";
+import {setEditBgModal, setInfoProfiloModal} from "../store/reducers/main";
 
 import BaseInput from "./Form/BaseInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
@@ -34,6 +34,7 @@ import DarkButton from "./pages/profile/DarkButton";
 import {checkTheDifference} from "../utility/form";
 import {updateProfile} from "../actions/user";
 import Loading from "./Form/Loading";
+import {BsThreeDotsVertical} from 'react-icons/bs'
 import Avatar from "./User/Avatar";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -120,7 +121,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: "#1C2124",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        boxShadow: '-3px 89px 69px -43px rgba(34, 60, 80, 0.76) inset;'
+
     },
     editButton: {
         background: "#1C2124",
@@ -132,7 +135,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     IOSSwitch: {
         position: "absolute",
-        top: "225px"
+        top: "205px",
+        left: "45px"
+    },
+    bg: {
+        position: 'absolute',
+        right: '45px',
+        top: '70px',
+        color: 'white',
+        fontSize: '24px'
     }
 }));
 
@@ -153,6 +164,9 @@ const InfoPortfolioModal: FC = () => {
 
     const handleClose = () => {
         dispatch(setInfoProfiloModal(false));
+    }
+    const handleCloseEdit = () => {
+        dispatch(setEditBgModal(false))
     }
 
     const handleOpenBgUploadModal = () => {
@@ -267,35 +281,25 @@ const InfoPortfolioModal: FC = () => {
     }
 
     const [edit, setEdit] = useState(false)
-
-    useEffect(() => {
-        console.log(bool)
-        const formData = new FormData()
-        formData.append("avatarHidden", bool)
-        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access")}`,
-            }
-        })
-            .then(({data}) => {
-                console.log(data)
-                dispatch(setProfile(data));
-            })
-
-    }, [bool])
-
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>
             <Box ref={modal} className={styles.modal}>
                 <IconButton className={styles.closeBtn} onClick={handleClose}>
                     <CloseIcon className={styles.closeIcon}/>
                 </IconButton>
+
+                <IconButton className={styles.bg}
+                            onClick={() => dispatch(setEditBgModal(true))}>
+                    <BsThreeDotsVertical/>
+                </IconButton>
+
                 <Paper className={styles.paperBack} style={{background: `url(${outBg()}) no-repeat center/cover`}}>
                     {
                         authState.profile.avatarHidden !== true ? <><Box
                             >
-                            <Box/>
-                        </Box></> :  <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
+                                <Box/>
+                            </Box></> :
+                            <Box><img src={outAvatar()} alt="" style={{width: "120px", borderRadius: "50%"}}/></Box>
                     }
                 </Paper>
                 <Box style={{display: "flex", justifyContent: "space-between"}}>
@@ -328,7 +332,9 @@ const InfoPortfolioModal: FC = () => {
                         <form onSubmit={formik.handleSubmit} className={styles.form}>
                             <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
                                      active={formik.isSubmitting}/>
-                            {edit ? null : <DarkButton style={{width: "100%", marginTop: "13px"}} onClick={() => setEdit(true)}>Edit name</DarkButton>}
+                            {edit ? null :
+                                <DarkButton style={{width: "100%", marginTop: "13px"}} onClick={() => setEdit(true)}>Edit
+                                    name</DarkButton>}
 
                             {edit &&
                                 <>
@@ -353,7 +359,6 @@ const InfoPortfolioModal: FC = () => {
                                 </>}
 
 
-
                         </form>
                     )}
                 </Formik>
@@ -364,23 +369,3 @@ const InfoPortfolioModal: FC = () => {
 
 
 export default InfoPortfolioModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
