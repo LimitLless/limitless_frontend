@@ -12,17 +12,17 @@ import axios from "axios";
 import api from "../../http/api";
 import { setProfile } from "../../store/reducers/auth";
 
+
 const useStyles = makeStyles((theme: Theme) => ({
     modal: {
-        maxWidth: media(350, 270),
-        height: '141px',
-        width: '100%',
+        height: '95px',
+        width: '25%',
         position: 'absolute',
-        left: '56%',
-        top: '13%',
+        left: '51%',
+        top: '39%',
         transform: 'translate(-50%, -50%)',
         background: '#FFFBFE',
-        borderRadius: 10,
+        borderRadius: 5,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'start',
@@ -30,20 +30,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         border: 'none',
         outline: 'none',
     },
-    buttonChange: {
-        width: '100%',
-        height: '100%',
-        background: "#FFFBFE",
-        color: "black",
-        fontWeight: '38px',
-        margin: "5px 0",
-        paddingLeft: '15px',
-    },
     buttonDelete: {
         width: '100%',
         height: '100%',
         background: "#FFFAF0",
+        fontFamily: 'sans-serif',
         color: "#C53B3B",
+        fontSize: '12px',
         margin: "5px 0",
         paddingLeft: '15px',
     },
@@ -99,19 +92,16 @@ const EditBgModal: FC = () => {
     return (
         <Modal open={mainState.editBgModal} onClose={handleClose}>
             <Box ref={modal} className={styles.modal}>
-                <Button className={styles.buttonChange}>Change background image</Button>
-                <div className={styles.line}/>
                 <Button
                     className={styles.buttonDelete}
                     onClick={() => {
                         handleDeleteBg()
-                    }}
-                >Delete background image
-                </Button>
+                    }}>Remove background</Button>
+
                 <div className={styles.line}/>
                 <Button className={styles.buttonDelete} onClick={() => {
                     handleDeleteAvatar()
-                }}>Delete profile image</Button>
+                }}>Remove avatar</Button>
             </Box>
         </Modal>
     );

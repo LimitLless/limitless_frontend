@@ -1,4 +1,5 @@
 import {FC, SyntheticEvent} from "react";
+
 import {TabContent, UserTabs} from "../../User/Tabs";
 import {selectSelectedTab} from "../../../store/selector/user";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux";

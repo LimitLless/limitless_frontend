@@ -34,6 +34,7 @@ import DarkButton from "./pages/profile/DarkButton";
 import {checkTheDifference} from "../utility/form";
 import {updateProfile} from "../actions/user";
 import Loading from "./Form/Loading";
+import {BsThreeDotsVertical} from 'react-icons/bs'
 import Avatar from "./User/Avatar";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -120,7 +121,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: "#1C2124",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        boxShadow: '-3px 89px 69px -43px rgba(34, 60, 80, 0.76) inset;'
+
     },
     editButton: {
         background: "#1C2124",
@@ -133,7 +136,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     IOSSwitch: {
         position: "absolute",
         top: "215px",
-        right: "45px"
+        left: "45px"
+    },
+    bg: {
+        position: 'absolute',
+        right: '40px',
+        top: '65px',
+        color: 'white',
+        fontSize: '24px'
     }
 }));
 
@@ -271,27 +281,18 @@ const InfoPortfolioModal: FC = () => {
     }
 
     const [edit, setEdit] = useState(false)
-
-    // useEffect(() => {
-    //     const formData = new FormData()
-    //     formData.append("avatarHidden", bool)
-    //     axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
-    //         headers: {
-    //             Authorization: `Bearer ${localStorage.getItem("access")}`,
-    //         }
-    //     })
-    //         .then(({data}) => {
-    //             dispatch(setProfile(data));
-    //         })
-    //
-    // }, [authState.profile.uniqueId, bool, dispatch])
-
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>
             <Box ref={modal} className={styles.modal}>
                 <IconButton className={styles.closeBtn} onClick={handleClose}>
                     <CloseIcon className={styles.closeIcon}/>
                 </IconButton>
+
+                <IconButton className={styles.bg}
+                            onClick={() => dispatch(setEditBgModal(true))}>
+                    <BsThreeDotsVertical/>
+                </IconButton>
+
                 <Paper className={styles.paperBack} style={{background: `url(${outBg()}) no-repeat center/cover`}}>
                     {
                         authState.profile.avatarHidden !== true ? <><Box

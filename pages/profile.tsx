@@ -28,7 +28,6 @@ import ImageResizeModal from "../components/pages/profile/ImageResizeModal";
 import {styled} from "@mui/material/styles";
 import InfoFrofiloModal from "../components/InfoFrofiloModal";
 import {setEditBgModal, setInfoProfiloModal, setDeleteBg} from "../store/reducers/main";
-import {RiEditBoxFill} from 'react-icons/ri'
 import EditBgModal from "../components/User/EditBgModal";
 
 
@@ -39,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     topSideBox: {
         width: '100%',
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     bgBox1: {
         width: '100%',
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     avatarHolder: {
         margin: `${media(10, 15)} 0`,
@@ -100,14 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             background: "#dcd9d9",
         }
     },
-    editBg: {
-        position: "absolute",
-        top: "4%",
-        right: "32%",
-        color: "white",
-        fontSize: "35px",
-        cursor: "pointer"
-    }
+
 }));
 
 
@@ -204,10 +197,6 @@ const Profile: NextPage = () => {
                                     <Box className={styles.box}/>
                                 </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
-                        </Box>
-
-                        <Box className={styles.editBg} onClick={() => dispatch(setEditBgModal(true))}>
-                            <RiEditBoxFill/>
                         </Box>
 
                     </Box>
