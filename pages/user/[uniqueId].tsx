@@ -14,8 +14,17 @@ import Head from "next/head";
 import {fonts} from "../../constants/fonts";
 import {NextSeo} from "next-seo";
 
+import Router from 'next/router';
+//@ts-ignore
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css'; //styles of nprogress
 
-export const getServerSideProps = async (ctx:GetServerSidePropsContext) => {
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const userInfo: fetchUserInterface = await fetchUser(ctx.query.uniqueId);
     return {
         props: {
@@ -33,7 +42,7 @@ const UserContext = createContext<fetchUserInterface>({
 
 export const useUserContext = () => useContext(UserContext);
 
-const useStyles = makeStyles((theme:Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     containedFluid: {
         background: theme.palette.secondary.main,
         minHeight: '100vh',
@@ -58,24 +67,24 @@ const User = ({userInfo}: InferGetServerSidePropsType<typeof getServerSideProps>
     }, []);
 
     useEffect(() => {
-        if(userInfo.notFound || userInfo.error){
+        if (userInfo.notFound || userInfo.error) {
             router.push(userInfo.notFound ? '/404' : '/500');
         }
     }, [userInfo.notFound, userInfo.error, router]);
 
-    if(userInfo.notFound || userInfo.error){
+    if (userInfo.notFound || userInfo.error) {
         return "";
     }
 
     const outOpenGraph = () => {
-        const content:any = {}
-        if(userInfo.data.avatar){
+        const content: any = {}
+        if (userInfo.data.avatar) {
             content['images'] = [{url: userInfo.data.avatar}]
         }
-        if(userInfo.data.title){
+        if (userInfo.data.title) {
             content['title'] = userInfo.data.title;
         }
-        if(userInfo.data.description){
+        if (userInfo.data.description) {
             content['description'] = userInfo.data.description;
         }
         return content;
@@ -94,7 +103,7 @@ const User = ({userInfo}: InferGetServerSidePropsType<typeof getServerSideProps>
             <Preload isRemove={isRemove} title={userInfo.data.welcome} fontFamily={userInfo.data.fontFamily}/>
             <Container disableGutters maxWidth={false} className={clsx(styles.containedFluid, {dark: isDarkMode})}>
                 <Container maxWidth="sm" disableGutters>
-                    <TopSide />
+                    <TopSide/>
                     <BottomSide/>
                 </Container>
             </Container>

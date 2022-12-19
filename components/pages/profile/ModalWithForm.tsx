@@ -56,9 +56,6 @@ const ModalWithForm:FC = () => {
     const currentData = profileActions[authState.modalWithFormData];
 
     const handleClose = () => {
-        // if(authState.modalWithFormData === 'PERSONAL_EMAIL'){
-        //     return;
-        // }
         dispatch(setModalWithFormActive(false));
         dispatch(setModalWithFormData(null));
     }

@@ -25,12 +25,11 @@ import Head from "next/head";
 import {useProfileInfoActions} from "../hooks/profile";
 import UploadPhotoModal from "../components/pages/profile/UploadPhotoModal";
 import ImageResizeModal from "../components/pages/profile/ImageResizeModal";
-import {useSelector} from "react-redux";
-import api from "../http/api";
-import axios from "axios";
 import {styled} from "@mui/material/styles";
 import InfoFrofiloModal from "../components/InfoFrofiloModal";
-import {setInfoProfiloModal} from "../store/reducers/main";
+import {setEditBgModal, setInfoProfiloModal, setDeleteBg} from "../store/reducers/main";
+import {RiEditBoxFill} from 'react-icons/ri'
+import EditBgModal from "../components/User/EditBgModal";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -101,6 +100,14 @@ const useStyles = makeStyles((theme: Theme) => ({
             background: "#dcd9d9",
         }
     },
+    editBg: {
+        position: "absolute",
+        top: "4%",
+        right: "32%",
+        color: "white",
+        fontSize: "35px",
+        cursor: "pointer"
+    }
 }));
 
 
@@ -109,7 +116,6 @@ const Profile: NextPage = () => {
     const dispatch = useAppDispatch();
     const authState = useAppSelector(selectAuth);
     const {INFO} = useProfileInfoActions();
-    const [bool, setBool]: any = useState(authState.profile.avatarHidden)
 
     useEffect(() => {
         return () => {
@@ -141,6 +147,7 @@ const Profile: NextPage = () => {
     }
 
 
+<<<<<<< HEAD
     const btnStart = (e: any) => {
         setBool(e.target.checked);
     }
@@ -161,6 +168,8 @@ const Profile: NextPage = () => {
     }, [authState.profile.uniqueId, bool, dispatch])
 
 
+=======
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
     const ModeSwitch = styled(Switch)(({theme}) => ({
         padding: 8,
         right: 10,
@@ -193,8 +202,8 @@ const Profile: NextPage = () => {
             margin: 2,
         },
 
-    }));
 
+    }));
 
     return (
         <Container maxWidth={false} disableGutters className={styles.containerFluid}>
@@ -206,9 +215,11 @@ const Profile: NextPage = () => {
             <UploadPhotoModal/>
             <ImageResizeModal/>
             <InfoFrofiloModal/>
+            <EditBgModal/>
             <Container maxWidth="sm" disableGutters style={{background: "#272E32"}}>
                 <Box className={styles.topSideBox}>
-                    <Box className={styles.bgBox} style={{backgroundImage: `url(${outBg()})`}}>
+                    <Box className={styles.bgBox}
+                         style={{backgroundImage: `url(${outBg()})`}}>
                         <Box className={styles.bgBox1}>
                             {
                                 !authState.profile.avatarHidden === true ? <><Box
@@ -217,15 +228,18 @@ const Profile: NextPage = () => {
                                 </Box></> : <Box style={{padding: "32.5px 0"}}><Avatar img={outAvatar()}/></Box>
                             }
                         </Box>
+
+                        <Box className={styles.editBg} onClick={() => dispatch(setEditBgModal(true))}>
+                            <RiEditBoxFill/>
+                        </Box>
+
                     </Box>
 
                     <Box className={styles.editUserInfoBox}>
                         <DarkButton onClick={() => dispatch(setInfoProfiloModal(true))}>EDIT PROFILE</DarkButton>
                     </Box>
                 </Box>
-
                 <UserTabs value={authState.selectedTab} onChange={handleTabChange}/>
-
                 <Box className={styles.content}>
                     {profileTabContent.map((elem, i) => (
                         <TabContent key={elem.id} id={elem.id} selectedTab={authState.selectedTab}>

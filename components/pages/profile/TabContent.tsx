@@ -16,6 +16,8 @@ import {SpinnerCircular} from 'spinners-react';
 import {useForm} from "react-hook-form";
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 
+// import {setAuth, setProfile, setProfileFieldsChange} from "../../../store/reducers/auth";
+
 
 import {User, UserModel} from "../../../models/user";
 import Loading from "../../Form/Loading";
@@ -35,11 +37,17 @@ import {
     setImagesCard
 } from "../../../store/reducers/auth";
 
+
+
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import DarkButton from "./DarkButton";
+<<<<<<< HEAD
 
+=======
+import {useDispatch, useSelector} from "react-redux";
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
@@ -236,6 +244,31 @@ export const ContactsInfo: FC = () => {
         setExit(true)
     };
 
+    // const name = useSelector((state) => state.user.firstName)
+
+    // const [defValue, setDevValue] = useState<any>({
+    //     website: ""
+    // })
+    // const getDefValue = (e: any) => {
+    //     setDevValue({...defValue, [e.target.name]: e.target.value})
+    //     localStorage.setItem('defValue', JSON.stringify(defValue) as any)
+    // }
+    //
+    //
+    // let Vvalue = JSON.parse(localStorage.getItem("defValue"))
+    //
+    // console.log(Vvalue)
+    //
+    // useEffect(() => {
+    //     console.log(Vvalue)
+    // }, [defValue.website])
+
+    // const onChange = (e: any) => {
+    //     const {name, value} = e.target
+    //     console.log({[name]: value})
+    //     dispatch(setProfileFieldsChange(value))
+    // }
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -243,9 +276,14 @@ export const ContactsInfo: FC = () => {
                          active={loadings}/>
                 <Box style={{display: "flex", margin: "20px 0"}}>
 
+<<<<<<< HEAD
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight: "20px"}}/>
                     <input defaultValue={initialValues1.workPhone} type={"text"} placeholder="Phone"
                            className={styles.baseInput}  {...register("workPhone")} />
+=======
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input value={initialValues1.workPhone} type={"text"}  placeholder="Phone" name={"workPhone"} className={styles.baseInput}  {...register("workPhone")}/>
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight: "20px"}}/>
@@ -264,15 +302,21 @@ export const ContactsInfo: FC = () => {
                     })} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
+<<<<<<< HEAD
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
                     <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email"
                            className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+=======
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
                         required: false,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             message: 'Please enter a valid email',
                         },
                     })} />
+<<<<<<< HEAD
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileWebsite.svg")} alt=""
@@ -291,6 +335,27 @@ export const ContactsInfo: FC = () => {
                     <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight: "20px"}}/>
                     <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit
                         password</DarkButton>
+=======
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                </Box>
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input
+                        // onInput={getDefValue}
+
+                        // defaultValue={}
+                           type={"text"} placeholder="Other Website" className={styles.baseInput}
+                           name="website"
+                           {...register("otherWebsite")} />
+                </Box>
+
+                <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
                 </Box>
                 <Box style={{textAlign: "center"}}>
                     <BaseButton classes={styles.button1} type="submit">SAVE</BaseButton>
@@ -782,12 +847,13 @@ const socialsValidationSchema = yup.object({
     facebook: yup.string()
         .matches(websiteRegex, "Enter url to facebook"),
     linkedin: yup.string()
-        .matches(websiteRegex, "Enter url to facebook"),
+        .matches(websiteRegex, "Enter url to linkedin"),
     youtube: yup.string()
-        .matches(websiteRegex, "Enter url to facebook"),
+        .matches(websiteRegex, "Enter url to youtube"),
     telegram: yup.string(),
     snapchat: yup.string(),
-    tiktok: yup.string(),
+    tiktok: yup.string()
+        .matches(websiteRegex, "Enter url to tiktok"),
     twitter: yup.string(),
 });
 

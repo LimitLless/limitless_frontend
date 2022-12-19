@@ -139,33 +139,6 @@
         });
         const [newImg, setNewImg] = useState()
         console.log(accses)
-        // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-        // const onSubmit = (data:any) => {
-        //     console.log(data)
-        //     alert("проверка")
-        //     const formData = new FormData()
-        //     formData.append("user_images[0]image", data.usersImage[0]);
-        //
-        //
-        //     // formData.append("user_images[0]image", data.usersImage[0]);
-        //     formData.append("user_images[0]user", authState.profile.id);
-        //
-        //     api.post(`users/images/${authState.profile.uniqueId}/` , formData, {
-        //         headers: {
-        //             "Authorization": `Bearer ${accses}`,
-        //             "Content-Type": "multipart/form-data",
-        //         }
-        //     })
-        //         .then(() => {
-        //             alert("done")
-        //             dispatch(setUsersImageModal(false));
-        //         })
-        //         .catch((e) =>{
-        //             console.log(e)
-        //             alert(JSON.stringify(e))
-        //         })
-        // };
-
 
         const [image, setImage] = useState(null);
         const [createObjectURL, setCreateObjectURL] = useState(null);
@@ -209,9 +182,7 @@
 
                     <form className={styles.form}>
                         <Box className={styles.topBox}>
-                            {/*<BaseButton classes={styles.selectFileButton} component="label" htmlFor="usersImage">*/}
-                            {/*    Select a file*/}
-                            {/*</BaseButton>*/}
+                    
                             <img
                                 src={createObjectURL || "https://psl.org.br/assets/layout/images/dark-user-bg.png"}
                                 alt={""}
@@ -222,7 +193,6 @@
                                 id="usersImage"
                                 type="file"
                                 onChange={uploadToClient}/>
-                            {/*{errors.usersImage && <span style={{color: "red", fontWeight: "500"}}>This field is required</span>}*/}
                         </Box>
                         <BaseButton onClick={uploadToServer} classes={styles.saveButton}>
                             {loadings ? <SpinnerCircular color="#FFFFFF" size="25"/> : "Save"}

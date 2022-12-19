@@ -6,6 +6,7 @@ import {setSimpleModalActive, setSimpleModalMessage} from "../store/reducers/mai
 import {setAuth, setProfile} from "../store/reducers/auth";
 import authApi from "../http/authApi";
 import {objectToFormData} from "../utility/form";
+import uuid from "../pages/reset-password/[uuid]";
 
 
 export interface fetchUserInterface {
@@ -26,17 +27,17 @@ export const fetchUser = async (uniqueId: string | string[] | undefined) => {
         const {data} = await api.get(`users/${uniqueId}`);
         result.data = data;
         result.success = true;
-    } catch (e: any){
+    } catch (e: any) {
         result.success = false;
-        if(e.response){
-            if(e.response.status === 404){
+        if (e.response) {
+            if (e.response.status === 404) {
                 result.notFound = true;
-            }else{
+            } else {
                 result.error = ERRORS['ERROR_500'];
             }
-        }else if(e.request && !e.response){
+        } else if (e.request && !e.response) {
             result.error = ERRORS['ERROR_500'];
-        }else{
+        } else {
             result.error = ERRORS['ERROR_500'];
         }
     }
@@ -45,7 +46,7 @@ export const fetchUser = async (uniqueId: string | string[] | undefined) => {
 
 export const forgotPassword = createAsyncThunk(
     'user/forgot-password',
-    async (uniqueId:string, {dispatch}) => {
+    async (uniqueId: string, {dispatch}) => {
         const result = {
             error: false,
             success: false
@@ -54,22 +55,22 @@ export const forgotPassword = createAsyncThunk(
             await api.post('users/reset-password/', {uniqueId});
             result.success = true;
             dispatch(setSimpleModalMessage("We have sent a link to restore access to your account by email!"));
-        } catch (e:any){
-            if(e.response){
-                if(e.response.status === 400 && e.response.data.error && e.response.data.code === 'EMAIL_NOT_SET'){
+        } catch (e: any) {
+            if (e.response) {
+                if (e.response.status === 400 && e.response.data.error && e.response.data.code === 'EMAIL_NOT_SET') {
                     dispatch(setSimpleModalMessage(ERRORS['EMAIL_NOT_SET']));
-                }else{
+                } else {
                     result.error = true;
                 }
-            }else if(e.request && !e.response){
+            } else if (e.request && !e.response) {
                 result.error = true;
-            }else{
+            } else {
                 result.error = true;
             }
         } finally {
-            if(result.error){
+            if (result.error) {
                 dispatch(setSimpleModalActive(false));
-            }else{
+            } else {
                 dispatch(setSimpleModalActive(true));
             }
         }
@@ -77,20 +78,80 @@ export const forgotPassword = createAsyncThunk(
     }
 )
 
-
 interface resetPasswordBody {
     password: string;
     resetPasswordUUID: string | string[];
 }
 
-interface resetPasswordData{
+interface resetPasswordData {
     success: boolean;
     message: string;
 }
 
+interface IBgAvatarUser {
+    success: boolean;
+    message: string;
+}
+
+interface IDeleteBGUser {
+    uniqueId: string;
+    bg: string | null;
+}
+
+export const deleteBgUser = createAsyncThunk(
+    'user/change-bg',
+    async (body: IDeleteBGUser, {dispatch}) => {
+        const result: IBgAvatarUser = {
+            success: false,
+            message: ''
+        }
+        try {
+            const {data} = await api.patch(`users/update/${body.uniqueId}/`, {bg: body.bg}, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access')}`,
+                }
+            })
+            dispatch(setProfile(data));
+            result.success = true
+        } catch (e:any) {
+            result.message = ERRORS['ERROR_500'];
+            result.success = false;
+        }
+        return result
+    }
+)
+
+interface IDeleteAvatar {
+    uniqueId: string
+    avatar: string | null
+}
+
+export const deleteAvatarUser = createAsyncThunk(
+    'user/change-bg',
+    async (body: IDeleteAvatar, {dispatch}) => {
+        const result: IBgAvatarUser = {
+            success: false,
+            message: ''
+        }
+        try {
+            const {data} = await api.patch(`users/update/${body.uniqueId}/`, {avatar: body.avatar}, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access')}`,
+                }
+            })
+            dispatch(setProfile(data));
+            result.success = true
+        } catch (e:any) {
+            result.message = ERRORS['ERROR_500'];
+            result.success = false;
+        }
+        return result
+    }
+)
+
 export const resetPassword = createAsyncThunk(
     'user/reset-password',
-    async (body:resetPasswordBody, {dispatch}) => {
+    async (body: resetPasswordBody, {dispatch}) => {
         const result: resetPasswordData = {
             success: false,
             message: "",
@@ -102,30 +163,29 @@ export const resetPassword = createAsyncThunk(
             dispatch(setProfile(data.profile));
             dispatch(setAuth(true));
             result.success = true;
-        } catch (e:any){
+        } catch (e: any) {
             result.success = false;
-            if(e.response){
-                if(e.response.status === 400 && e.response.data.error){
-                    if(e.response.data.code === 'NOT_FOUND'){
+            if (e.response) {
+                if (e.response.status === 400 && e.response.data.error) {
+                    if (e.response.data.code === 'NOT_FOUND') {
                         result.message = RESET_PASSWORD_ERRORS['NOT_FOUND'];
-                    }else if(e.response.data.code === 'EXPIRED'){
+                    } else if (e.response.data.code === 'EXPIRED') {
                         result.message = RESET_PASSWORD_ERRORS['EXPIRED'];
-                    }else{
+                    } else {
                         result.message = ERRORS['ERROR_500'];
                     }
-                }else{
+                } else {
                     result.message = ERRORS['ERROR_500'];
                 }
-            }else if(e.request && !e.response){
+            } else if (e.request && !e.response) {
                 result.message = ERRORS['ERROR_500'];
-            }else{
+            } else {
                 result.message = ERRORS['ERROR_500'];
             }
         }
         return result;
     }
 )
-
 
 export const checkResetPasswordUUID = async (uuid: string | string[]) => {
     const result = {
@@ -135,23 +195,23 @@ export const checkResetPasswordUUID = async (uuid: string | string[]) => {
     try {
         await api.get(`users/reset-password/${uuid}/`);
         result.success = true;
-    } catch (e:any){
+    } catch (e: any) {
         result.success = false;
-        if(e.response){
-            if(e.response.status === 400 && e.response.data.error){
-                if(e.response.data.code === 'NOT_FOUND'){
+        if (e.response) {
+            if (e.response.status === 400 && e.response.data.error) {
+                if (e.response.data.code === 'NOT_FOUND') {
                     result.message = RESET_PASSWORD_ERRORS['NOT_FOUND'];
-                }else if(e.response.data.code === 'EXPIRED'){
+                } else if (e.response.data.code === 'EXPIRED') {
                     result.message = RESET_PASSWORD_ERRORS['EXPIRED'];
-                }else{
+                } else {
                     result.message = ERRORS['ERROR_500'];
                 }
-            }else{
+            } else {
                 result.message = RESET_PASSWORD_ERRORS['NOT_FOUND'];
             }
-        }else if(e.request && !e.response){
+        } else if (e.request && !e.response) {
             result.message = ERRORS['ERROR_500'];
-        }else{
+        } else {
             result.message = ERRORS['ERROR_500'];
         }
     }
@@ -161,22 +221,22 @@ export const checkResetPasswordUUID = async (uuid: string | string[]) => {
 
 type updateProfileType = {
     uniqueId: string;
-    [key:string]:string;
+    [key: string]: string;
 }
 
 export const updateProfile = createAsyncThunk(
     'auth/update/',
-    async ({uniqueId, ...body}:updateProfileType, {dispatch}) => {
+    async ({uniqueId, ...body}: updateProfileType, {dispatch}) => {
         const result = {
             success: false,
             message: ""
         }
         try {
             const formData = objectToFormData({uniqueId, ...body});
-            const {data} = await authApi.patch(`users/${uniqueId}/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            const {data} = await authApi.patch(`users/${uniqueId}/`, formData, {headers: {'Content-Type': 'multipart/form-data'}});
             dispatch(setProfile(data));
             result.success = true;
-        } catch (e:any){
+        } catch (e: any) {
             result.message = ERRORS['ERROR_500'];
             result.success = false;
         }
@@ -194,17 +254,17 @@ type ResizeAvatarBodyType = {
 
 export const resizeAvatar = createAsyncThunk(
     'auth/avatar/',
-    async (body:ResizeAvatarBodyType, {dispatch}) => {
+    async (body: ResizeAvatarBodyType, {dispatch}) => {
         const result = {
             success: false,
             message: ""
         }
         try {
             const formData = objectToFormData(body);
-            const {data} = await authApi.patch(`users/avatar/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            const {data} = await authApi.patch(`users/avatar/`, formData, {headers: {'Content-Type': 'multipart/form-data'}});
             dispatch(setProfile(data));
             result.success = true;
-        } catch (e:any){
+        } catch (e: any) {
             result.message = ERRORS['ERROR_500'];
             result.success = false;
         }

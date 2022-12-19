@@ -8,6 +8,7 @@ export interface User{
     is_active: boolean;
     is_superuser: boolean;
     avatarHidden: boolean;
+    deleteBg: boolean;
     fullname: string | null;
     position: string | null;
     workPhone: string | null,

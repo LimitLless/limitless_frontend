@@ -83,6 +83,7 @@ const BottomSide = () => {
     //   });
   };
 
+<<<<<<< HEAD
   // const handleOpenShareModal = () => {
   //     dispatch(setShareModalUrl(`${process.env.BASE_URL}/user/${data.uniqueId}`));
   //     dispatch(setShareModalActive(true));
@@ -109,5 +110,31 @@ const BottomSide = () => {
     </>
   );
 };
+=======
+    const saveContact = () => {
+        window.location.href = `${process.env.API_URL}users/save-contact/${data.uniqueId}`;
+	}
+ 
+
+    return (
+        <>
+            <UserTabs value={selectedTab} onChange={handleTabChange} />
+           
+            <Box className={styles.content}>
+                {userTabContent.map((elem) => (
+                    <TabContent selectedTab={selectedTab} key={elem.id} id={elem.id}>
+                        <elem.content />
+                    </TabContent>
+                ))}
+            </Box>
+            <Container disableGutters maxWidth="sm" className={styles.bottomButtonsBox}>
+                <IconButton onClick={saveContact} className={styles.iconButton}>
+                    <PersonAddIcon className={styles.personAddIcon} />
+                </IconButton>
+            </Container>
+        </>
+    )
+}
+>>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
 
 export default BottomSide;
