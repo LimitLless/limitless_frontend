@@ -11,6 +11,7 @@ import {userTabContent} from "../../../constants/main";
 import {useUserContext} from "../../../pages/user/[uniqueId]";
 import {styles} from "../../User/styles";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import api from "../../../http/api";
 // import {setShareModalActive, setShareModalUrl} from "../../../store/reducers/main";
 
 
@@ -72,6 +73,13 @@ const BottomSide = () => {
 
     const saveContact = () => {
         window.location.href = `${process.env.API_URL}users/save-contact/${data.uniqueId}`;
+        api.post('/users/save-contact/count/', {
+            "user": data.id,
+            "count": 1
+        })
+        .then(()=>{
+            console.log('')
+        })
 	}
  
 
