@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { SpinnerCircular } from 'spinners-react';
 import { useForm } from "react-hook-form";
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 
 // import {setAuth, setProfile, setProfileFieldsChange} from "../../../store/reducers/auth";
 
@@ -29,18 +28,17 @@ import { websiteRegex } from "../../../constants/regex";
 import clsx from "clsx";
 import { useUserContext } from "../../../pages/user/[uniqueId]";
 import { selectIsDarkMode } from "../../../store/selector/main";
-import { setUsersImageModal, setUploadImageModal, setUploadVideoModal, setVideosCard, setImagesCard } from "../../../store/reducers/auth";
+import { setUsersImageModal, setUploadImageModal, setUploadVideoModal } from "../../../store/reducers/auth";
 
 
 
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
-import axios from "axios";
 import DarkButton from "./DarkButton";
-import { useDispatch, useSelector } from "react-redux";
-import { BsFillArrowUpLeftSquareFill } from "react-icons/bs";
-import { red } from "@mui/material/colors";
 import React from "react";
+import TapContentMonth from "./TapContentMonth";
+import TapContentYear from "./TapContentYear";
+import TapContentDay from "./TapContentDay";
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
@@ -160,7 +158,7 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         margin: '0 auto',
         fontSize:'15px',
-        fontWeight:400,
+        fontWeight:'400',
         color:'#B4B4B4',
         transition:'4s ease in auto'
     }
@@ -247,153 +245,60 @@ export const ContactsInfo: FC = () => {
         "total_count": 0
     })
 
-
-  
-
-    useEffect(() => {
-        api.get(`users/save-contact/count/${authState.profile.uniqueId}/`).then(({ data }) => {
-            setCount({ ...data })
-        })
-        api.get('users/save-contact/counts/?count_filter_period=year').then(({ data }) => {
-            setYear(data)
-        })
-        api.get('users/save-contact/counts/?count_filter_period=month').then(({ data }) => {
-            setMonth(data)
-        })
-        api.get('users/save-contact/counts/?count_filter_period=day').then(({ data }) => {
-            setYear(data)
-        })
-    }, [])
-
-
-
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     const [currentTab, setCurrentTap] = useState<any>('1')
 
-    const [year, setYear] = useState([])
-    const [month, setMonth] = useState([])
-    const [day, setDay] = useState([])
 
 
-    const YearStatistic = year.filter(el => {
-        return el.unigueId === authState.profile.unigueId
-    })
-
-
-    const yearTotal = YearStatistic.map(el => {
-        return el.total_count ? el.total_count : 0
-    })
+  
+  
 
 
 
 
-    const MonthStatistic = year.filter(el => {
-        return el.unigueId === authState.profile.unigueId
-    })
-
-
-    const monthTotal = YearStatistic.map(el => {
-        return el.total_count ? el.total_count : 0
-    })
-
-
-
-
-
-    const DayStatistic = year.filter(el => {
-        return el.unigueId === authState.profile.unigueId
-    })
-
-
-    const dayTotal = YearStatistic.map(el => {
-        return el.total_count ? el.total_count : 0
-    })
-
-
-
+    useEffect(() => {
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}/`).then(({ data }) => {
+            setCount({...data})
+        })
+        // api.get('users/save-contact/counts/?count_filter_period=year').then(({ data }) => {
+        //     setYear(data)
+        //     console.log(data,'year');
+            
+        // })
+        // api.get('users/save-contact/counts/?count_filter_period=month').then(({ data }) => {
+        //     setMonth(data)
+        //     console.log(data,'month'
+        //     )
+        // })
+        // api.get('users/save-contact/counts/?count_filter_period=day').then(({ data }) => {
+        //     setDay(data)
+        //     console.log(data,'wwwww')
+            
+        // })
+    }, [])
 
     const tap = [
         {
             idTab: '1',
             tabTable: 'in Day',
-            tapContent:
-                <div className="red" style={{
-                    width: ' 350px',
-                    height: '180px',
-                    background: '#262E33',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 'auto',
-                    textAlign: 'center',
-                    fontSize:'45px',
-                    fontWeight:400,
-                    color:'#fff',
-                    fontFamily:'Montserrat',
-                }}>{dayTotal}<h1 style={{
-                    color:'#fff',
-                    fontSize:'14px',
-                    fontWeight:400,
-                    paddingLeft:'15px'
-
-                }}>people saved you</h1></div>
+            tapContent: <TapContentDay/>
+             
 
         },
         {
             idTab: '2',
             tabTable: 'in Month',
-            tapContent:
-                <div className="red" style={{
-                    width: ' 350px',
-                    height: '180px',
-                    background: '#262E33',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: '0 auto',
-                    textAlign: 'center',
-                    fontSize:'45px',
-                    fontWeight:400,
-                    color:'#fff',
-                    fontFamily:'Montserrat',
-                }}>{monthTotal}<h1 style={{
-                    color:'#fff',
-                    fontSize:'14px',
-                    fontWeight:400,
-                    paddingLeft:'15px'
-                }}>people saved you</h1></div>
+            tapContent: <TapContentMonth/>
+                
 
         },
         {
             idTab: '3',
             tabTable: 'in Year',
-            tapContent:
-                <div className="red" style={{
-                    width: ' 350px',
-                    height: '180px',
-                    background: '#262E33',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: '0 auto',
-                    textAlign: 'center',
-                    fontSize:'45px',
-                    fontWeight:400,
-                    color:'#fff',
-                    fontFamily:'Montserrat',
-                }}>{yearTotal} <h1 style={{
-                    color:'#fff',
-                    fontSize:'14px',
-                    fontWeight:400,
-                    paddingLeft:'15px'
-                }}>people saved you</h1></div>
+            tapContent:<TapContentYear/>
+             
 
         }
     ]
@@ -529,7 +434,6 @@ export const ContactsInfo: FC = () => {
                                     // justifyContact:'center'
                         
                                 }}>
-
 
                                     {tap.map((el, idx) => (
 
