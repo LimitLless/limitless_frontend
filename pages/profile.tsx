@@ -28,7 +28,10 @@ import ImageResizeModal from "../components/pages/profile/ImageResizeModal";
 import {styled} from "@mui/material/styles";
 import InfoFrofiloModal from "../components/InfoFrofiloModal";
 import {setEditBgModal, setInfoProfiloModal, setDeleteBg} from "../store/reducers/main";
+<<<<<<< HEAD
 import {RiEditBoxFill} from 'react-icons/ri'
+=======
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
 import EditBgModal from "../components/User/EditBgModal";
 
 
@@ -39,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     topSideBox: {
         width: '100%',
@@ -51,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '100%',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     bgBox1: {
         width: '100%',
@@ -61,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
     },
     avatarHolder: {
         margin: `${media(10, 15)} 0`,
@@ -100,6 +104,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             background: "#dcd9d9",
         }
     },
+<<<<<<< HEAD
     editBg: {
         position: "absolute",
         top: "4%",
@@ -108,6 +113,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: "35px",
         cursor: "pointer"
     }
+=======
+
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
 }));
 
 
@@ -148,6 +156,7 @@ const Profile: NextPage = () => {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     const btnStart = (e: any) => {
         setBool(e.target.checked);
     }
@@ -170,6 +179,8 @@ const Profile: NextPage = () => {
 
 =======
 >>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
+=======
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
     const ModeSwitch = styled(Switch)(({theme}) => ({
         padding: 8,
         right: 10,
@@ -229,10 +240,13 @@ const Profile: NextPage = () => {
                             }
                         </Box>
 
+<<<<<<< HEAD
                         <Box className={styles.editBg} onClick={() => dispatch(setEditBgModal(true))}>
                             <RiEditBoxFill/>
                         </Box>
 
+=======
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
                     </Box>
 
                     <Box className={styles.editUserInfoBox}>

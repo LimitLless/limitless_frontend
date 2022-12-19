@@ -14,15 +14,14 @@ import { setProfile } from "../../store/reducers/auth";
 
 const useStyles = makeStyles((theme: Theme) => ({
     modal: {
-        maxWidth: media(350, 270),
-        height: '141px',
-        width: '100%',
+        height: '90px',
+        width: '45%',
         position: 'absolute',
-        left: '56%',
-        top: '13%',
+        left: '51%',
+        top: '38%',
         transform: 'translate(-50%, -50%)',
         background: '#FFFBFE',
-        borderRadius: 10,
+        borderRadius: 5,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'start',
@@ -38,12 +37,15 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontWeight: '38px',
         margin: "5px 0",
         paddingLeft: '15px',
-    },
+
     buttonDelete: {
         width: '100%',
         height: '100%',
         background: "#FFFAF0",
         color: "#C53B3B",
+        fontFamily: 'sans-serif',
+        color: "#C53B3B",
+        fontSize: '12px',
         margin: "5px 0",
         paddingLeft: '15px',
     },
@@ -112,6 +114,12 @@ const EditBgModal: FC = () => {
                 <Button className={styles.buttonDelete} onClick={() => {
                     handleDeleteAvatar()
                 }}>Delete profile image</Button>
+                    }}>Remove background</Button>
+
+                <div className={styles.line}/>
+                <Button className={styles.buttonDelete} onClick={() => {
+                    handleDeleteAvatar()
+                }}>Remove avatar</Button>
             </Box>
         </Modal>
     );

@@ -39,15 +39,21 @@ import {
 
 
 
+
+
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import DarkButton from "./DarkButton";
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 import {useDispatch, useSelector} from "react-redux";
 >>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
+=======
+import {useDispatch, useSelector} from "react-redux";
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
@@ -283,7 +289,10 @@ export const ContactsInfo: FC = () => {
 =======
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
                     <input value={initialValues1.workPhone} type={"text"}  placeholder="Phone" name={"workPhone"} className={styles.baseInput}  {...register("workPhone")}/>
+<<<<<<< HEAD
 >>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
+=======
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight: "20px"}}/>
@@ -303,6 +312,7 @@ export const ContactsInfo: FC = () => {
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
                     <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email"
                            className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
@@ -310,12 +320,17 @@ export const ContactsInfo: FC = () => {
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
                     <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
 >>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
+=======
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
                         required: false,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             message: 'Please enter a valid email',
                         },
                     })} />
+<<<<<<< HEAD
 <<<<<<< HEAD
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
@@ -336,6 +351,8 @@ export const ContactsInfo: FC = () => {
                     <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit
                         password</DarkButton>
 =======
+=======
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>

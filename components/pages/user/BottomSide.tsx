@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { FC, SyntheticEvent } from "react";
 import { TabContent, UserTabs } from "../../User/Tabs";
 import { selectSelectedTab } from "../../../store/selector/user";
@@ -12,6 +13,21 @@ import { styles } from "../../User/styles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import api from "../../../http/api";
 import auth from "../../../store/reducers/auth";
+=======
+import {FC, SyntheticEvent} from "react";
+
+import {TabContent, UserTabs} from "../../User/Tabs";
+import {selectSelectedTab} from "../../../store/selector/user";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {setSelectedTab} from "../../../store/reducers/user";
+import {Box, Container, IconButton, Theme} from "@mui/material";
+import {makeStyles} from "@mui/styles";
+import {media} from "../../../utility/media";
+import {userTabContent} from "../../../constants/main";
+import {useUserContext} from "../../../pages/user/[uniqueId]";
+import {styles} from "../../User/styles";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+>>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
 // import {setShareModalActive, setShareModalUrl} from "../../../store/reducers/main";
 
 const useStyles = makeStyles((theme: Theme) => ({
