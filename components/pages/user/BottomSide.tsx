@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { FC, SyntheticEvent } from "react";
 import { TabContent, UserTabs } from "../../User/Tabs";
 import { selectSelectedTab } from "../../../store/selector/user";
@@ -13,7 +13,6 @@ import { styles } from "../../User/styles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import api from "../../../http/api";
 import auth from "../../../store/reducers/auth";
-=======
 import {FC, SyntheticEvent} from "react";
 
 import {TabContent, UserTabs} from "../../User/Tabs";
@@ -27,7 +26,8 @@ import {userTabContent} from "../../../constants/main";
 import {useUserContext} from "../../../pages/user/[uniqueId]";
 import {styles} from "../../User/styles";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
->>>>>>> 0da08dd197c04cbcb39bd2f46d6ccc6b9e9b3b1d
+
+import api from "../../../http/api";
 // import {setShareModalActive, setShareModalUrl} from "../../../store/reducers/main";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -99,7 +99,7 @@ const BottomSide = () => {
     //   });
   };
 
-<<<<<<< HEAD
+
   // const handleOpenShareModal = () => {
   //     dispatch(setShareModalUrl(`${process.env.BASE_URL}/user/${data.uniqueId}`));
   //     dispatch(setShareModalActive(true));
@@ -126,9 +126,16 @@ const BottomSide = () => {
     </>
   );
 };
-=======
+
     const saveContact = () => {
         window.location.href = `${process.env.API_URL}users/save-contact/${data.uniqueId}`;
+        api.post('/users/save-contact/count/', {
+            "user": data.id,
+            "count": 1
+        })
+        .then(()=>{
+            console.log('')
+        })
 	}
  
 
@@ -151,6 +158,6 @@ const BottomSide = () => {
         </>
     )
 }
->>>>>>> 3d546600e0612d5bfbb4b868a8bee4cc36bc3b1e
+
 
 export default BottomSide;
