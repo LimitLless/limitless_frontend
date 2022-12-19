@@ -135,6 +135,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     IOSSwitch: {
         position: "absolute",
+        right: "45px",
         top: "205px",
         left: "45px"
     },
@@ -281,6 +282,36 @@ const InfoPortfolioModal: FC = () => {
     }
 
     const [edit, setEdit] = useState(false)
+
+        useEffect(() => {
+        console.log(bool)
+        const formData = new FormData()
+        formData.append("avatarHidden", bool)
+        axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access")}`,
+            }
+        })
+            .then(({data}) => {
+                console.log(data)
+                dispatch(setProfile(data));
+            })
+
+    }, [authState.profile.uniqueId, bool, dispatch])
+    // useEffect(() => {
+    //     const formData = new FormData()
+    //     formData.append("avatarHidden", bool)
+    //     axios.patch(`https://api.limitless-connection.com/api/v1/users/${authState.profile.uniqueId}/`, formData, {
+    //         headers: {
+    //             Authorization: `Bearer ${localStorage.getItem("access")}`,
+    //         }
+    //     })
+    //         .then(({data}) => {
+    //             dispatch(setProfile(data));
+    //         })
+    //
+    // }, [authState.profile.uniqueId, bool, dispatch])
+
     return (
         <Modal open={mainState.infoProfiloModal} onClose={handleClose}>
             <Box ref={modal} className={styles.modal}>
