@@ -95,7 +95,7 @@ export const socials: socialsKeyType = {
     snapchat: {
         icon: SnapchatIcon,
         placeholder: "Nickname",
-        save: (value) => value ? `https://snapchat.com/${value}` : null,
+        save: (value) => value ? `https://snapchat.com/add/${value}` : null,
         out: (value) => value ? value.replace('https://snapchat.com/', "") : ""
     },
     tiktok: {
