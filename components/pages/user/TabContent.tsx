@@ -62,7 +62,7 @@ export const    ContactsInfo: FC = () => {
     const userInfo = useMemo(() => {
         return outContactsInfo(data);
     }, []);
-    // console.log(userInfo.map(el => el.img) , "<=== user info")
+   
     return (
         <form className={styles.form}>
             {userInfo.length ? userInfo.map((elem, i) => (

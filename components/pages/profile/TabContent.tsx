@@ -1,54 +1,80 @@
-import {FC, useEffect, useState} from "react";
-import {Box, Button, FormControl, MenuItem, Paper, Select, Theme, Typography} from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { Box, Button, FormControl, MenuItem, Modal, Paper, Select, Theme, Typography } from "@mui/material";
 import Head from 'next/head'
-import {makeStyles, useTheme} from "@mui/styles";
-import {Formik} from 'formik';
-import {media} from "../../../utility/media";
-import {useProfileInfoActions} from "../../../hooks/profile";
-import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
-import {selectAuth} from "../../../store/selector/auth";
-import {fonts} from "../../../constants/fonts";
+import { makeStyles, useTheme } from "@mui/styles";
+import { Formik } from 'formik';
+import { media } from "../../../utility/media";
+import { useProfileInfoActions } from "../../../hooks/profile";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { selectAuth } from "../../../store/selector/auth";
+import { fonts } from "../../../constants/fonts";
 import BaseInput from "../../Form/BaseInput";
 import BaseButton from "../../Form/BaseButton";
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import * as yup from 'yup';
+
 import { SpinnerCircular } from 'spinners-react';
 import { useForm } from "react-hook-form";
+
+import {SpinnerCircular} from 'spinners-react';
+import {useForm} from "react-hook-form";
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+
 
 // import {setAuth, setProfile, setProfileFieldsChange} from "../../../store/reducers/auth";
 
 
-import {User, UserModel} from "../../../models/user";
+import { User, UserModel } from "../../../models/user";
 import Loading from "../../Form/Loading";
 // @ts-ignore
 import hex2rgba from "hex2rgba";
-import {checkTheDifference, outValues, saveValues, socials} from "../../../utility/form";
-import {updateProfile} from "../../../actions/user";
-import {websiteRegex} from "../../../constants/regex";
+import { checkTheDifference, outValues, saveValues, socials } from "../../../utility/form";
+import { updateProfile } from "../../../actions/user";
+import { websiteRegex } from "../../../constants/regex";
 import clsx from "clsx";
+
+import { useUserContext } from "../../../pages/user/[uniqueId]";
+import { selectIsDarkMode } from "../../../store/selector/main";
+import { setUsersImageModal, setUploadImageModal, setUploadVideoModal } from "../../../store/reducers/auth";
+
+
+
+import { useUserContext } from "../../../pages/user/[uniqueId]";
+import { selectIsDarkMode } from "../../../store/selector/main";
+import { setUsersImageModal, setUploadImageModal, setUploadVideoModal, setVideosCard, setImagesCard } from "../../../store/reducers/auth";
+
 import {useUserContext} from "../../../pages/user/[uniqueId]";
 import {selectIsDarkMode} from "../../../store/selector/main";
-import {setUsersImageModal, setUploadImageModal, setUploadVideoModal, setVideosCard, setImagesCard} from "../../../store/reducers/auth";
-
-
-
+import {
+    setUsersImageModal,
+    setUploadImageModal,
+    setUploadVideoModal,
+    setVideosCard,
+    setImagesCard
+} from "../../../store/reducers/auth";
 import api from "../../../http/api";
 import dynamic from "next/dynamic";
-import axios from "axios";
 import DarkButton from "./DarkButton";
+
+import React from "react";
+import TapContentMonth from "./TapContentMonth";
+import TapContentYear from "./TapContentYear";
+import TapContentDay from "./TapContentDay";
+import { useDispatch, useSelector } from "react-redux";
+import { BsFillArrowUpLeftSquareFill } from "react-icons/bs";
+import { red } from "@mui/material/colors";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {useDispatch, useSelector} from "react-redux";
 const AddedCard = dynamic(() => import("../../AddedCard"));
 const UploadCard = dynamic(() => import("../../uploadCard"));
 const UploadVideo = dynamic(() => import('../../UploadVideo'));
-
 const useContactsStyles = makeStyles((theme: Theme) => ({
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-
         padding: `${media(5, 5)} 0`,
     },
     button: {
@@ -105,19 +131,97 @@ const useContactsStyles = makeStyles((theme: Theme) => ({
         '&:focus': {
             border: '1px solid rgba(154,154,154,0)',
             outline: 'none'
-        }
-    }
+        },
+    },
+    totalAll: {
+        fontSize: '24px',
+        color: '#8D8D8D',
+        fontWeight: 400,
+    },
+    peopleSaved_p: {
+        color: '#1C2124',
+        fontSize: '14px',
+        fontWeight: 300
+    },
+    View_analytics: {
+        background: '#0B87B4',
+        borderRadius: '7px',
+        width: '250px',
+        height: '55px',
+        color: '#fff',
+        fontSize: '16px',
+        fontWeight: 400,
+        margin: '60px auto',
+    },
+    modal: {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: ' 400px',
+        height: '300px',
+        border: 'none',
+        zIndex: "100",
+        background: '#262E33',
+        borderRadius: '10px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 auto',
+        textAlign: 'center'
 
+    },
+    tapCantent: {
+        width: '120px',
+        height: '50px',
+        background: '#24292D',
+        borderRadius: '3px',
+        borderRight: '1px solid #181818',
+        border:'#fff',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 auto',
+        fontSize:'15px',
+        fontWeight:'400',
+        color:'#B4B4B4',
+        transition:'4s ease in auto'
+        fontWeight:400,
+        color:'#B4B4B4',
+        transition:'4s ease in auto'
+        }
+    },
+    counter: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '25px 0'
+    },
+    titleTheme: {
+        textAlign: 'center',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#fff',
+        paddingTop: '20px'
+    },
+    countGeneral: {
+        fontSize:'14px',
+        fontWeight:'400',
+        color:' #8D8D8D',
+        marginRight: '1px',
+        width: '80px'
+    }
 }));
 
+type ICount = {
+    total_count: number
+}
 export const ContactsInfo: FC = () => {
     const styles = useContactsStyles();
-    const {PASSWORD} = useProfileInfoActions();
+    const { PASSWORD } = useProfileInfoActions();
     const authState = useAppSelector(selectAuth);
     const dispatch = useAppDispatch();
     const router = useRouter()
-
-
     const initialValues1 = {
         workPhone: !!authState.profile.workPhone ? authState.profile.workPhone : "",
         personalPhone: !!authState.profile.personalPhone ? authState.profile.personalPhone : "",
@@ -130,10 +234,70 @@ export const ContactsInfo: FC = () => {
     const [exit, setExit] = useState(false)
     const [loadings, setLoadings] = useState(false)
     const [change, setChange] = useState('')
+    const [count, setCount] = useState()
+    const [year, setYear] = useState([])
+    const [month, setMonth] = useState([])
+    const [day, setDay] = useState([])
+
+    //year
+    const YearStatistic = year.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const yearTotal = YearStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    //month
+    const MonthStatistic = month.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const monthTotal = MonthStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    //day
+    const DayStatistic = day.filter(el => {
+        return el.uniqueId === authState.profile.uniqueId
+    })
+    const dayTotal = DayStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+
+    const statisticSaved = [
+        {
+            title: 'in Day',
+            countTotal: dayTotal
+        },
+        {
+            title: 'in Month',
+            countTotal: monthTotal
+        },
+        {
+            title: 'in Year',
+            countTotal: yearTotal
+        },
+    ]
+
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = async (data:any) => {
-       // alert(JSON.stringify(data))
+    useEffect(() => {
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}`).then(({data}) => {
+            setCount(data.total_count);
+        });
+        api.get('users/save-contact/counts/?count_filter_period=year').then(({data}) => {
+            setYear(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=month').then(({data}) => {
+            setMonth(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=day').then(({data}) => {
+            setDay(data)
+        })
+    }, [])
+
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const onSubmit = async (data: any) => {
+        // alert(JSON.stringify(data))
 
         const data2 = {
             workPhone: data.workPhone,
@@ -143,13 +307,12 @@ export const ContactsInfo: FC = () => {
             workWebsite: data.workWebsite.length > 0 ? `https://${data.workWebsite}` : "",
             otherWebsite: data.otherWebsite.length > 0 ? `https://${data.otherWebsite}` : ""
         }
-
         setLoadings(true)
         const difference = checkTheDifference(initialValues1, data2);
         if (!difference.isChanged) {
             setChange("Nothing is changed")
         }
-        const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...data2})).unwrap();
+        const result = await dispatch(updateProfile({ uniqueId: authState.profile.uniqueId, ...data2 })).unwrap();
         if (!result.success) {
             alert(JSON.stringify(result.message));
         }
@@ -182,23 +345,210 @@ export const ContactsInfo: FC = () => {
     //     dispatch(setProfileFieldsChange(value))
     // }
 
+    const [count, setCount] = useState<ICount>({
+        "total_count": 0
+    })
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [currentTab, setCurrentTap] = useState<any>('1')
+    useEffect(() => {
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}/`).then(({ data }) => {
+            setCount({...data})
+        })
+        // api.get('users/save-contact/counts/?count_filter_period=year').then(({ data }) => {
+        //     setYear(data)
+        //     console.log(data,'year');
+            
+        // })
+        // api.get('users/save-contact/counts/?count_filter_period=month').then(({ data }) => {
+        //     setMonth(data)
+        //     console.log(data,'month'
+        //     )
+        // })
+        // api.get('users/save-contact/counts/?count_filter_period=day').then(({ data }) => {
+        //     setDay(data)
+        //     console.log(data,'wwwww')
+            
+        // })
+    }, [])
+    useEffect(() => {
+        api.get(`users/save-contact/count/${authState.profile.uniqueId}/`).then(({ data }) => {
+            setCount({ ...data })
+        })
+        api.get('users/save-contact/counts/?count_filter_period=year').then(({ data }) => {
+            setYear(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=month').then(({ data }) => {
+            setMonth(data)
+        })
+        api.get('users/save-contact/counts/?count_filter_period=day').then(({ data }) => {
+            setYear(data)
+        })
+    }, [])
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [currentTab, setCurrentTap] = useState<any>('1')
+    const [year, setYear] = useState([])
+    const [month, setMonth] = useState([])
+    const [day, setDay] = useState([])
+    const YearStatistic = year.filter(el => {
+        return el.unigueId === authState.profile.unigueId
+    })
+    const yearTotal = YearStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+    const MonthStatistic = year.filter(el => {
+        return el.unigueId === authState.profile.unigueId
+    })
+    const monthTotal = YearStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+    const DayStatistic = year.filter(el => {
+        return el.unigueId === authState.profile.unigueId
+    })
+    const dayTotal = YearStatistic.map(el => {
+        return el.total_count ? el.total_count : 0
+    })
+    const tap = [
+        {
+            idTab: '1',
+            tabTable: 'in Day',
+            tapContent: <TapContentDay/>
+            tapContent:
+                <div className="red" style={{
+                    width: ' 350px',
+                    height: '180px',
+                    background: '#262E33',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 'auto',
+                    textAlign: 'center',
+                    fontSize:'45px',
+                    fontWeight:400,
+                    color:'#fff',
+                    fontFamily:'Montserrat',
+                }}>{dayTotal}<h1 style={{
+                    color:'#fff',
+                    fontSize:'14px',
+                    fontWeight:400,
+                    paddingLeft:'15px'
+                }}>people saved you</h1></div>
+        },
+        {
+            idTab: '2',
+            tabTable: 'in Month',
+            tapContent: <TapContentMonth/>
+            tapContent:
+                <div className="red" style={{
+                    width: ' 350px',
+                    height: '180px',
+                    background: '#262E33',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '0 auto',
+                    textAlign: 'center',
+                    fontSize:'45px',
+                    fontWeight:400,
+                    color:'#fff',
+                    fontFamily:'Montserrat',
+                }}>{monthTotal}<h1 style={{
+                    color:'#fff',
+                    fontSize:'14px',
+                    fontWeight:400,
+                    paddingLeft:'15px'
+                }}>people saved you</h1></div>
+        },
+        {
+            idTab: '3',
+            tabTable: 'in Year',
+            tapContent:<TapContentYear/>
+            tapContent:
+                <div className="red" style={{
+                    width: ' 350px',
+                    height: '180px',
+                    background: '#262E33',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '0 auto',
+                    textAlign: 'center',
+                    fontSize:'45px',
+                    fontWeight:400,
+                    color:'#fff',
+                    fontFamily:'Montserrat',
+                }}>{yearTotal} <h1 style={{
+                    color:'#fff',
+                    fontSize:'14px',
+                    fontWeight:400,
+                    paddingLeft:'15px'
+                }}>people saved you</h1></div>
+        }
+    ]
+
+    const handleClick = (e: any) => {
+        setCurrentTap(e.target?.id)
+    }
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                            <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
-                                     active={loadings}/>
+                <Loading fontSize={media(16, 18)} bg={hex2rgba("#000000", 0.7)}
+                    active={loadings} />
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input value={initialValues1.workPhone} type={"text"} placeholder="Phone" name={"workPhone"} className={styles.baseInput}  {...register("workPhone")} />
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.personalPhone} type={"text"} placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.email} placeholder="Email" type="email" className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+                    active={loadings} />
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input value={initialValues1.workPhone} type={"text"} placeholder="Phone" name={"workPhone"} className={styles.baseInput}  {...register("workPhone")} />
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.personalPhone} type={"text"} placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.email} placeholder="Email" type="email" className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+
+                         active={loadings}/>
                 <Box style={{display: "flex", margin: "20px 0"}}>
+
+
+                    <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workPhone} type={"text"} placeholder="Phone"
+                           className={styles.baseInput}  {...register("workPhone")} />
 
                     <img src={require("../../../assets/images/MobilePhone.svg")} alt="" style={{marginRight :"20px"}}/>
                     <input value={initialValues1.workPhone} type={"text"}  placeholder="Phone" name={"workPhone"} className={styles.baseInput}  {...register("workPhone")}/>
+
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.personalPhone} type={"text"}  placeholder="Mobile" className={styles.baseInput}  {...register("personalPhone")} />
+                    <img src={require("../../../assets/images/MobileTel.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.personalPhone} type={"text"} placeholder="Mobile"
+                           className={styles.baseInput}  {...register("personalPhone")} />
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.email} placeholder="Email" type="email" className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.email} placeholder="Email" type="email"
+                           className={errors.email ? styles.baseInputError : styles.baseInput}  {...register("email", {
+
+
                         required: true,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -206,53 +556,280 @@ export const ContactsInfo: FC = () => {
                         },
                     })} />
                 </Box>
+
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{ marginRight: "20px" }} />
+
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{ marginRight: "20px" }} />
+
                 <Box style={{display: "flex", margin: "20px 0"}}>
+
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email"
+                           className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+
                     <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+
                     <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+
+                    <img src={require("../../../assets/images/MobileSms.svg")} alt="" style={{marginRight :"20px"}}/>
+
+                    <input defaultValue={initialValues1.workEmail} placeholder="Work Email" type="email" className={errors.workEmail ? styles.baseInputError : styles.baseInput}  {...register("workEmail", {
+
                         required: false,
                         pattern: {
                             value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                             message: 'Please enter a valid email',
                         },
                     })} />
+
                 </Box>
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
-                    <input defaultValue={initialValues1.workWebsite}  type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt=""
+                         style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.workWebsite} type={"text"} placeholder="Website"
+                           className={styles.baseInput}  {...register("workWebsite")} />
                 </Box>
+
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.workWebsite} type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                </Box>
+      <Box style={{display: "flex", margin: "20px 0"}}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt=""
+                         style={{marginRight: "20px"}}/>
+                    <input defaultValue={initialValues1.otherWebsite} type={"text"} placeholder="Other Website"
+                           className={styles.baseInput}  {...register("otherWebsite")} />
+                </Box>
+
                 <Box style={{display: "flex", margin: "20px 0"}}>
-                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{marginRight :"20px"}}/>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight: "20px"}}/>
+                    <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit
+                        password</DarkButton>
+
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <input defaultValue={initialValues1.workWebsite} type={"text"} placeholder="Website" className={styles.baseInput}  {...register("workWebsite")} />
+                </Box>
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileWebsite.svg")} alt="" style={{ marginRight: "20px" }} />
                     <input
                         // onInput={getDefValue}
 
                         // defaultValue={}
-                           type={"text"} placeholder="Other Website" className={styles.baseInput}
-                           name="website"
-                           {...register("otherWebsite")} />
+                        type={"text"} placeholder="Other Website" className={styles.baseInput}
+                        name="website"
+                        {...register("otherWebsite")} />
                 </Box>
+
+
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <DarkButton style={{ borderRadius: "5px", width: "100%" }} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+
+
+                <Box style={{ display: "flex", margin: "20px 0" }}>
+                    <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{ marginRight: "20px" }} />
+                    <DarkButton style={{ borderRadius: "5px", width: "100%" }} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
 
                 <Box style={{display: "flex", margin: "20px 0"}}>
                     <img src={require("../../../assets/images/MobileKey.svg")} alt="" style={{marginRight :"20px"}}/>
                     <DarkButton style={{borderRadius: "5px", width: "100%"}} onClick={PASSWORD.handleOpenModal}>Edit password</DarkButton>
+
                 </Box>
-                <Box style={{textAlign: "center"}}>
+
+
+
+
+
+
+                <Box style={{ textAlign: "center" }}>
                     <BaseButton classes={styles.button1} type="submit">SAVE</BaseButton>
                 </Box>
-                <Box style={{textAlign: "center"}}>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '30px'
+                }}>
+
+
+                    <div style={{
+
+                        width: '230px',
+                        height: '230px',
+                        borderRadius: '50%',
+                        background: 'linear-gradient(180deg, #127092 0%, #2AC5FD 100%)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                    }} >
+                        <div style={{
+                            width: '150px',
+                            height: '150px',
+                            borderRadius: '50%',
+                            background: '#D9D9D9',
+                            zIndex: 1,
+                            textAlign: 'center',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            fontSize: '24px',
+                            color: '#1C2124',
+                            fontWeight: 500
+                        }}>
+                            {count.total_count}
+                            <p className={styles.peopleSaved_p}>People saved <br /> you</p>
+                        </div>
+                    </div>
+                </div>
+                <Box style={{ textAlign: "center", display: 'flex', flexWrap: 'wrap', justifyContent: 'center', flexDirection: 'column' }}>
+                    <h1 className={styles.totalAll}>Total</h1>
+                    <Button onClick={handleOpen} className={styles.View_analytics}>View analytics</Button>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box className={styles.modal}>
+                            <div style={{
+                                width: '350px',
+                                height: '200px',
+                                background: '#262E33',
+                                boxShadow: ' 0px 1px 12px rgba(0, 0, 0, 0.25)',
+                                borderRadius: ' 0px 0px 10px 10px',
+                                margin: '0 auto'
+
+                            }}>
+                                <Box style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    // justifyContact:'center'
+                        
+                                }}>
+
+                  {tap.map((el, idx) => (
+
+                                        <button className={styles.tapCantent} key={idx} id={`${el?.idTab}`}
+                                            disabled={currentTab === el.idTab}
+                                            onClick={handleClick}
+                                            style={currentTab === el.idTab ? {background:"#24292D"} : {background:'#454A50'}}
+                                        >
+                                            {el.tabTable}
+                                        </button>
+
+                                    ))}
+                                </Box>
+
+                                {tap.map((el, idx) => (
+                                    <div key={idx}>
+                                        {currentTab === el.idTab && (
+                                            <div>
+                                                {el.tapContent}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))
+                                }
+
+                            </div>
+                        </Box>
+                    </Modal>
+
+
+
+
+
+
+
                     {exit && <BaseButton classes={styles.button1}
-                                         onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                        onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                 </Box>
+
+                <Box style={{ textAlign: "center" }}>
+                    <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
+                        {change}
+                    </Typography>
+
+
                 <Box style={{textAlign: "center"}}>
-                        <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
-                            {change}
-                        </Typography>
+                    <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
+                        {change}
+                    </Typography>
+                </Box>
+
+
+                <div className={styles.titleTheme}>The people who saved you</div>
+
+
+
+                {
+                    statisticSaved.map((el, idx) => (
+                        <Box key={idx} className={styles.counter}>
+                            <Box className={styles.countGeneral}>{el.title}</Box>
+                            <Box style={{
+                                width: "230px",
+                                background: "#454A50",
+                                display: "flex",
+                                borderRadius: "10px",
+
+                            }}>
+                                <Box style={{
+                                    color: "white",
+                                    width: '30%',
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontSize: "30px",
+                                    fontWeight: "600",
+                                    borderRight: "1px solid black"
+                                }}>{el.countTotal}</Box>
+                                <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
+                            </Box>
+                        </Box>
+                    ))
+                }
+
+
+                <Box className={styles.counter}>
+                    <Box className={styles.countGeneral}>Total count</Box>
+                    <Box style={{
+                        width: "230px",
+                        background: "#454A50",
+                        display: "flex",
+                        borderRadius: "10px",
+
+                    }}>
+                        <Box style={{
+                            color: "white",
+                            width: '30%',
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "30px",
+                            fontWeight: "600",
+                            borderRight: "1px solid black"
+                        }}>{count}</Box>
+                        <Box style={{color: "white", width: '70%', padding: "15px 5px"}}>people saved you</Box>
+                    </Box>
+
+
                 </Box>
             </form>
 
+
         </>
 
-    )
+    );
 }
+
+
 
 
 const useWorkInfoStyles = makeStyles((theme: Theme) => ({
@@ -390,7 +967,7 @@ export const WorkInfo: FC = () => {
     const authState = useAppSelector(selectAuth);
     const dispatch = useAppDispatch();
     const theme: Theme = useTheme();
-    const {data} = useUserContext();
+    const { data } = useUserContext();
     const isDarkMode = useAppSelector(selectIsDarkMode);
     const [userImages, setUserImages]: any = useState([])
     const [userVideos, setUserVideos]: any = useState([])
@@ -404,35 +981,34 @@ export const WorkInfo: FC = () => {
 
     }, [accses])
 
-const getCards = () => {
-    fetch(`https://api.limitless-connection.com/api/v1/users/images/${authState?.profile?.uniqueId}`, {
-        headers: {
-            "Authorization": `Bearer ${accses}`,
-        }
-    }).then((res) => res.json())
-        .then((data) => {
-            setUserImages(data)
-        })
-        .catch(e => {
-            alert(JSON.stringify(e)+ "user_images")
-        })
-    fetch(`https://api.limitless-connection.com/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
-        headers: {
-            "Authorization": `Bearer ${accses}`,
-        }
-    }).then((res) => res.json())
-        .then((data) => {
-            setUserVideos(data)
-        })
-        .catch(e => {
-            alert(JSON.stringify(e)+ "user_video")
-        })
-}
+    const getCards = () => {
+        fetch(`https://api.limitless-connection.com/api/v1/users/images/${authState?.profile?.uniqueId}`, {
+            headers: {
+                "Authorization": `Bearer ${accses}`,
+            }
+        }).then((res) => res.json())
+            .then((data) => {
+                setUserImages(data)
+            })
+            .catch(e => {
+                alert(JSON.stringify(e) + "user_images")
+            })
+        fetch(`https://api.limitless-connection.com/api/v1/users/videos/${authState?.profile?.uniqueId}`, {
+            headers: {
+                "Authorization": `Bearer ${accses}`,
+            }
+        }).then((res) => res.json())
+            .then((data) => {
+                setUserVideos(data)
+            })
+            .catch(e => {
+                alert(JSON.stringify(e) + "user_video")
+            })
+    }
 
 
-const [loadingCard, setLoadingCrad] = useState(false)
+    const [loadingCard, setLoadingCrad] = useState(false)
     const [exit, setExit] = useState(false)
-
 
 
     const initialValues = {
@@ -454,10 +1030,10 @@ const [loadingCard, setLoadingCrad] = useState(false)
     }
 
 
-    const click = ():void => {
+    const click = (): void => {
         dispatch(setUsersImageModal(true))
     }
-    const click1 = ():void => {
+    const click1 = (): void => {
         dispatch(setUploadVideoModal(true))
     }
 
@@ -500,13 +1076,11 @@ const [loadingCard, setLoadingCrad] = useState(false)
     }
 
 
-
-
     return (
         <Box className={styles.wrapper}>
-            <AddedCard getCards={getCards}/>
-            <UploadCard item={userImagesData} getCards={getCards}/>
-            <UploadVideo getCards={getCards}/>
+            <AddedCard getCards={getCards} />
+            <UploadCard item={userImagesData} getCards={getCards} />
+            <UploadVideo getCards={getCards} />
             <Formik
                 enableReinitialize
                 initialValues={initialValues}
@@ -519,7 +1093,7 @@ const [loadingCard, setLoadingCrad] = useState(false)
                         actions.setSubmitting(false);
                         return;
                     }
-                    const result = await dispatch(updateProfile({uniqueId: authState.profile.uniqueId, ...values})).unwrap();
+                    const result = await dispatch(updateProfile({ uniqueId: authState.profile.uniqueId, ...values })).unwrap();
                     if (!result.success) {
                         actions.setStatus(result.message);
                     }
@@ -531,34 +1105,46 @@ const [loadingCard, setLoadingCrad] = useState(false)
                 {(formik) => (
                     <form onSubmit={formik.handleSubmit} className={styles.form}>
                         <Loading fontSize={media(16, 18)} bg={hex2rgba(theme.palette.primary.main, 0.7)}
-                                 active={formik.isSubmitting}/>
+                            active={formik.isSubmitting} />
                         <Head>
                             {Object.entries(fonts).map((elem: any, i: number) => elem[1].link(i))}
                         </Head>
-                        <Box sx={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
-                            <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+                        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                 <Select
                                     className={styles.select}
                                     value={formik.values.fontFamily}
-                                    style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily}}
+                                    style={{ fontFamily: fonts[formik.values.fontFamily]?.fontFamily }}
                                     onChange={formik.handleChange}
                                     name="fontFamily"
                                     label="Font Family"
-                                    MenuProps={{classes: {paper: styles.menu}}}
+                                    MenuProps={{ classes: { paper: styles.menu } }}
                                 >
                                     {Object.entries(fonts).map((elem) => (
-                                        <MenuItem style={{fontFamily: elem[1]?.fontFamily}} className={styles.menuItem}
-                                                  key={elem[0]} value={elem[0]}>{elem[1].fontFamily}</MenuItem>
+                                        <MenuItem style={{ fontFamily: elem[1]?.fontFamily }} className={styles.menuItem}
+                                            key={elem[0]} value={elem[0]}>{elem[1].fontFamily}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
                         </Box>
-                        <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
-                                   placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
-                        <BaseInput style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
-                                   placeholder="Company" name="title" id="title" type="text"/>
+
+                        <BaseInput style={{ fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center' }}
+                            placeholder="Add front page text" name="welcome" id="welcome" type="text" />
+                        <BaseInput style={{ fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center' }}
+                            placeholder="Company" name="title" id="title" type="text" />
+                        <BaseInput style={{ textAlign: 'center' }} placeholder="Title" name="subtitle" id="subtitle"
+                            type="text" />
+
+                        <BaseInput
+                            style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
+                            placeholder="Add front page text" name="welcome" id="welcome" type="text"/>
+                        <BaseInput
+                            style={{fontFamily: fonts[formik.values.fontFamily]?.fontFamily, textAlign: 'center'}}
+                            placeholder="Company" name="title" id="title" type="text"/>
                         <BaseInput style={{textAlign: 'center'}} placeholder="Title" name="subtitle" id="subtitle"
                                    type="text"/>
+
+
                         <textarea
                             className={styles.textarea}
                             rows={8}
@@ -570,10 +1156,11 @@ const [loadingCard, setLoadingCrad] = useState(false)
                             onBlur={formik.handleBlur}
                         />
 
-                        <BaseInput style={{textAlign: 'center'}} placeholder="Address" name="address" id="address"
-                                   type="text"/>
+                        <BaseInput style={{ textAlign: 'center' }} placeholder="Address" name="address" id="address"
+                            type="text" />
                         <BaseButton classes={styles.button} type="submit">SAVE</BaseButton>
-                        {exit && <BaseButton classes={styles.button} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                        {exit && <BaseButton classes={styles.button}
+                                             onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
                         {!!formik.status && (
                             <Typography fontSize={media(14, 16)} fontWeight="500" color="secondary">
                                 {formik.status}
@@ -583,14 +1170,15 @@ const [loadingCard, setLoadingCrad] = useState(false)
                         {
                             userVideos?.user_video?.length > 0 ?
                                 <>
-                                    {userVideos?.user_video?.map((esl:any) => (
+                                    {userVideos?.user_video?.map((esl: any) => (
                                         <>
                                             <iframe width="100%" height="308" src={esl.image}
-                                                    title="YouTube video player" frameBorder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowFullScreen/>
+                                                title="YouTube video player" frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen />
                                             <Box>
-                                                <Button variant="outlined" color="error" onClick={() => deleteVideoss(esl)}>
+                                                <Button variant="outlined" color="error"
+                                                        onClick={() => deleteVideoss(esl)}>
                                                     Delete
                                                 </Button>
                                             </Box>
@@ -604,16 +1192,29 @@ const [loadingCard, setLoadingCrad] = useState(false)
                         }
                         <Box onClick={click1} className={styles.addedBox}>
                             <svg width="70" height="70" viewBox="0 0 50 50" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M20 36.25L35 25L20 13.75V36.25ZM25 0C11.2 0 0 11.2 0 25C0 38.8 11.2 50 25 50C38.8 50 50 38.8 50 25C50 11.2 38.8 0 25 0ZM25 45C13.975 45 5 36.025 5 25C5 13.975 13.975 5 25 5C36.025 5 45 13.975 45 25C45 36.025 36.025 45 25 45Z"
-                                    fill="#F01414"/>
+                                    fill="#F01414" />
                             </svg>
                         </Box>
 
 
                         {
                             userImages?.user_images?.map((el: arr, key: string) => {
+
+                                return (
+
+                                    <>
+                                        <Box style={{ width: "100%" }}>
+                                            <Box width="100%" className={clsx(styles.bgBox, { dark: isDarkMode })}>
+                                                <Paper style={{
+                                                    background: `url(${el.image}) no-repeat center / cover`,
+                                                    height: "300px",
+                                                    objectFit: "fill"
+                                                }} />
+
+
                                     return (
 
                                         <>
@@ -631,18 +1232,36 @@ const [loadingCard, setLoadingCrad] = useState(false)
                                                     <Typography
                                                         className={clsx(styles.subtitle, styles.workInfoTitle, {dark: isDarkMode})}>{el.subtitle}</Typography>
                                                     <Button variant="outlined" color="error" onClick={() => deleteCard(el)}>
-                                                        {loadingCard ? <SpinnerCircular color="#ef5350" size="25"/> : "Delete"}
+                                                        {loadingCard ?
+                                                            <SpinnerCircular color="#ef5350" size="25"/> : "Delete"}
                                                     </Button>
-                                                    <Button variant="outlined" color="secondary" onClick={() => UploadModal(el)}
+                                                    <Button variant="outlined" color="secondary"
+                                                            onClick={() => UploadModal(el)}
                                                             style={{marginLeft: "20px"}}>
                                                         Change
                                                     </Button>
                                                 </Box>
-                                            </Box>
-                                        </>
 
-                                    )
-                                }
+
+                                            </Box>
+                                            <Box style={{ width: "95%" }}>
+                                                <Typography component="h2"
+                                                    className={clsx(styles.subtitleCard, styles.workInfoTitle, { dark: isDarkMode })}>{el.title}</Typography>
+                                                <Typography
+                                                    className={clsx(styles.subtitle, styles.workInfoTitle, { dark: isDarkMode })}>{el.subtitle}</Typography>
+                                                <Button variant="outlined" color="error" onClick={() => deleteCard(el)}>
+                                                    {loadingCard ? <SpinnerCircular color="#ef5350" size="25" /> : "Delete"}
+                                                </Button>
+                                                <Button variant="outlined" color="secondary" onClick={() => UploadModal(el)}
+                                                    style={{ marginLeft: "20px" }}>
+                                                    Change
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    </>
+
+                                )
+                            }
                             )
                         }
                         <Box className={styles.addedBox} onClick={click}>
@@ -706,17 +1325,17 @@ export const Socials: FC = () => {
 
     const outInitialValues = () => {
         const pickFields = ({
-                                instagram,
-                                facebook,
-                                tiktok,
-                                whatsapp,
-                                linkedin,
-                                telegram,
-                                snapchat,
-                                wechat,
-                                twitter,
-                                youtube
-                            }: User) => ({
+            instagram,
+            facebook,
+            tiktok,
+            whatsapp,
+            linkedin,
+            telegram,
+            snapchat,
+            wechat,
+            twitter,
+            youtube
+        }: User) => ({
             instagram,
             facebook,
             tiktok,
@@ -758,23 +1377,39 @@ export const Socials: FC = () => {
             {(formik) => (
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
                     <Loading fontSize={media(18, 20)} bg={hex2rgba(theme.palette.primary.main, 0.7)}
-                             active={formik.isSubmitting}/>
+                        active={formik.isSubmitting} />
                     {Object.entries(socials).map((elem, i) => {
-                            const Icon = elem[1].icon;
-                            return (
-                                <Box key={i} className={styles.fieldItem}>
-                                    <Icon className={styles.icon}/>
-                                    <BaseInput type='text' name={elem[0]} id={elem[0]} placeholder={elem[1].placeholder}/>
-                                </Box>
-                            )
-                        }
+                        const Icon = elem[1].icon;
+                        return (
+                            <Box key={i} className={styles.fieldItem}>
+                                <Icon className={styles.icon} />
+                                <BaseInput type='text' name={elem[0]} id={elem[0]} placeholder={elem[1].placeholder} />
+                            </Box>
+                        )
+                    }
                     )}
 
-                    <Box style={{textAlign: 'center'}}>
-                        <BaseButton style={{width: "20%"}} type="submit">SAVE</BaseButton>
+                    <Box style={{ textAlign: 'center' }}>
+                        <BaseButton style={{ width: "20%" }} type="submit">SAVE</BaseButton>
                     </Box>
+
+
+
+
+
+
+                    <Box style={{ textAlign: 'center' }}>
+                        {exit && <BaseButton style={{ width: "20%" }} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+
+
+                    <Box style={{ textAlign: 'center' }}>
+                        {exit && <BaseButton style={{ width: "20%" }} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+
                     <Box style={{textAlign: 'center'}}>
-                        {exit && <BaseButton style={{width: "20%"}} onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+                        {exit && <BaseButton style={{width: "20%"}}
+                                             onClick={() => router.push(`/user/${authState.profile.uniqueId}`)}>EXIT</BaseButton>}
+
+
                     </Box>
                     {!!formik.status && (
                         <Typography textAlign="center" fontSize={media(16, 18)} fontWeight="500" color="secondary">
